@@ -8,7 +8,7 @@ import {
 } from '@/server/services/campaign-service';
 import { getAsset } from '@/server/services/asset-service';
 import { AppError } from '@/lib/errors';
-import { campaignDraftSchema } from '../route';
+import { campaignDraftSchema } from '@/server/api/schemas/campaign';
 
 function campaignId(params: Record<string, string>): string {
   const id = params.id;

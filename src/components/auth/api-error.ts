@@ -65,8 +65,9 @@ export async function apiFetch<T>(
         ...init.headers,
       },
     });
-  } catch (cause) {
-    // A transport failure has no correlation id to quote.
+  } catch {
+    // A transport failure never reached the server, so there is no correlation
+    // id to quote back to the user.
     throw new ApiError({ code: 'network', reference: '' }, 0);
   }
 
