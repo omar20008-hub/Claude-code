@@ -1,0 +1,976 @@
+{
+  "app": {
+    "name": "AI Workforce",
+    "tagline": "Three AI employees, one workspace",
+    "skipToContent": "Skip to main content"
+  },
+  "common": {
+    "actions": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "close": "Close",
+      "confirm": "Confirm",
+      "delete": "Delete",
+      "edit": "Edit",
+      "back": "Back",
+      "next": "Next",
+      "previous": "Previous",
+      "finish": "Finish",
+      "retry": "Try again",
+      "refresh": "Refresh",
+      "search": "Search",
+      "filter": "Filter",
+      "clearFilters": "Clear filters",
+      "download": "Download",
+      "preview": "Preview",
+      "copy": "Copy",
+      "copied": "Copied",
+      "send": "Send",
+      "create": "Create",
+      "connect": "Connect",
+      "disconnect": "Disconnect",
+      "viewAll": "View all",
+      "viewDetails": "View details",
+      "selectAll": "Select all",
+      "signOut": "Sign out",
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu",
+      "dismiss": "Dismiss"
+    },
+    "labels": {
+      "name": "Name",
+      "email": "Email address",
+      "password": "Password",
+      "status": "Status",
+      "createdAt": "Created",
+      "updatedAt": "Last updated",
+      "type": "Type",
+      "size": "Size",
+      "duration": "Duration",
+      "dimensions": "Dimensions",
+      "language": "Language",
+      "organization": "Organization",
+      "user": "User",
+      "agent": "Agent",
+      "action": "Action",
+      "details": "Details",
+      "reference": "Reference",
+      "total": "Total",
+      "none": "None",
+      "optional": "Optional",
+      "required": "Required",
+      "unknown": "Unknown",
+      "notAvailable": "Not available",
+      "all": "All",
+      "from": "From",
+      "to": "To"
+    },
+    "pagination": {
+      "showing": "Showing {from}–{to} of {total}",
+      "page": "Page {page}",
+      "rowsPerPage": "Rows per page",
+      "nextPage": "Next page",
+      "previousPage": "Previous page",
+      "noMore": "No more results"
+    },
+    "time": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "last7Days": "Last 7 days",
+      "last30Days": "Last 30 days",
+      "thisMonth": "This month",
+      "custom": "Custom range",
+      "never": "Never"
+    },
+    "loading": "Loading…",
+    "processing": "Processing…",
+    "theme": {
+      "toggle": "Toggle theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    }
+  },
+  "language": {
+    "switcher": "Language",
+    "switchTo": "Switch to {language}",
+    "current": "Current language: {language}",
+    "saved": "Language preference saved"
+  },
+  "nav": {
+    "primary": "Primary navigation",
+    "dashboard": "Dashboard",
+    "agents": "AI Agents",
+    "knowledge": "Knowledge",
+    "creative": "Creative Studio",
+    "advertising": "Advertising",
+    "assets": "Assets",
+    "campaigns": "Campaigns",
+    "analytics": "Analytics",
+    "activity": "Activity",
+    "settings": "Settings",
+    "sections": {
+      "overview": "Overview",
+      "workforce": "AI Workforce",
+      "library": "Library",
+      "insights": "Insights",
+      "administration": "Administration"
+    }
+  },
+  "auth": {
+    "register": {
+      "title": "Create your organization",
+      "subtitle": "Set up your workspace and become its administrator.",
+      "organizationName": "Organization name",
+      "organizationNameHint": "The name your team will see across the workspace.",
+      "fullName": "Your full name",
+      "submit": "Create organization",
+      "haveAccount": "Already have an account?",
+      "signIn": "Sign in",
+      "success": "Organization created. Check your email to verify your address."
+    },
+    "login": {
+      "title": "Sign in",
+      "subtitle": "Welcome back. Sign in to reach your AI workforce.",
+      "submit": "Sign in",
+      "forgotPassword": "Forgot your password?",
+      "noAccount": "Don't have an organization yet?",
+      "createOne": "Create one",
+      "rememberedDevice": "Keep me signed in on this device"
+    },
+    "logout": {
+      "confirmTitle": "Sign out?",
+      "confirmBody": "You will need to sign in again to reach your workspace.",
+      "success": "You have been signed out."
+    },
+    "verifyEmail": {
+      "title": "Verify your email address",
+      "subtitle": "We sent a verification link to {email}. Open it to activate your account.",
+      "resend": "Resend verification email",
+      "resent": "Verification email sent.",
+      "success": "Your email address is verified. You can sign in now.",
+      "expired": "This verification link has expired. Request a new one.",
+      "pending": "Your email address is not verified yet."
+    },
+    "forgotPassword": {
+      "title": "Reset your password",
+      "subtitle": "Enter your email address and we will send you a reset link.",
+      "submit": "Send reset link",
+      "sent": "If an account exists for that address, a reset link is on its way.",
+      "backToLogin": "Back to sign in"
+    },
+    "resetPassword": {
+      "title": "Choose a new password",
+      "subtitle": "Pick a password you have not used on this account before.",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm new password",
+      "submit": "Update password",
+      "success": "Password updated. All other sessions have been signed out.",
+      "expired": "This reset link has expired or has already been used."
+    },
+    "password": {
+      "requirements": "At least {min} characters.",
+      "strength": {
+        "label": "Password strength",
+        "weak": "Weak",
+        "fair": "Fair",
+        "good": "Good",
+        "strong": "Strong"
+      },
+      "show": "Show password",
+      "hide": "Hide password"
+    }
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Welcome to your AI workforce, {name}",
+      "body": "Three AI employees are ready. Connect their tools and put them to work.",
+      "dismiss": "Got it"
+    },
+    "steps": {
+      "title": "Finish setting up",
+      "verifyEmail": {
+        "title": "Verify your email address",
+        "body": "Confirm your address so we can send you job and campaign notifications."
+      },
+      "connectKnowledge": {
+        "title": "Connect a knowledge source",
+        "body": "Point the Knowledge Agent at the Google Drive folder holding your documents."
+      },
+      "firstGeneration": {
+        "title": "Create your first asset",
+        "body": "Describe an image and the Creative Agent will produce it."
+      },
+      "firstCampaign": {
+        "title": "Draft your first campaign",
+        "body": "Build a Meta campaign, review it, and submit it for creation."
+      },
+      "completed": "Done"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Everything your AI workforce did, at a glance.",
+    "greeting": "Good to see you, {name}",
+    "sections": {
+      "activity": "Overall AI activity",
+      "knowledge": "Knowledge Agent",
+      "creative": "Creative Agent",
+      "advertising": "Advertising Agent",
+      "health": "Platform health"
+    },
+    "metrics": {
+      "totalRequests": "Total AI requests",
+      "requestsToday": "Requests today",
+      "requestsThisWeek": "Requests this week",
+      "requestsThisMonth": "Requests this month",
+      "requestsByAgent": "Requests by agent",
+      "successfulRequests": "Successful requests",
+      "failedRequests": "Failed requests",
+      "averageProcessingTime": "Average processing time",
+      "successRate": "Success rate",
+      "questionsAsked": "Questions asked",
+      "questionsAnswered": "Questions answered",
+      "recentQuestions": "Recent questions",
+      "topTopics": "Most asked topics",
+      "knowledgeSourceStatus": "Knowledge source status",
+      "documentCount": "Indexed documents",
+      "lastSync": "Last synchronization",
+      "syncFailures": "Synchronization failures",
+      "imagesGenerated": "Images generated",
+      "videosGenerated": "Videos generated",
+      "recentAssets": "Recent assets",
+      "generationSuccessRate": "Generation success rate",
+      "processingTime": "Processing time",
+      "storageUsed": "Storage used",
+      "campaignsCreated": "Campaigns created",
+      "campaignsLaunched": "Campaigns submitted",
+      "activeCampaigns": "Active campaigns",
+      "draftCampaigns": "Draft campaigns",
+      "failedCampaigns": "Failed campaigns",
+      "adSpend": "Advertising spend",
+      "impressions": "Impressions",
+      "clicks": "Clicks",
+      "ctr": "CTR",
+      "cpc": "CPC",
+      "conversions": "Conversions",
+      "roas": "ROAS",
+      "integrationStatus": "Integration status",
+      "agentAvailability": "Agent availability",
+      "recentErrors": "Recent errors",
+      "failedJobs": "Failed jobs",
+      "apiHealth": "API health"
+    },
+    "deltas": {
+      "vsPreviousPeriod": "vs. previous period",
+      "increase": "up {value}",
+      "decrease": "down {value}",
+      "unchanged": "no change"
+    },
+    "empty": {
+      "noActivity": {
+        "title": "No AI activity yet",
+        "body": "Once your team starts using the agents, their work shows up here."
+      },
+      "noMetrics": {
+        "title": "Nothing to measure yet",
+        "body": "Metrics appear as soon as there is real activity to report."
+      }
+    }
+  },
+  "agents": {
+    "title": "AI Agents",
+    "subtitle": "Three AI employees, each with its own job.",
+    "openAgent": "Open {agent}",
+    "unavailable": "Unavailable",
+    "available": "Available",
+    "lastUsed": "Last used {time}",
+    "neverUsed": "Not used yet",
+    "knowledge": {
+      "title": "Knowledge Agent",
+      "shortTitle": "Knowledge",
+      "description": "Ask questions about your organization's knowledge.",
+      "capability": "Answers from your documents, and cites where each answer came from."
+    },
+    "creative": {
+      "title": "Creative Agent",
+      "shortTitle": "Creative",
+      "description": "Create professional images and videos for your brand.",
+      "capability": "Turns a description into a production brief, then generates the asset."
+    },
+    "advertising": {
+      "title": "Advertising Agent",
+      "shortTitle": "Advertising",
+      "description": "Create and launch advertising campaigns on Meta.",
+      "capability": "Builds the campaign, ad set and ad on your Meta ad account."
+    }
+  },
+  "knowledge": {
+    "title": "Knowledge",
+    "subtitle": "Ask about your organization's documents and policies.",
+    "newConversation": "New conversation",
+    "conversations": "Conversations",
+    "searchConversations": "Search conversations",
+    "noConversations": {
+      "title": "No conversations yet",
+      "body": "Start a conversation and your history will appear here."
+    },
+    "emptyChat": {
+      "title": "Ask your first question",
+      "body": "The agent searches your indexed documents first, and falls back to the web only when the documents cannot answer.",
+      "suggestions": "Try asking"
+    },
+    "composer": {
+      "placeholder": "Ask about your documents…",
+      "send": "Send question",
+      "hint": "Enter to send, Shift+Enter for a new line"
+    },
+    "message": {
+      "you": "You",
+      "agent": "Knowledge Agent",
+      "thinking": "Searching your documents…",
+      "copy": "Copy answer",
+      "copied": "Answer copied",
+      "retry": "Ask again",
+      "helpful": "This was helpful",
+      "notHelpful": "This was not helpful",
+      "feedbackRecorded": "Thanks for the feedback."
+    },
+    "sources": {
+      "title": "Sources",
+      "document": "Document",
+      "web": "Web",
+      "basis": {
+        "documents": "Answered from your documents",
+        "web": "Answered from the web",
+        "both": "Answered from your documents and the web",
+        "none": "No source cited"
+      },
+      "openDocument": "Open document",
+      "openLink": "Open link",
+      "notInDocuments": "This detail is not covered by your indexed documents.",
+      "parsedNotice": "Sources were read from the agent's answer text."
+    },
+    "sourcePanel": {
+      "title": "Knowledge source",
+      "folder": "Drive folder",
+      "documents": "Indexed documents",
+      "documentsUnknown": "Document count is not reported by the workflow.",
+      "lastSync": "Last synchronization",
+      "nextSync": "Next scheduled synchronization",
+      "syncInterval": "Reindexed every {hours} hours",
+      "supportedFormats": "Supported formats",
+      "formats": "PDF, DOC, DOCX, Google Docs and plain text",
+      "notConnected": {
+        "title": "No knowledge source connected",
+        "body": "Connect a Google Drive folder in Settings so the agent has something to read."
+      }
+    },
+    "conversationTitle": "Conversation from {date}",
+    "deleteConversation": "Delete conversation",
+    "deleteConfirm": {
+      "title": "Delete this conversation?",
+      "body": "The conversation and its messages will be removed. This cannot be undone."
+    }
+  },
+  "creative": {
+    "title": "Creative Studio",
+    "subtitle": "Describe what you need and the agent produces it.",
+    "newGeneration": "New generation",
+    "form": {
+      "mediaType": "What do you want to create?",
+      "image": "Image",
+      "video": "Video",
+      "prompt": "Describe the content",
+      "promptPlaceholder": "An advertising photo of a specialty coffee cup in morning light…",
+      "promptHint": "Describe the scene, subject, mood and any text that should appear.",
+      "aspectRatio": "Aspect ratio",
+      "aspectRatios": {
+        "16:9": "Landscape 16:9",
+        "9:16": "Vertical 9:16"
+      },
+      "aspectRatioHint": "Vertical for Reels, TikTok and Snapchat. Landscape for YouTube and web ads.",
+      "submit": "Generate",
+      "submitting": "Sending to the agent…"
+    },
+    "video": {
+      "unavailableTitle": "Video generation is turned off",
+      "unavailableBody": "The Creative workflow has video generation disabled: the Veo model on the connected Google account has no available quota. Video requests return a key frame image instead.",
+      "unavailableAction": "How to enable video"
+    },
+    "job": {
+      "title": "Generation",
+      "queued": "Queued",
+      "processing": "Generating…",
+      "completed": "Completed",
+      "failed": "Failed",
+      "cancelled": "Cancelled",
+      "elapsed": "Running for {duration}",
+      "startedAt": "Started {time}",
+      "completedIn": "Completed in {duration}",
+      "cancel": "Cancel generation",
+      "viewAsset": "View asset"
+    },
+    "result": {
+      "title": "Result",
+      "brief": "Production brief",
+      "promptUsed": "Prompt used",
+      "caption": "Suggested caption",
+      "save": "Save to library",
+      "saved": "Saved to your asset library",
+      "discard": "Discard"
+    },
+    "history": {
+      "title": "Recent generations",
+      "empty": {
+        "title": "Nothing generated yet",
+        "body": "Your generations will appear here once you create something."
+      }
+    }
+  },
+  "assets": {
+    "title": "Assets",
+    "subtitle": "Every image and video your Creative Agent produced.",
+    "kinds": {
+      "IMAGE": "Image",
+      "VIDEO": "Video",
+      "all": "All assets"
+    },
+    "filters": {
+      "kind": "Media type",
+      "dateRange": "Date range",
+      "search": "Search by title or prompt",
+      "sortBy": "Sort by",
+      "sort": {
+        "newest": "Newest first",
+        "oldest": "Oldest first",
+        "largest": "Largest first",
+        "titleAsc": "Title A–Z"
+      }
+    },
+    "card": {
+      "preview": "Preview {title}",
+      "usedInCampaigns": "Used in {count, plural, =0 {no campaigns} one {# campaign} other {# campaigns}}"
+    },
+    "detail": {
+      "title": "Asset details",
+      "metadata": "Metadata",
+      "prompt": "Prompt",
+      "model": "Model",
+      "generatedBy": "Generated by",
+      "attachToCampaign": "Use in a campaign",
+      "download": "Download original",
+      "deleteConfirm": {
+        "title": "Delete this asset?",
+        "body": "The file will be removed from storage. Campaigns already submitted to Meta keep their own copy.",
+        "blocked": "This asset is attached to a campaign that has not been submitted yet. Detach it first."
+      }
+    },
+    "empty": {
+      "title": "No assets yet",
+      "body": "Generate an image in the Creative Studio and it will be stored here.",
+      "action": "Open Creative Studio"
+    },
+    "noResults": {
+      "title": "No assets match those filters",
+      "body": "Try a broader date range or clear the filters."
+    },
+    "storage": {
+      "notConfigured": "Object storage is not configured, so generated files cannot be stored. Set the S3 variables and restart."
+    }
+  },
+  "advertising": {
+    "title": "Advertising",
+    "subtitle": "Build, review and submit Meta advertising campaigns.",
+    "newCampaign": "New campaign",
+    "pausedNotice": {
+      "title": "Campaigns are created paused",
+      "body": "The advertising workflow creates the campaign, ad set and ad on Meta with status PAUSED. Nothing spends money until someone activates it in Meta Ads Manager."
+    },
+    "wizard": {
+      "title": "Create a campaign",
+      "stepOf": "Step {current} of {total}",
+      "steps": {
+        "brief": "Brief",
+        "objective": "Objective",
+        "audience": "Audience",
+        "budget": "Budget",
+        "schedule": "Schedule",
+        "creative": "Creative",
+        "review": "Review",
+        "launch": "Submit"
+      },
+      "brief": {
+        "title": "Campaign brief",
+        "description": "Tell the agent what this campaign is for.",
+        "campaignName": "Campaign name",
+        "campaignNamePlaceholder": "Product launch — September",
+        "adName": "Ad name",
+        "briefText": "What are you advertising?",
+        "briefPlaceholder": "A new specialty coffee subscription aimed at office workers in Riyadh…",
+        "primaryText": "Primary text",
+        "primaryTextHint": "Meta recommends {max} characters or fewer.",
+        "headline": "Headline",
+        "headlineHint": "Meta recommends {max} characters or fewer.",
+        "descriptionField": "Description",
+        "destinationUrl": "Destination URL",
+        "callToAction": "Call to action"
+      },
+      "objective": {
+        "title": "Objective",
+        "description": "What should this campaign optimize for?",
+        "fixedNotice": "The connected workflow creates traffic campaigns optimized for link clicks. Other objectives need a workflow change.",
+        "OUTCOME_TRAFFIC": "Traffic",
+        "OUTCOME_TRAFFIC_help": "Send people to your website."
+      },
+      "audience": {
+        "title": "Audience",
+        "description": "Who should see this ad?",
+        "savedAudience": "Saved audience",
+        "savedAudienceHint": "Pick an audience saved on your Meta ad account, or define one below.",
+        "noSavedAudience": "Define the audience here",
+        "notes": "Audience notes",
+        "notesPlaceholder": "Interested in fitness and wellness",
+        "ageRange": "Age range",
+        "ageMin": "Minimum age",
+        "ageMax": "Maximum age",
+        "gender": "Gender",
+        "genders": {
+          "all": "All",
+          "male": "Men",
+          "female": "Women"
+        },
+        "countries": "Countries",
+        "cities": "Cities",
+        "estimatedReach": "Estimated reach",
+        "estimatedReachUnavailable": "Meta does not report an estimate through this workflow."
+      },
+      "budget": {
+        "title": "Budget",
+        "description": "How much can this campaign spend in total?",
+        "lifetimeBudget": "Lifetime budget",
+        "lifetimeBudgetHint": "The total this campaign may spend across its whole schedule.",
+        "currency": "Currency",
+        "dailyAverage": "That averages {amount} per day across {days, plural, one {# day} other {# days}}.",
+        "minimumWarning": "Meta enforces a minimum lifetime budget. A budget below it is rejected at submission."
+      },
+      "schedule": {
+        "title": "Schedule",
+        "description": "When should the campaign run?",
+        "startDate": "Start date",
+        "endDate": "End date",
+        "timezoneNotice": "Times are interpreted in {timezone}, matching the ad account.",
+        "durationDays": "{days, plural, one {# day} other {# days}}"
+      },
+      "creative": {
+        "title": "Creative",
+        "description": "Choose the image or video for this ad.",
+        "selectAsset": "Choose from your assets",
+        "noAssets": "You have no assets yet. Generate one in the Creative Studio first.",
+        "selected": "Selected creative",
+        "change": "Change creative",
+        "placement": "Placement",
+        "placements": {
+          "Feed 1:1": "Feed — square (1:1)",
+          "Feed 4:5": "Feed — portrait (4:5)",
+          "Stories / Reels 9:16": "Stories and Reels (9:16)",
+          "Landscape 1.91:1": "Landscape (1.91:1)"
+        },
+        "specNotice": "The workflow validates the creative against Meta's specs: at least {minSide}px on the short side, and an aspect ratio matching the chosen placement within {tolerance}.",
+        "specMismatch": "This asset is {ratio} but {placement} needs {expected}. The workflow will reject it."
+      },
+      "review": {
+        "title": "Review before submitting",
+        "description": "Check every detail. Once submitted, the campaign is created on your Meta ad account.",
+        "sections": {
+          "campaign": "Campaign",
+          "audience": "Audience",
+          "budgetSchedule": "Budget and schedule",
+          "creative": "Creative",
+          "destination": "Destination"
+        },
+        "warnings": "Warnings",
+        "noWarnings": "No warnings.",
+        "warningItems": {
+          "longPrimaryText": "Primary text is {length} characters; Meta recommends {max} or fewer.",
+          "longHeadline": "Headline is {length} characters; Meta recommends {max} or fewer.",
+          "shortSchedule": "This campaign runs for less than a day.",
+          "largeBudget": "This is a large lifetime budget. Confirm the amount is correct.",
+          "noAudienceNarrowing": "No age, gender or interest narrowing is set; the ad will target everyone in the selected countries."
+        }
+      },
+      "launch": {
+        "title": "Submit campaign",
+        "confirmTitle": "Submit this campaign to Meta?",
+        "confirmBody": "The agent will create a campaign, ad set and ad on ad account {adAccount}. All three are created with status PAUSED and will not spend until you activate them in Meta Ads Manager.",
+        "confirmCheckbox": "I have reviewed the budget, audience, schedule and creative above.",
+        "action": "Launch Campaign",
+        "submitting": "Submitting to Meta…",
+        "success": "Campaign created on Meta, paused and ready for your review.",
+        "openInAdsManager": "Open in Meta Ads Manager"
+      }
+    },
+    "notConfigured": {
+      "title": "Meta advertising is not connected",
+      "body": "The advertising workflow is not reachable, so campaigns cannot be submitted. Check the n8n connection in Settings."
+    }
+  },
+  "campaigns": {
+    "title": "Campaigns",
+    "subtitle": "Every campaign your organization has drafted or submitted.",
+    "status": {
+      "DRAFT": "Draft",
+      "READY": "Ready",
+      "LAUNCHING": "Submitting",
+      "ACTIVE": "Active",
+      "PAUSED": "Paused",
+      "COMPLETED": "Completed",
+      "FAILED": "Failed"
+    },
+    "statusHelp": {
+      "DRAFT": "Still being edited. Not sent anywhere.",
+      "READY": "Reviewed and approved, waiting to be submitted.",
+      "LAUNCHING": "The agent is creating the objects on Meta right now.",
+      "ACTIVE": "Running and able to spend on Meta.",
+      "PAUSED": "Created on Meta but paused. It will not spend until activated in Ads Manager.",
+      "COMPLETED": "The schedule has ended.",
+      "FAILED": "Submission did not complete. See the error for details."
+    },
+    "columns": {
+      "name": "Campaign",
+      "status": "Status",
+      "budget": "Budget",
+      "schedule": "Schedule",
+      "creative": "Creative",
+      "createdBy": "Created by",
+      "metaIds": "Meta IDs"
+    },
+    "detail": {
+      "title": "Campaign details",
+      "overview": "Overview",
+      "configuration": "Configuration",
+      "metaObjects": "Meta objects",
+      "campaignId": "Campaign ID",
+      "adSetId": "Ad set ID",
+      "adId": "Ad ID",
+      "adAccount": "Ad account",
+      "page": "Facebook page",
+      "objectStatus": "Status on Meta",
+      "approval": "Approval",
+      "approvedBy": "Approved by {name}",
+      "approvedAt": "Approved {time}",
+      "notApproved": "Not approved yet",
+      "performance": "Performance",
+      "history": "History",
+      "error": "Submission error"
+    },
+    "performance": {
+      "unavailableTitle": "Performance data is not available",
+      "unavailableBody": "The connected advertising workflow creates campaigns but does not read Meta Insights, so impressions, clicks, CTR, CPC and ROAS cannot be shown here. Open the campaign in Meta Ads Manager to see them.",
+      "lastFetched": "Last fetched {time}"
+    },
+    "empty": {
+      "title": "No campaigns yet",
+      "body": "Build your first Meta campaign with the Advertising Agent.",
+      "action": "Create a campaign"
+    },
+    "delete": {
+      "title": "Delete this campaign?",
+      "bodyDraft": "This draft will be removed. Nothing has been sent to Meta.",
+      "bodySubmitted": "This removes the campaign from your workspace only. The objects already created on Meta are not deleted — remove them in Ads Manager if you need to."
+    }
+  },
+  "analytics": {
+    "title": "Analytics",
+    "subtitle": "How your AI workforce is being used.",
+    "filters": {
+      "title": "Filters",
+      "dateRange": "Date range",
+      "agent": "Agent",
+      "campaign": "Campaign",
+      "assetType": "Asset type",
+      "status": "Status",
+      "apply": "Apply filters"
+    },
+    "sections": {
+      "usage": "AI usage",
+      "creative": "Creative output",
+      "advertising": "Advertising"
+    },
+    "charts": {
+      "requestsOverTime": "Requests over time",
+      "requestsByAgent": "Requests by agent",
+      "successRate": "Success rate",
+      "processingTime": "Processing time",
+      "assetsOverTime": "Assets generated over time",
+      "noData": "No data for the selected filters."
+    },
+    "unavailableMetrics": {
+      "title": "Some metrics are not collected",
+      "body": "{metrics} are not available because the connected integrations do not report them. See the integration notes in Settings."
+    },
+    "export": "Export as CSV"
+  },
+  "activity": {
+    "title": "Activity",
+    "subtitle": "An append-only record of what happened in your workspace.",
+    "filters": {
+      "action": "Action",
+      "user": "User",
+      "resource": "Resource",
+      "status": "Outcome"
+    },
+    "outcome": {
+      "SUCCESS": "Succeeded",
+      "FAILURE": "Failed"
+    },
+    "actions": {
+      "auth.login": "Signed in",
+      "auth.login_failed": "Sign-in failed",
+      "auth.logout": "Signed out",
+      "auth.register": "Created the organization",
+      "auth.email_verified": "Verified their email address",
+      "auth.password_reset_requested": "Requested a password reset",
+      "auth.password_reset": "Reset their password",
+      "auth.sessions_revoked": "Signed out all sessions",
+      "agent.invoked": "Ran an agent",
+      "agent.failed": "An agent run failed",
+      "knowledge.query": "Asked the Knowledge Agent",
+      "knowledge.sync": "Synchronized the knowledge source",
+      "conversation.created": "Started a conversation",
+      "conversation.deleted": "Deleted a conversation",
+      "asset.generated": "Generated an asset",
+      "asset.deleted": "Deleted an asset",
+      "campaign.created": "Created a campaign",
+      "campaign.updated": "Updated a campaign",
+      "campaign.approved": "Approved a campaign",
+      "campaign.launched": "Submitted a campaign to Meta",
+      "campaign.launch_failed": "A campaign submission failed",
+      "campaign.deleted": "Deleted a campaign",
+      "integration.connected": "Connected an integration",
+      "integration.disconnected": "Disconnected an integration",
+      "settings.updated": "Changed workspace settings",
+      "webhook.rejected": "Rejected an unauthenticated callback"
+    },
+    "systemActor": "System",
+    "empty": {
+      "title": "No activity recorded yet",
+      "body": "Actions taken in your workspace appear here."
+    },
+    "retention": "Records are kept for {days} days."
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage your organization, your account and your integrations.",
+    "tabs": {
+      "organization": "Organization",
+      "account": "Account",
+      "integrations": "Integrations",
+      "security": "Security"
+    },
+    "organization": {
+      "title": "Organization",
+      "name": "Organization name",
+      "defaultLocale": "Default language",
+      "defaultLocaleHint": "Used for new members and for notifications sent to people who have not chosen a language.",
+      "timezone": "Time zone",
+      "timezoneHint": "Dates across the workspace and campaign schedules use this zone.",
+      "currency": "Reporting currency",
+      "saved": "Organization settings saved."
+    },
+    "account": {
+      "title": "Your account",
+      "name": "Your name",
+      "email": "Email address",
+      "emailImmutable": "Contact support to change the address on your account.",
+      "language": "Interface language",
+      "languageHint": "Applies to this account across every device.",
+      "changePassword": "Change password",
+      "currentPassword": "Current password",
+      "saved": "Account settings saved.",
+      "passwordChanged": "Password changed. Your other sessions have been signed out."
+    },
+    "security": {
+      "title": "Security",
+      "activeSessions": "Active sessions",
+      "thisDevice": "This device",
+      "lastActive": "Last active {time}",
+      "signOutOthers": "Sign out all other sessions",
+      "signedOutOthers": "{count, plural, =0 {No other sessions were active} one {# other session signed out} other {# other sessions signed out}}.",
+      "signOutOthersConfirm": {
+        "title": "Sign out every other session?",
+        "body": "Anyone signed in on another browser or device will need to sign in again."
+      }
+    },
+    "integrations": {
+      "title": "Integrations",
+      "status": {
+        "NOT_CONFIGURED": "Not configured",
+        "CONNECTED": "Connected",
+        "DEGRADED": "Degraded",
+        "ERROR": "Error"
+      },
+      "lastChecked": "Checked {time}",
+      "checkNow": "Check now",
+      "googleDrive": {
+        "title": "Google Drive",
+        "description": "The folder the Knowledge Agent indexes.",
+        "folder": "Indexed folder",
+        "folderId": "Folder ID",
+        "supportedFormats": "Supported formats",
+        "syncSchedule": "Reindexed automatically every {hours} hours",
+        "credentialNotice": "The Drive connection is held by the n8n workflow, not by this application. This workspace shows its status but does not store any Google credentials.",
+        "connect": "Configure folder"
+      },
+      "meta": {
+        "title": "Meta Ads",
+        "description": "The ad account campaigns are created on.",
+        "adAccount": "Ad account",
+        "page": "Facebook page",
+        "apiVersion": "Graph API version",
+        "credentialNotice": "Meta credentials live in the n8n workflow and are never sent to your browser.",
+        "multiAccountNotice": "This workflow targets a single ad account. Supporting several accounts requires a workflow change."
+      },
+      "n8n": {
+        "title": "n8n Agent Gateway",
+        "description": "The automation platform running all three agents.",
+        "baseUrl": "Instance",
+        "workflows": "Connected workflows",
+        "reachable": "Reachable",
+        "unreachable": "Unreachable",
+        "notConfigured": "No n8n instance is configured. Set N8N_BASE_URL and restart."
+      }
+    }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "markAllRead": "Mark all as read",
+    "markRead": "Mark as read",
+    "unreadCount": "{count, plural, =0 {No unread notifications} one {# unread notification} other {# unread notifications}}",
+    "empty": {
+      "title": "You're all caught up",
+      "body": "Job results and campaign updates will show up here."
+    },
+    "messages": {
+      "assetReady": "Your {kind, select, IMAGE {image} VIDEO {video} other {asset}} \"{title}\" is ready.",
+      "assetFailed": "Generating \"{title}\" failed.",
+      "campaignSubmitted": "Campaign \"{name}\" was created on Meta and is paused.",
+      "campaignFailed": "Campaign \"{name}\" could not be submitted.",
+      "knowledgeSyncSucceeded": "Google Drive synchronization finished.",
+      "knowledgeSyncFailed": "Google Drive synchronization failed.",
+      "agentError": "The {agent} ran into an error."
+    }
+  },
+  "jobs": {
+    "title": "Jobs",
+    "status": {
+      "QUEUED": "Queued",
+      "PROCESSING": "Processing",
+      "COMPLETED": "Completed",
+      "FAILED": "Failed",
+      "CANCELLED": "Cancelled"
+    },
+    "empty": {
+      "title": "No jobs running",
+      "body": "Background work started by the agents appears here."
+    }
+  },
+  "health": {
+    "status": {
+      "healthy": "Healthy",
+      "degraded": "Degraded",
+      "down": "Unavailable",
+      "unknown": "Unknown"
+    },
+    "checks": {
+      "database": "Database",
+      "storage": "Object storage",
+      "n8n": "Agent gateway",
+      "knowledgeAgent": "Knowledge Agent",
+      "creativeAgent": "Creative Agent",
+      "advertisingAgent": "Advertising Agent"
+    },
+    "noRecentErrors": "No errors in the last {hours} hours.",
+    "errorCount": "{count, plural, one {# error} other {# errors}} in the last {hours} hours"
+  },
+  "errors": {
+    "generic": "We couldn't complete this request. Please try again.",
+    "reference": "Reference: {id}",
+    "referenceHint": "Quote this reference if you contact support.",
+    "unauthorized": "Please sign in to continue.",
+    "forbidden": "You don't have permission to do that.",
+    "invalid_credentials": "That email address and password don't match.",
+    "account_locked": "Too many failed attempts. Try again in {minutes, plural, one {# minute} other {# minutes}}.",
+    "email_not_verified": "Verify your email address before signing in.",
+    "email_already_registered": "An account already exists for that email address.",
+    "invalid_token": "That link is not valid.",
+    "token_expired": "That link has expired. Request a new one.",
+    "session_expired": "Your session has expired. Please sign in again.",
+    "validation_failed": "Please correct the highlighted fields.",
+    "not_found": "We couldn't find what you were looking for.",
+    "conflict": "That change conflicts with the current state. Reload and try again.",
+    "rate_limited": "Too many requests. Try again in {seconds, plural, one {# second} other {# seconds}}.",
+    "payload_too_large": "That file is too large. The limit is {max}.",
+    "unsupported_media_type": "That file type isn't supported.",
+    "idempotency_key_reused": "This request was already submitted.",
+    "integration_not_configured": "This integration isn't configured yet. An administrator needs to set it up in Settings.",
+    "integration_unavailable": "The integration didn't respond. Please try again shortly.",
+    "agent_unavailable": "The agent isn't reachable right now. Please try again shortly.",
+    "agent_timeout": "The agent took too long to respond. Your request may still be running — check the job list.",
+    "agent_failed": "The agent couldn't complete this request.",
+    "capability_unavailable": "That capability isn't available in the connected workflow.",
+    "storage_not_configured": "File storage isn't configured, so this file can't be saved.",
+    "campaign_not_launchable": "This campaign isn't ready to submit yet.",
+    "campaign_already_launched": "This campaign has already been submitted to Meta.",
+    "invalid_state_transition": "That action isn't allowed from the campaign's current status.",
+    "internal_error": "Something went wrong on our side. Please try again.",
+    "network": "Connection lost. Check your network and try again.",
+    "notFound": {
+      "title": "Page not found",
+      "body": "The page you're looking for doesn't exist or has moved.",
+      "action": "Back to dashboard"
+    },
+    "serverError": {
+      "title": "Something went wrong",
+      "body": "We hit an unexpected error. The team has been notified.",
+      "action": "Try again"
+    },
+    "boundary": {
+      "title": "This section failed to load",
+      "body": "Reload to try again. If it keeps happening, quote the reference below."
+    },
+    "field": {
+      "required": "This field is required.",
+      "invalid": "That value isn't valid.",
+      "email": "Enter a valid email address.",
+      "url": "Enter a valid URL starting with https://",
+      "too_short": "Use at least {min} characters.",
+      "too_long": "Use {max} characters or fewer.",
+      "too_small": "Enter {min} or more.",
+      "too_big": "Enter {max} or less.",
+      "too_common": "That password is too common. Choose another.",
+      "too_simple": "That password is too simple. Mix in more variety.",
+      "mismatch": "The two values don't match.",
+      "date_order": "The end date must be after the start date.",
+      "date_past": "Choose a date in the future.",
+      "not_an_option": "Choose one of the available options."
+    }
+  },
+  "a11y": {
+    "sortAscending": "Sort ascending",
+    "sortDescending": "Sort descending",
+    "sortedAscending": "sorted ascending",
+    "sortedDescending": "sorted descending",
+    "notSorted": "not sorted",
+    "required": "required",
+    "loading": "Content is loading",
+    "loadingComplete": "Content loaded",
+    "menuExpanded": "Menu expanded",
+    "menuCollapsed": "Menu collapsed",
+    "modalTitle": "Dialog",
+    "closeDialog": "Close dialog",
+    "progress": "{percent}% complete",
+    "newNotification": "New notification",
+    "errorSummary": "{count, plural, one {There is # error in this form} other {There are # errors in this form}}"
+  }
+}
