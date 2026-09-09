@@ -93,7 +93,10 @@ const envSchema = z.object({
   EMAIL_FROM: z.string().default('no-reply@example.com'),
   SMTP_URL: z.string().optional(),
 
-  LOG_LEVEL: z.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace']).default('info'),
+  // 'silent' is a real pino level and is what the test suite uses.
+  LOG_LEVEL: z
+    .enum(['silent', 'fatal', 'error', 'warn', 'info', 'debug', 'trace'])
+    .default('info'),
   SENTRY_DSN: z.string().optional(),
   OTEL_EXPORTER_OTLP_ENDPOINT: z.string().optional(),
   OTEL_SERVICE_NAME: z.string().default('ai-workforce-saas'),

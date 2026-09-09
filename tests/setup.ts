@@ -6,7 +6,14 @@
  * run first — it is registered via `setupFiles` in vitest.config.ts.
  */
 // NODE_ENV is typed read-only by @types/node; Vitest already sets it to 'test'.
+//
+// The application connects as `app_user`, the least-privilege role, so the
+// row-level security policies are actually exercised. Connecting as `postgres`
+// would silently bypass RLS and make every isolation test vacuous.
 process.env.DATABASE_URL ??=
+  process.env.TEST_DATABASE_URL ??
+  'postgres://app_user:app_user_test_password@127.0.0.1:5432/ai_workforce_test';
+process.env.TEST_ADMIN_DATABASE_URL ??=
   'postgres://postgres@127.0.0.1:5432/ai_workforce_test';
 process.env.APP_URL ??= 'http://localhost:3000';
 process.env.LOG_LEVEL ??= 'silent';

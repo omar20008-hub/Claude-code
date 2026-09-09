@@ -62,6 +62,15 @@ export const localeConfig: Record<
   },
 };
 
+/**
+ * Cookie that records an explicit language choice.
+ *
+ * Declared here rather than read back off next-intl's routing object, whose
+ * `localeCookie` is typed as `boolean | CookieAttributes` — the middleware needs
+ * a plain string it can look up without narrowing a union on every request.
+ */
+export const LOCALE_COOKIE = 'AIW_LOCALE';
+
 export function isLocale(value: string | undefined | null): value is Locale {
   return value !== null && value !== undefined && (locales as readonly string[]).includes(value);
 }

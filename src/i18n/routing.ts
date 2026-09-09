@@ -1,6 +1,6 @@
 import { defineRouting } from 'next-intl/routing';
 import { createNavigation } from 'next-intl/navigation';
-import { locales, defaultLocale } from './config';
+import { locales, defaultLocale, LOCALE_COOKIE } from './config';
 
 /**
  * Locale routing.
@@ -25,7 +25,7 @@ export const routing = defineRouting({
   // The cookie records an explicit choice from the switcher. Absent it, the
   // middleware negotiates from Accept-Language.
   localeCookie: {
-    name: 'AIW_LOCALE',
+    name: LOCALE_COOKIE,
     maxAge: 60 * 60 * 24 * 365,
     sameSite: 'lax',
   },
