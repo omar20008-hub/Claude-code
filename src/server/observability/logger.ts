@@ -4,10 +4,13 @@ import { env } from '@/server/config/env';
 /**
  * Structured logging.
  *
- * The redaction list is a security control, not a convenience: §32 of the
- * product spec forbids logging passwords, tokens, API keys and OAuth secrets.
- * `redact` runs inside pino before serialization, so a secret that lands in a
- * log object never reaches a transport, a file, or an aggregator.
+ * The redaction list is a security control, not a convenience: §32 forbids
+ * logging passwords, tokens, API keys and OAuth secrets. `redact` runs inside
+ * pino before serialization, so a secret that lands in a log object never
+ * reaches a transport, a file, or an aggregator.
+ *
+ * Like the database client, the logger is created lazily so importing this
+ * module during `next build` does not require runtime configuration.
  */
 const REDACTED_PATHS = [
   'password',
@@ -33,25 +36,36 @@ const REDACTED_PATHS = [
   '*.authorization',
   'req.headers.authorization',
   'req.headers.cookie',
-  'req.headers["x-n8n-signature"]',
+  'req.headers["x-aiw-signature"]',
   'headers.authorization',
   'headers.cookie',
 ];
 
-export const logger = pino({
-  level: env().LOG_LEVEL,
-  redact: { paths: REDACTED_PATHS, censor: '[redacted]' },
-  base: {
-    service: env().OTEL_SERVICE_NAME,
-    env: env().NODE_ENV,
-  },
-  timestamp: pino.stdTimeFunctions.isoTime,
-  formatters: {
-    level: (label) => ({ level: label }),
+export type Logger = pino.Logger;
+
+let instance: Logger | undefined;
+
+function realLogger(): Logger {
+  instance ??= pino({
+    level: env().LOG_LEVEL,
+    redact: { paths: REDACTED_PATHS, censor: '[redacted]' },
+    base: {
+      service: env().OTEL_SERVICE_NAME,
+      env: env().NODE_ENV,
+    },
+    timestamp: pino.stdTimeFunctions.isoTime,
+    formatters: {
+      level: (label) => ({ level: label }),
+    },
+  });
+  return instance;
+}
+
+export const logger: Logger = new Proxy({} as Logger, {
+  get(_target, property, receiver) {
+    return Reflect.get(realLogger(), property, receiver);
   },
 });
-
-export type Logger = typeof logger;
 
 /**
  * Returns a child logger bound to a correlation id, plus whatever request
@@ -66,5 +80,5 @@ export function requestLogger(context: {
   route?: string;
   method?: string;
 }): Logger {
-  return logger.child(context);
+  return realLogger().child(context);
 }

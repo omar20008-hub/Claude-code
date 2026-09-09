@@ -6,11 +6,22 @@ import * as schema from './schema';
 /**
  * Postgres connection pool.
  *
- * Held on globalThis so Next's dev-mode module reloading does not open a new
- * pool on every edit and exhaust `max_connections`.
+ * LAZY BY DESIGN. Nothing here reads the environment or opens a socket at
+ * import time. Two reasons:
+ *
+ *  1. `next build` imports every route module to collect page data. If this
+ *     module validated DATABASE_URL on import, a production build would need
+ *     production secrets — which is both a supply-chain smell and impossible in
+ *     a CI job that legitimately has none.
+ *  2. Serverless cold starts pay for a pool they may never use.
+ *
+ * The Proxy defers `postgres()` until the first property access, which is the
+ * first actual query.
+ *
+ * The instance is cached on globalThis so Next's dev-mode module reloading does
+ * not open a new pool on every edit and exhaust `max_connections`.
  */
 declare global {
-  // eslint-disable-next-line no-var
   var __aiwSql: postgres.Sql | undefined;
 }
 
@@ -31,15 +42,47 @@ function createClient(): postgres.Sql {
   });
 }
 
-export const sql: postgres.Sql = globalThis.__aiwSql ?? createClient();
-
-if (env().NODE_ENV !== 'production') {
-  globalThis.__aiwSql = sql;
+function realSql(): postgres.Sql {
+  if (!globalThis.__aiwSql) {
+    globalThis.__aiwSql = createClient();
+  }
+  return globalThis.__aiwSql;
 }
 
-export const db = drizzle(sql, { schema, logger: false });
+/**
+ * The postgres.js client. Callable and indexable exactly like the real thing;
+ * the underlying connection is created on first use.
+ */
+export const sql: postgres.Sql = new Proxy((() => {}) as unknown as postgres.Sql, {
+  get(_target, property, receiver) {
+    return Reflect.get(realSql(), property, receiver);
+  },
+  apply(_target, thisArg, args) {
+    return Reflect.apply(realSql() as unknown as (...a: unknown[]) => unknown, thisArg, args);
+  },
+  has(_target, property) {
+    return Reflect.has(realSql(), property);
+  },
+});
 
-export type Database = typeof db;
+let drizzleInstance: ReturnType<typeof drizzle<typeof schema>> | undefined;
+
+function realDb(): ReturnType<typeof drizzle<typeof schema>> {
+  drizzleInstance ??= drizzle(realSql(), { schema, logger: false });
+  return drizzleInstance;
+}
+
+export type Database = ReturnType<typeof drizzle<typeof schema>>;
+
+/** Drizzle client, initialised on first query for the same reasons as `sql`. */
+export const db: Database = new Proxy({} as Database, {
+  get(_target, property, receiver) {
+    return Reflect.get(realDb(), property, receiver);
+  },
+  has(_target, property) {
+    return Reflect.has(realDb(), property);
+  },
+});
 
 /** Transaction handle, as passed to `db.transaction(...)`. */
 export type Transaction = Parameters<Parameters<Database['transaction']>[0]>[0];

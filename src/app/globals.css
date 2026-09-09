@@ -1,0 +1,373 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   Design system foundation (§39)
+
+   The whole file is written so that no rule needs to know the document's
+   direction. Two mechanisms make that work:
+
+   1. CSS logical properties everywhere (`margin-inline`, `padding-inline`,
+      `inset-inline`, `border-inline-start`, `text-align: start`). The browser
+      resolves "start" against `dir`, so one rule lays out correctly in Arabic
+      and English. Tailwind v4's `ms-*`, `me-*`, `ps-*`, `pe-*`, `start-*` and
+      `end-*` utilities compile to exactly these.
+   2. Direction-sensitive *content* — an arrow, a chevron, a progress bar — is
+      flipped with `[dir='rtl']` rules that mirror the glyph, not the layout.
+
+   The one place physical properties are still correct is a shadow or a
+   transform on something that has no reading direction.
+   ========================================================================== */
+
+@theme {
+  /* --- Typography ------------------------------------------------------- */
+  /* Arabic needs a face with real Naskh shaping and a taller x-height; the
+     Latin stack is separate so neither language inherits the other's metrics. */
+  --font-arabic: 'Noto Kufi Arabic', 'Cairo', 'Segoe UI', Tahoma, 'Noto Naskh Arabic', system-ui, sans-serif;
+  --font-latin: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* --- Brand ------------------------------------------------------------ */
+  /* Green anchors the palette: it reads as trustworthy and institutional in
+     Gulf business software, and it matches the existing n8n chat surfaces. */
+  --color-brand-50: oklch(0.968 0.028 158);
+  --color-brand-100: oklch(0.932 0.056 158);
+  --color-brand-200: oklch(0.874 0.089 158);
+  --color-brand-300: oklch(0.802 0.117 158);
+  --color-brand-400: oklch(0.718 0.134 158);
+  --color-brand-500: oklch(0.628 0.131 158);
+  --color-brand-600: oklch(0.524 0.114 158);
+  --color-brand-700: oklch(0.432 0.094 158);
+  --color-brand-800: oklch(0.358 0.076 158);
+  --color-brand-900: oklch(0.302 0.062 158);
+
+  --radius-card: 0.875rem;
+  --radius-control: 0.625rem;
+}
+
+/* --------------------------------------------------------------------------
+   Semantic tokens
+
+   Components reference these, never a raw palette step, so the dark theme is
+   one block of overrides rather than a `dark:` variant on every element.
+   -------------------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+
+  --surface-page: oklch(0.985 0.002 250);
+  --surface-card: oklch(1 0 0);
+  --surface-raised: oklch(0.975 0.003 250);
+  --surface-sunken: oklch(0.955 0.004 250);
+  --surface-inverse: oklch(0.22 0.012 250);
+
+  --text-primary: oklch(0.24 0.012 250);
+  --text-secondary: oklch(0.46 0.011 250);
+  --text-muted: oklch(0.58 0.010 250);
+  --text-inverse: oklch(0.98 0.002 250);
+  --text-brand: var(--color-brand-700);
+
+  --border-subtle: oklch(0.918 0.005 250);
+  --border-strong: oklch(0.845 0.008 250);
+  --border-focus: var(--color-brand-600);
+
+  --status-success-bg: oklch(0.945 0.045 158);
+  --status-success-fg: oklch(0.40 0.09 158);
+  --status-warning-bg: oklch(0.955 0.055 85);
+  --status-warning-fg: oklch(0.45 0.10 65);
+  --status-danger-bg: oklch(0.950 0.035 25);
+  --status-danger-fg: oklch(0.47 0.15 25);
+  --status-info-bg: oklch(0.950 0.030 250);
+  --status-info-fg: oklch(0.45 0.10 255);
+  --status-neutral-bg: oklch(0.950 0.004 250);
+  --status-neutral-fg: oklch(0.44 0.010 250);
+
+  --shadow-card: 0 1px 2px oklch(0.2 0.01 250 / 0.05), 0 1px 3px oklch(0.2 0.01 250 / 0.04);
+  --shadow-raised: 0 4px 12px oklch(0.2 0.01 250 / 0.08);
+  --shadow-overlay: 0 16px 48px oklch(0.15 0.01 250 / 0.18);
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --surface-page: oklch(0.178 0.010 250);
+  --surface-card: oklch(0.218 0.011 250);
+  --surface-raised: oklch(0.252 0.012 250);
+  --surface-sunken: oklch(0.152 0.009 250);
+  --surface-inverse: oklch(0.96 0.002 250);
+
+  --text-primary: oklch(0.965 0.003 250);
+  --text-secondary: oklch(0.775 0.008 250);
+  --text-muted: oklch(0.640 0.010 250);
+  --text-inverse: oklch(0.20 0.010 250);
+  --text-brand: var(--color-brand-300);
+
+  --border-subtle: oklch(0.298 0.012 250);
+  --border-strong: oklch(0.382 0.014 250);
+  --border-focus: var(--color-brand-400);
+
+  --status-success-bg: oklch(0.30 0.055 158);
+  --status-success-fg: oklch(0.86 0.10 158);
+  --status-warning-bg: oklch(0.32 0.060 75);
+  --status-warning-fg: oklch(0.88 0.11 85);
+  --status-danger-bg: oklch(0.31 0.070 25);
+  --status-danger-fg: oklch(0.87 0.10 25);
+  --status-info-bg: oklch(0.30 0.050 255);
+  --status-info-fg: oklch(0.86 0.08 255);
+  --status-neutral-bg: oklch(0.278 0.010 250);
+  --status-neutral-fg: oklch(0.80 0.008 250);
+
+  --shadow-card: 0 1px 2px oklch(0 0 0 / 0.28), 0 1px 3px oklch(0 0 0 / 0.22);
+  --shadow-raised: 0 4px 14px oklch(0 0 0 / 0.36);
+  --shadow-overlay: 0 16px 48px oklch(0 0 0 / 0.55);
+}
+
+/* Respect the OS preference until the user makes an explicit choice. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+
+    --surface-page: oklch(0.178 0.010 250);
+    --surface-card: oklch(0.218 0.011 250);
+    --surface-raised: oklch(0.252 0.012 250);
+    --surface-sunken: oklch(0.152 0.009 250);
+    --surface-inverse: oklch(0.96 0.002 250);
+
+    --text-primary: oklch(0.965 0.003 250);
+    --text-secondary: oklch(0.775 0.008 250);
+    --text-muted: oklch(0.640 0.010 250);
+    --text-inverse: oklch(0.20 0.010 250);
+    --text-brand: var(--color-brand-300);
+
+    --border-subtle: oklch(0.298 0.012 250);
+    --border-strong: oklch(0.382 0.014 250);
+    --border-focus: var(--color-brand-400);
+
+    --status-success-bg: oklch(0.30 0.055 158);
+    --status-success-fg: oklch(0.86 0.10 158);
+    --status-warning-bg: oklch(0.32 0.060 75);
+    --status-warning-fg: oklch(0.88 0.11 85);
+    --status-danger-bg: oklch(0.31 0.070 25);
+    --status-danger-fg: oklch(0.87 0.10 25);
+    --status-info-bg: oklch(0.30 0.050 255);
+    --status-info-fg: oklch(0.86 0.08 255);
+    --status-neutral-bg: oklch(0.278 0.010 250);
+    --status-neutral-fg: oklch(0.80 0.008 250);
+
+    --shadow-card: 0 1px 2px oklch(0 0 0 / 0.28), 0 1px 3px oklch(0 0 0 / 0.22);
+    --shadow-raised: 0 4px 14px oklch(0 0 0 / 0.36);
+    --shadow-overlay: 0 16px 48px oklch(0 0 0 / 0.55);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Prevents iOS Safari inflating text in one orientation only. */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--surface-page);
+  color: var(--text-primary);
+  font-family: var(--font-latin);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Arabic gets its own stack and a looser line-height: Naskh forms carry
+   ascenders and descenders that collide at the Latin default of ~1.5. */
+html[lang='ar'] body {
+  font-family: var(--font-arabic);
+  line-height: 1.85;
+}
+
+html[lang='en'] body {
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   Focus (§40)
+
+   A single visible focus ring on every interactive element. `:focus-visible`
+   rather than `:focus` so a mouse click does not leave a ring, but every
+   keyboard path does.
+   -------------------------------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Never remove the outline without replacing it. */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* --------------------------------------------------------------------------
+   Direction-sensitive content
+
+   Layout is handled by logical properties. What remains are glyphs and
+   animations whose *meaning* is directional.
+   -------------------------------------------------------------------------- */
+
+/* Chevrons and arrows that point "forward" must mirror in RTL. Marked
+   explicitly with `data-flip-rtl` rather than flipping every icon, because a
+   clock, a checkmark or a logo must not mirror. */
+[dir='rtl'] [data-flip-rtl] {
+  transform: scaleX(-1);
+}
+
+/* A progress bar fills from the reading start in both directions. */
+.progress-track {
+  direction: inherit;
+}
+
+/* Numbers, IDs, URLs and filenames inside Arabic prose keep their own
+   direction so the bidi algorithm cannot reorder them. */
+.bidi-isolate {
+  unicode-bidi: isolate;
+}
+
+/* Latin-script technical values (Meta IDs, correlation ids, hex) rendered
+   inside an RTL paragraph. */
+.force-ltr {
+  direction: ltr;
+  unicode-bidi: isolate;
+  text-align: start;
+}
+
+/* --------------------------------------------------------------------------
+   Scrollbars
+   -------------------------------------------------------------------------- */
+.scrollbar-slim {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+.scrollbar-slim::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbar-slim::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 4px;
+}
+
+.scrollbar-slim::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   Motion (§40)
+
+   Every animation is opt-out for users who ask for reduced motion.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes aiw-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes aiw-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes aiw-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-spin-slow {
+  animation: aiw-spin 1s linear infinite;
+}
+
+.animate-pulse-soft {
+  animation: aiw-pulse 1.8s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: aiw-fade-in 0.18s ease-out;
+}
+
+/* --------------------------------------------------------------------------
+   Accessibility helpers
+   -------------------------------------------------------------------------- */
+
+/* Visually hidden but announced by screen readers. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* The skip link: hidden until focused, then pinned to the reading start. */
+.skip-link {
+  position: absolute;
+  inset-block-start: 0.5rem;
+  inset-inline-start: 0.5rem;
+  z-index: 100;
+  transform: translateY(-200%);
+  transition: transform 0.15s ease-out;
+  background: var(--surface-card);
+  color: var(--text-primary);
+  padding: 0.625rem 1rem;
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-raised);
+  border: 1px solid var(--border-strong);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* --------------------------------------------------------------------------
+   Print
+   -------------------------------------------------------------------------- */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+}

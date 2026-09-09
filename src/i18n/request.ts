@@ -63,7 +63,6 @@ export default getRequestConfig(async ({ requestLocale }) => {
       if (process.env.NODE_ENV === 'development') {
         throw error;
       }
-      // eslint-disable-next-line no-console
       console.error('[i18n]', error.message);
     },
     getMessageFallback({ namespace, key }) {

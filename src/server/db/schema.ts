@@ -6,12 +6,10 @@ import {
   timestamp,
   integer,
   bigint,
-  boolean,
   jsonb,
   numeric,
   index,
   uniqueIndex,
-  primaryKey,
   check,
 } from 'drizzle-orm/pg-core';
 import { sql, relations } from 'drizzle-orm';
