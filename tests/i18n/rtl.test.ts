@@ -9,10 +9,14 @@ import { detectDirection, isolate, formatCurrencyMinor, formatBytes } from '@/i1
  * RTL/LTR architecture tests (§6, §44).
  *
  * The static analysis below is the important half. Direction bugs are the kind
- * that pass every visual review conducted in English: a `pl-4` renders
- * perfectly for an English reader and puts the padding on the wrong side for an
- * Arabic one. A person testing in one language cannot see it, so it has to be
- * a machine check.
+ * that pass every visual review conducted in English: a physical start-padding
+ * renders perfectly for an English reader and lands on the wrong side for an
+ * Arabic one. A person testing in one language cannot see it, so it has to be a
+ * machine check.
+ *
+ * The forbidden tokens are assembled from fragments rather than written out,
+ * because Tailwind scans this repository for class-like strings and would
+ * generate the very CSS these tests exist to forbid.
  */
 
 const SOURCE_ROOT = path.resolve(__dirname, '../../src');
@@ -186,5 +190,61 @@ describe('locale-aware formatting', () => {
     expect(formatBytes(1024, 'en')).toContain('1');
     expect(formatBytes(1024, 'en')).toContain('KB');
     expect(formatBytes(5 * 1024 * 1024, 'ar')).toContain('MB');
+  });
+});
+
+describe('shipped stylesheet', () => {
+  /**
+   * Asserts against the *built* CSS, not the source.
+   *
+   * The source-scanning test above catches a physical utility written in a
+   * component. This one catches everything else that can put a physical
+   * property in the bundle: a Tailwind preflight rule, a dependency's styles,
+   * or — the case that actually happened here — the scanner picking up a class
+   * name written inside a code comment and emitting the rule for it.
+   *
+   * Skipped when `.next` has not been built, so `npm test` works on a clean
+   * clone; CI runs the build before the tests, so it always executes there.
+   */
+  const cssFiles = globSync('.next/static/css/*.css', {
+    cwd: path.resolve(__dirname, '../..'),
+  }).map((relative) => path.resolve(__dirname, '../..', relative));
+
+  it.skipIf(cssFiles.length === 0)(
+    'contains no physical-direction CSS properties',
+    () => {
+      const offenders: string[] = [];
+
+      for (const file of cssFiles) {
+        const css = readFileSync(file, 'utf8');
+        for (const property of [
+          'margin-left:',
+          'margin-right:',
+          'padding-left:',
+          'padding-right:',
+          'text-align:left',
+          'text-align:right',
+          'border-left-width',
+          'border-right-width',
+        ]) {
+          const count = css.split(property).length - 1;
+          if (count > 0) {
+            offenders.push(`${path.basename(file)}: ${count}× ${property}`);
+          }
+        }
+      }
+
+      expect(offenders, 'physical properties do not respond to dir').toEqual([]);
+    },
+  );
+
+  it.skipIf(cssFiles.length === 0)('does emit logical properties', () => {
+    const css = cssFiles.map((file) => readFileSync(file, 'utf8')).join('');
+
+    // Guards against the previous assertion passing trivially because the
+    // stylesheet contains no directional layout at all.
+    expect(css).toContain('padding-inline');
+    expect(css).toContain('margin-inline');
+    expect(css).toContain('border-inline');
   });
 });

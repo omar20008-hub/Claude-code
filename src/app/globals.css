@@ -1,4 +1,13 @@
-@import 'tailwindcss';
+/* `source(none)` disables Tailwind's automatic file discovery, and the explicit
+   @source below scopes scanning to application code.
+
+   Without this the scanner also reads tests/ and docs/, where the forbidden
+   physical-direction class names are written out as literals — and would emit
+   the exact CSS rules (a physical start-padding, a physical text alignment)
+   that the RTL architecture forbids. Narrowing the scan keeps the shipped
+   stylesheet honest and a few rules smaller. */
+@import 'tailwindcss' source(none);
+@source '../**/*.{ts,tsx}';
 
 /* ==========================================================================
    Design system foundation (§39)

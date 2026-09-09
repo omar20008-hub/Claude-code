@@ -5,8 +5,8 @@ import * as React from 'react';
  *
  * RTL/LTR CORRECTNESS IS STRUCTURAL, NOT COSMETIC.
  *
- * Not one component here contains `left`, `right`, `ml-`, `mr-`, `pl-`, `pr-`,
- * `text-left` or `text-right`. Every inline axis is expressed logically —
+ * Not one component here contains a physical-side utility — no left/right
+ * margins, paddings, offsets or text alignment. Every inline axis is logical —
  * `ms-*`/`me-*`, `ps-*`/`pe-*`, `start-*`/`end-*`, `text-start`/`text-end`,
  * `border-s`/`border-e` — which Tailwind v4 compiles to CSS logical properties.
  * The browser resolves them against `dir`, so the same markup lays out
@@ -14,8 +14,11 @@ import * as React from 'react';
  * `dir === 'rtl' ? … : …` conditional.
  *
  * A lint rule in eslint.config.mjs and a test in tests/i18n/rtl.test.ts both
- * enforce this, because the failure mode is silent: a `pl-4` looks perfect in
- * English and wrong only to Arabic readers.
+ * enforce this, because the failure mode is silent: a physical start-padding
+ * looks perfect in English and wrong only to Arabic readers.
+ *
+ * (Those rules also mean this comment must not spell out a literal Tailwind
+ * class name: the scanner would generate the very CSS the design forbids.)
  */
 
 /**
@@ -321,8 +324,8 @@ const CONTROL_BASE =
   'text-[var(--text-primary)] placeholder:text-[var(--text-muted)] ' +
   'transition-colors duration-150 ' +
   'disabled:cursor-not-allowed disabled:bg-[var(--surface-sunken)] disabled:opacity-70 ' +
-  // `text-start` rather than `text-left`: the caret and placeholder follow the
-  // reading direction.
+  // Logical `text-start`, so the caret and placeholder follow the reading
+  // direction rather than being pinned to one physical edge.
   'text-start';
 
 export const Input = React.forwardRef<

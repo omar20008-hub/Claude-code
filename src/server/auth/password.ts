@@ -138,26 +138,136 @@ export async function fakeVerify(): Promise<void> {
  * Password policy (§11).
  *
  * Length over composition rules, following NIST SP 800-63B: a 12-character
- * minimum with no forced character classes, plus a block list for the
- * predictable choices. Returns i18n rule keys, never English prose.
+ * minimum with no forced character classes, and no mandatory rotation. NIST's
+ * accompanying requirement is the part that is usually skipped — screening
+ * against known-weak choices — so that is what the checks below do.
+ *
+ * An exact-match block list is not enough. "password1234" is twelve characters
+ * of distinct-enough content and would sail past a naive check while being
+ * among the first guesses any attacker makes. So the screening is structural:
+ * strip the predictable padding people add to a weak base word, and judge what
+ * is left.
+ *
+ * Returns i18n rule keys, never English prose.
  */
 export const PASSWORD_MIN_LENGTH = 12;
 export const PASSWORD_MAX_LENGTH = 256;
 
-const COMMON_PASSWORDS = new Set([
-  'password', 'password1', 'password123', '123456789012', 'qwertyuiop',
-  'administrator', 'letmein12345', 'welcome12345', 'iloveyou1234',
-  'aaaaaaaaaaaa', '111111111111', 'passw0rd1234',
-]);
+/**
+ * Weak base words. Kept deliberately short: it lists *stems*, and the
+ * normalisation below strips the digits, years, punctuation and leetspeak that
+ * turn a stem into the thousands of variants a real breach corpus contains.
+ */
+const WEAK_BASES = [
+  'password', 'passwd', 'pass', 'secret', 'letmein', 'welcome', 'admin',
+  'administrator', 'root', 'login', 'user', 'guest', 'test', 'demo',
+  'qwerty', 'qwertyuiop', 'asdf', 'asdfgh', 'zxcvbn', 'azerty',
+  'iloveyou', 'monkey', 'dragon', 'sunshine', 'princess', 'football',
+  'baseball', 'superman', 'trustno', 'master', 'shadow', 'michael',
+  'abc', 'changeme', 'default', 'temporary', 'temp',
+  // Arabic-keyboard and transliterated equivalents seen in regional corpora.
+  'marhaba', 'ahlan', 'habibi', 'salam', 'allah', 'riyadh', 'saudi',
+];
+
+/** Common leetspeak substitutions, reversed so `p@ssw0rd` reduces to `password`. */
+const LEET: Record<string, string> = {
+  '@': 'a', '4': 'a', '8': 'b', '(': 'c', '3': 'e', '6': 'g',
+  '1': 'i', '!': 'i', '|': 'i', '0': 'o', '5': 's', '$': 's', '7': 't', '+': 't',
+};
+
+/**
+ * Produces the alphabetic forms a weak base could be hiding in.
+ *
+ * Two candidates, because one normalisation cannot catch both tricks:
+ *
+ *  - Strip non-letters only. "password1234" -> "password". Trailing digits are
+ *    padding and should simply vanish.
+ *  - Apply leetspeak first, then strip. "p@ssw0rd" -> "password". Here the
+ *    digits stand in for letters and must be translated, not dropped.
+ *
+ * Doing leet substitution before stripping in a single pass gets the first case
+ * wrong: it turns "password1234" into "passwordiea", which matches nothing.
+ */
+function screeningCandidates(password: string): string[] {
+  const lowered = password.toLowerCase();
+
+  const lettersOnly = lowered.replace(/[^a-z]/g, '');
+  const leetTranslated = lowered
+    .split('')
+    .map((char) => LEET[char] ?? char)
+    .join('')
+    .replace(/[^a-z]/g, '');
+
+  return [...new Set([lettersOnly, leetTranslated])].filter((candidate) => candidate.length > 0);
+}
+
+/**
+ * True when a weak base word accounts for most of a candidate's alphabetic
+ * content. A ratio test rather than an exact match, so "Password2026" is caught
+ * while "toastmaster-recipe-2026" — which merely contains "master" — is not.
+ */
+const WEAK_BASE_DOMINANCE = 0.6;
+
+function containsDominantWeakBase(candidate: string): boolean {
+  for (const base of WEAK_BASES) {
+    if (base.length < 3) continue;
+    if (!candidate.includes(base)) continue;
+    if (base.length / candidate.length >= WEAK_BASE_DOMINANCE) return true;
+  }
+  return false;
+}
+
+/** True when the string is one long run of ascending or descending characters. */
+function isSequentialRun(value: string): boolean {
+  if (value.length < 4) return false;
+  let ascending = true;
+  let descending = true;
+
+  for (let i = 1; i < value.length; i += 1) {
+    const delta = value.charCodeAt(i) - value.charCodeAt(i - 1);
+    if (delta !== 1) ascending = false;
+    if (delta !== -1) descending = false;
+    if (!ascending && !descending) return false;
+  }
+  return ascending || descending;
+}
+
+/** True when the whole string is a short block repeated (e.g. "abcabcabcabc"). */
+function isRepeatedBlock(value: string): boolean {
+  for (let size = 1; size <= Math.floor(value.length / 2); size += 1) {
+    if (value.length % size !== 0) continue;
+    const block = value.slice(0, size);
+    if (block.repeat(value.length / size) === value) return true;
+  }
+  return false;
+}
 
 export function validatePasswordStrength(password: string): string[] {
   const failures: string[] = [];
 
   if (password.length < PASSWORD_MIN_LENGTH) failures.push('too_short');
   if (password.length > PASSWORD_MAX_LENGTH) failures.push('too_long');
-  if (COMMON_PASSWORDS.has(password.toLowerCase())) failures.push('too_common');
-  // A password of one repeated character passes a naive length check.
-  if (password.length > 0 && new Set(password).size < 4) failures.push('too_simple');
 
-  return failures;
+  // Nothing further is meaningful for an empty or over-long value.
+  if (password.length === 0 || password.length > PASSWORD_MAX_LENGTH) return failures;
+
+  // A password whose alphabetic core IS a weak base, or a weak base plus
+  // padding that contributes nothing (digits, a year, punctuation, leetspeak).
+  if (screeningCandidates(password).some(containsDominantWeakBase)) {
+    failures.push('too_common');
+  }
+
+  // Structural weakness, independent of any word list.
+  const lowered = password.toLowerCase();
+  if (
+    new Set(password).size < 5 ||
+    isSequentialRun(lowered) ||
+    isRepeatedBlock(lowered) ||
+    // All digits, however long: "123456789012" or a phone number.
+    /^\d+$/.test(password)
+  ) {
+    failures.push('too_simple');
+  }
+
+  return [...new Set(failures)];
 }
