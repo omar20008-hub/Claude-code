@@ -166,7 +166,8 @@
       "confirmPassword": "Confirm new password",
       "submit": "Update password",
       "success": "Password updated. All other sessions have been signed out.",
-      "expired": "This reset link has expired or has already been used."
+      "expired": "This reset link has expired or has already been used.",
+      "backToLogin": "Back to sign in"
     },
     "password": {
       "requirements": "At least {min} characters.",

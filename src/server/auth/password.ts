@@ -1,5 +1,9 @@
 import { scrypt, randomBytes, timingSafeEqual, type ScryptOptions } from 'node:crypto';
 import { promisify } from 'node:util';
+import { PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH } from '@/lib/password-policy';
+
+// Re-exported so server-side callers have one import for hashing and policy.
+export { PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH };
 
 /**
  * `promisify` cannot see through scrypt's overloads, so the options-carrying
@@ -134,24 +138,20 @@ export async function fakeVerify(): Promise<void> {
   });
 }
 
-/**
- * Password policy (§11).
- *
- * Length over composition rules, following NIST SP 800-63B: a 12-character
- * minimum with no forced character classes, and no mandatory rotation. NIST's
- * accompanying requirement is the part that is usually skipped — screening
- * against known-weak choices — so that is what the checks below do.
- *
- * An exact-match block list is not enough. "password1234" is twelve characters
- * of distinct-enough content and would sail past a naive check while being
- * among the first guesses any attacker makes. So the screening is structural:
- * strip the predictable padding people add to a weak base word, and judge what
- * is left.
- *
- * Returns i18n rule keys, never English prose.
- */
-export const PASSWORD_MIN_LENGTH = 12;
-export const PASSWORD_MAX_LENGTH = 256;
+/* -------------------------------------------------------------------------- */
+/* Password policy (§11)                                                      */
+/*                                                                            */
+/* Length over composition rules, following NIST SP 800-63B: a 12-character   */
+/* minimum with no forced character classes and no mandatory rotation. NIST's  */
+/* accompanying requirement is the part usually skipped — screening against    */
+/* known-weak choices — and that is what the checks below do.                  */
+/*                                                                            */
+/* An exact-match block list is not enough. "password1234" is twelve           */
+/* characters of distinct-enough content: it sails past a naive check while    */
+/* being among the first guesses any attacker makes. So the screening is       */
+/* structural — strip the predictable padding people add to a weak base word,  */
+/* then judge what is left.                                                    */
+/* -------------------------------------------------------------------------- */
 
 /**
  * Weak base words. Kept deliberately short: it lists *stems*, and the
@@ -242,6 +242,12 @@ function isRepeatedBlock(value: string): boolean {
   return false;
 }
 
+/**
+ * Screens a candidate password.
+ *
+ * Returns i18n rule keys (`too_short`, `too_common`, …), never English prose,
+ * so the same failure renders in the reader's language.
+ */
 export function validatePasswordStrength(password: string): string[] {
   const failures: string[] = [];
 

@@ -3,7 +3,7 @@ import { route, jsonResponse } from '@/server/api/handler';
 import { registerOrganization } from '@/server/services/auth-service';
 import { POLICIES } from '@/server/security/rate-limit';
 import { locales } from '@/i18n/config';
-import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from '@/server/auth/password';
+import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from '@/lib/password-policy';
 
 const bodySchema = z.object({
   organizationName: z.string().trim().min(2).max(200),

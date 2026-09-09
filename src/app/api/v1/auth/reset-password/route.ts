@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { route, jsonResponse } from '@/server/api/handler';
 import { resetPassword } from '@/server/services/auth-service';
 import { POLICIES } from '@/server/security/rate-limit';
-import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from '@/server/auth/password';
+import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from '@/lib/password-policy';
 
 const bodySchema = z.object({
   token: z.string().min(16).max(256),
