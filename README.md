@@ -145,6 +145,7 @@ the reader's language, with the reason.
 | [observability.md](./docs/observability.md) | Logs, audit trail, system events, health |
 | [deployment.md](./docs/deployment.md) | Topology, configuration, CI |
 | [disaster-recovery.md](./docs/disaster-recovery.md) | Backup requirements and restore procedure |
+| [engineering-report.md](./docs/engineering-report.md) | Final report: what was built, what was found, what to do next |
 
 ---
 
