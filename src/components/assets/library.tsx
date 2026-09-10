@@ -208,9 +208,9 @@ export function AssetLibrary({
                     URL only after checking the asset belongs to this tenant. */}
                 <div className="relative aspect-video bg-[var(--surface-sunken)]">
                   {asset.kind === 'IMAGE' ? (
-                    // eslint-disable-next-line @next/next/no-img-element -- the
-                    // source is a short-lived presigned URL on an arbitrary S3
-                    // host, which next/image cannot pre-optimise.
+                    // The source is a short-lived presigned URL on an arbitrary
+                    // S3 host, which next/image cannot pre-optimise.
+                    // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={`/api/v1/assets/${asset.id}/content`}
                       alt={asset.title}

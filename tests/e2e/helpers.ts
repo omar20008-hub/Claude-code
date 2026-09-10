@@ -38,7 +38,7 @@ export async function closeAdmin(): Promise<void> {
  * has navigated has `about:blank` as its URL, whose origin is the string
  * "null" — which the server correctly refuses.
  */
-const APP_ORIGIN = new URL(process.env.APP_URL ?? 'http://127.0.0.1:3000').origin;
+const APP_ORIGIN = new URL(process.env.APP_URL ?? 'http://localhost:3000').origin;
 
 export interface TestAccount {
   email: string;

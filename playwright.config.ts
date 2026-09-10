@@ -1,5 +1,32 @@
 import { defineConfig, devices } from '@playwright/test';
 import { existsSync } from 'node:fs';
+import { loadEnvConfig } from '@next/env';
+
+/**
+ * Load `.env` the same way the server under test does.
+ *
+ * Playwright does not read `.env`, but the fixtures need `DATABASE_URL` (to
+ * activate a registered account and to clear rate-limit windows) and `APP_URL`
+ * (to send an acceptable `Origin`). Without this the fixtures silently address
+ * a *different* database than the running server, and the failures that
+ * produces — 403 on every POST, or a rate limit that "will not clear" — look
+ * like product bugs rather than a configuration gap.
+ *
+ * `loadEnvConfig` is Next's own loader, so precedence here is identical to the
+ * server's. Anything already exported in the environment still wins, which is
+ * what lets CI point the suite at its own database.
+ */
+const HAD_NODE_ENV = process.env.NODE_ENV !== undefined;
+loadEnvConfig(process.cwd(), false, { info: () => {}, error: console.error });
+
+// `.env` carries `NODE_ENV=development` for `next dev`. Letting that reach the
+// web server would have the suite exercise the development configuration —
+// a looser CSP and a cookie without the `__Host-` prefix — which is not what
+// ships. The suite runs against the production build, so the value a developer
+// keeps for `npm run dev` is dropped here unless it was set deliberately.
+// `process.env.NODE_ENV` is typed read-only by @types/node; deleting the key is
+// the intent, so the index access goes through the untyped record.
+if (!HAD_NODE_ENV) delete (process.env as Record<string, string | undefined>).NODE_ENV;
 
 /**
  * Chromium executable.
@@ -23,6 +50,18 @@ const chromiumLaunch = PRESET_CHROMIUM
   : {};
 
 /**
+ * The origin under test.
+ *
+ * This must be the *same string* the server has as `APP_URL`, not merely an
+ * address that reaches it. State-changing requests carry an `Origin` header
+ * that the handler compares against `APP_URL`, so driving `127.0.0.1:3000`
+ * against a server configured for `localhost:3000` makes every POST a 403 —
+ * the CSRF control working exactly as designed, on a false positive. The
+ * default therefore matches `.env.example`; CI sets both from one value.
+ */
+const APP_URL = process.env.APP_URL ?? 'http://localhost:3000';
+
+/**
  * End-to-end configuration.
  *
  * Two projects, one per language, rather than one project that switches
@@ -44,7 +83,7 @@ export default defineConfig({
   expect: { timeout: 10_000 },
 
   use: {
-    baseURL: process.env.APP_URL ?? 'http://127.0.0.1:3000',
+    baseURL: APP_URL,
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
@@ -86,7 +125,7 @@ export default defineConfig({
 
   webServer: {
     command: 'npm run start',
-    url: 'http://127.0.0.1:3000/api/v1/health',
+    url: `${APP_URL}/api/v1/health`,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
     stdout: 'pipe',
