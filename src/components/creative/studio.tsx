@@ -11,13 +11,15 @@ import {
   CardBody,
   CardHeader,
   EmptyState,
-  Field,
   PageHeader,
   Progress,
-  Select,
-  Textarea,
   cn,
 } from '@/components/ui/primitives';
+import {
+  Field,
+  Select,
+  Textarea,
+} from '@/components/ui/form';
 import { IconCreative, IconImage, IconVideo, IconChevron } from '@/components/ui/icons';
 import { ErrorMessage } from '@/components/auth/error-message';
 import { apiFetch, ApiError } from '@/components/auth/api-error';

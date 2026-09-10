@@ -245,6 +245,42 @@ describe('message catalogues', () => {
     expect(suspicious).toEqual([]);
   });
 
+  it('contains no key whose own name has a dot in it', () => {
+    /*
+     * next-intl resolves `t('actions.auth.login')` by SPLITTING on dots and
+     * walking the object. A catalogue entry literally named "auth.login" is a
+     * different thing entirely, and the lookup misses it — the page then renders
+     * the raw key path to the user.
+     *
+     * This shipped: activity.actions held 26 flat keys like "auth.login", and
+     * the whole Activity page showed key paths instead of action names in both
+     * languages. Neither catalogue test caught it, because they flatten with
+     * dots and so cannot tell a dotted key from a nested path; the usage test
+     * had the same blind spot. It surfaced only as a MISSING_MESSAGE line in
+     * the server log during an end-to-end run.
+     *
+     * Walking the raw objects, rather than a flattened view, is what makes the
+     * distinction visible.
+     */
+    const offenders: string[] = [];
+
+    const walk = (node: Catalogue, path: string, locale: string): void => {
+      for (const [key, value] of Object.entries(node)) {
+        if (key.includes('.')) {
+          offenders.push(`${locale}: "${key}" at ${path || '(root)'}`);
+        }
+        if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
+          walk(value as Catalogue, path ? `${path}.${key}` : key, locale);
+        }
+      }
+    };
+
+    walk(en as Catalogue, '', 'en');
+    walk(ar as Catalogue, '', 'ar');
+
+    expect(offenders, 'dotted key names are unreachable through dot-path lookup').toEqual([]);
+  });
+
   it('keeps every locale directional metadata consistent', () => {
     expect(localeConfig.ar.direction).toBe('rtl');
     expect(localeConfig.en.direction).toBe('ltr');

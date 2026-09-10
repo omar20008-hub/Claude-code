@@ -572,10 +572,10 @@
         "change": "Change creative",
         "placement": "Placement",
         "placements": {
-          "Feed 1:1": "Feed — square (1:1)",
-          "Feed 4:5": "Feed — portrait (4:5)",
-          "Stories / Reels 9:16": "Stories and Reels (9:16)",
-          "Landscape 1.91:1": "Landscape (1.91:1)"
+          "feed_square": "Feed — square (1:1)",
+          "feed_portrait": "Feed — portrait (4:5)",
+          "stories_reels": "Stories and Reels (9:16)",
+          "landscape": "Landscape (1.91:1)"
         },
         "specNotice": "The workflow validates the creative against Meta's specs: at least {minSide}px on the short side, and an aspect ratio matching the chosen placement within {tolerance}.",
         "specMismatch": "This asset is {ratio} but {placement} needs {expected}. The workflow will reject it."
@@ -726,32 +726,50 @@
       "FAILURE": "Failed"
     },
     "actions": {
-      "auth.login": "Signed in",
-      "auth.login_failed": "Sign-in failed",
-      "auth.logout": "Signed out",
-      "auth.register": "Created the organization",
-      "auth.email_verified": "Verified their email address",
-      "auth.password_reset_requested": "Requested a password reset",
-      "auth.password_reset": "Reset their password",
-      "auth.sessions_revoked": "Signed out all sessions",
-      "agent.invoked": "Ran an agent",
-      "agent.failed": "An agent run failed",
-      "knowledge.query": "Asked the Knowledge Agent",
-      "knowledge.sync": "Synchronized the knowledge source",
-      "conversation.created": "Started a conversation",
-      "conversation.deleted": "Deleted a conversation",
-      "asset.generated": "Generated an asset",
-      "asset.deleted": "Deleted an asset",
-      "campaign.created": "Created a campaign",
-      "campaign.updated": "Updated a campaign",
-      "campaign.approved": "Approved a campaign",
-      "campaign.launched": "Submitted a campaign to Meta",
-      "campaign.launch_failed": "A campaign submission failed",
-      "campaign.deleted": "Deleted a campaign",
-      "integration.connected": "Connected an integration",
-      "integration.disconnected": "Disconnected an integration",
-      "settings.updated": "Changed workspace settings",
-      "webhook.rejected": "Rejected an unauthenticated callback"
+      "auth": {
+        "login": "Signed in",
+        "login_failed": "Sign-in failed",
+        "logout": "Signed out",
+        "register": "Created the organization",
+        "email_verified": "Verified their email address",
+        "password_reset_requested": "Requested a password reset",
+        "password_reset": "Reset their password",
+        "sessions_revoked": "Signed out all sessions"
+      },
+      "agent": {
+        "invoked": "Ran an agent",
+        "failed": "An agent run failed"
+      },
+      "knowledge": {
+        "query": "Asked the Knowledge Agent",
+        "sync": "Synchronized the knowledge source"
+      },
+      "conversation": {
+        "created": "Started a conversation",
+        "deleted": "Deleted a conversation"
+      },
+      "asset": {
+        "generated": "Generated an asset",
+        "deleted": "Deleted an asset"
+      },
+      "campaign": {
+        "created": "Created a campaign",
+        "updated": "Updated a campaign",
+        "approved": "Approved a campaign",
+        "launched": "Submitted a campaign to Meta",
+        "launch_failed": "A campaign submission failed",
+        "deleted": "Deleted a campaign"
+      },
+      "integration": {
+        "connected": "Connected an integration",
+        "disconnected": "Disconnected an integration"
+      },
+      "settings": {
+        "updated": "Changed workspace settings"
+      },
+      "webhook": {
+        "rejected": "Rejected an unauthenticated callback"
+      }
     },
     "systemActor": "System",
     "empty": {

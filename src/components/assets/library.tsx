@@ -9,12 +9,14 @@ import {
   Card,
   CardBody,
   EmptyState,
-  Input,
   PageHeader,
-  Select,
   Skeleton,
   cn,
 } from '@/components/ui/primitives';
+import {
+  Input,
+  Select,
+} from '@/components/ui/form';
 import { IconImage, IconVideo, IconSearch, IconChevron } from '@/components/ui/icons';
 import { formatBytes, formatRelativeTime, formatNumber } from '@/i18n/format';
 import type { Locale } from '@/i18n/config';

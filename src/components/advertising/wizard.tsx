@@ -9,14 +9,16 @@ import {
   Card,
   CardBody,
   CardHeader,
+  PageHeader,
+  cn,
+} from '@/components/ui/primitives';
+import {
   Checkbox,
   Field,
   Input,
-  PageHeader,
   Select,
   Textarea,
-  cn,
-} from '@/components/ui/primitives';
+} from '@/components/ui/form';
 import { IconChevron, IconCheck, IconAlert, IconImage } from '@/components/ui/icons';
 import { ErrorMessage } from '@/components/auth/error-message';
 import { apiFetch, ApiError } from '@/components/auth/api-error';
@@ -46,12 +48,19 @@ const STEPS = [
 ] as const;
 type Step = (typeof STEPS)[number];
 
-/** Placements the workflow's creative validator accepts, and their ratios. */
+/**
+ * Placements the workflow's creative validator accepts, with their required
+ * ratios and their catalogue keys.
+ *
+ * `value` is Meta's own string and goes on the wire; `key` is what the
+ * catalogue uses, because two of Meta's values contain dots and colons that a
+ * dot-path translation lookup cannot address.
+ */
 const PLACEMENTS = [
-  { value: 'Feed 1:1', ratio: 1 },
-  { value: 'Feed 4:5', ratio: 0.8 },
-  { value: 'Stories / Reels 9:16', ratio: 0.5625 },
-  { value: 'Landscape 1.91:1', ratio: 1.9104 },
+  { value: 'Feed 1:1', ratio: 1, key: 'feed_square' },
+  { value: 'Feed 4:5', ratio: 0.8, key: 'feed_portrait' },
+  { value: 'Stories / Reels 9:16', ratio: 0.5625, key: 'stories_reels' },
+  { value: 'Landscape 1.91:1', ratio: 1.9104, key: 'landscape' },
 ] as const;
 
 const RATIO_TOLERANCE = 0.03;
@@ -603,7 +612,7 @@ export function CampaignWizard({
                 >
                   {PLACEMENTS.map((placement) => (
                     <option key={placement.value} value={placement.value}>
-                      {tWizard(`creative.placements.${placement.value}`)}
+                      {tWizard(`creative.placements.${placement.key}`)}
                     </option>
                   ))}
                 </Select>

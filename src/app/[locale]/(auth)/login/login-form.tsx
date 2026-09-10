@@ -3,7 +3,15 @@
 import { useState, type FormEvent } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { Link, useRouter } from '@/i18n/routing';
-import { Button, Card, CardBody, Field, Input } from '@/components/ui/primitives';
+import {
+  Button,
+  Card,
+  CardBody,
+} from '@/components/ui/primitives';
+import {
+  Field,
+  Input,
+} from '@/components/ui/form';
 import { ErrorMessage, useFieldError } from '@/components/auth/error-message';
 import { apiFetch, ApiError } from '@/components/auth/api-error';
 import type { Locale } from '@/i18n/config';

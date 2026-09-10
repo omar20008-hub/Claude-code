@@ -572,10 +572,10 @@
         "change": "تغيير المادة",
         "placement": "موضع الظهور",
         "placements": {
-          "Feed 1:1": "الخلاصة — مربّع (١:١)",
-          "Feed 4:5": "الخلاصة — طولي (٤:٥)",
-          "Stories / Reels 9:16": "القصص والريلز (٩:١٦)",
-          "Landscape 1.91:1": "أفقي (١٫٩١:١)"
+          "feed_square": "الخلاصة — مربّع (١:١)",
+          "feed_portrait": "الخلاصة — طولي (٤:٥)",
+          "stories_reels": "القصص والريلز (٩:١٦)",
+          "landscape": "أفقي (١٫٩١:١)"
         },
         "specNotice": "يتحقق الورك فلو من مطابقة المادة لمواصفات Meta: ألا يقل الضلع الأقصر عن {minSide} بكسل، وأن تطابق النسبة موضع الظهور المختار بهامش {tolerance}.",
         "specMismatch": "نسبة هذا الأصل {ratio} بينما يتطلب {placement} نسبة {expected}، وسيرفضه الورك فلو."
@@ -726,32 +726,50 @@
       "FAILURE": "فشل"
     },
     "actions": {
-      "auth.login": "سجّل الدخول",
-      "auth.login_failed": "فشل تسجيل الدخول",
-      "auth.logout": "سجّل الخروج",
-      "auth.register": "أنشأ المنشأة",
-      "auth.email_verified": "وثّق بريده الإلكتروني",
-      "auth.password_reset_requested": "طلب إعادة تعيين كلمة المرور",
-      "auth.password_reset": "أعاد تعيين كلمة المرور",
-      "auth.sessions_revoked": "أنهى جميع الجلسات",
-      "agent.invoked": "شغّل وكيلًا",
-      "agent.failed": "فشل تشغيل وكيل",
-      "knowledge.query": "سأل وكيل المعرفة",
-      "knowledge.sync": "زامَن مصدر المعرفة",
-      "conversation.created": "بدأ محادثة",
-      "conversation.deleted": "حذف محادثة",
-      "asset.generated": "أنتج أصلًا",
-      "asset.deleted": "حذف أصلًا",
-      "campaign.created": "أنشأ حملة",
-      "campaign.updated": "عدّل حملة",
-      "campaign.approved": "اعتمد حملة",
-      "campaign.launched": "أرسل حملة إلى Meta",
-      "campaign.launch_failed": "فشل إرسال حملة",
-      "campaign.deleted": "حذف حملة",
-      "integration.connected": "ربط تكاملًا",
-      "integration.disconnected": "ألغى ربط تكامل",
-      "settings.updated": "غيّر إعدادات مساحة العمل",
-      "webhook.rejected": "رفض استدعاءً غير موثّق"
+      "auth": {
+        "login": "سجّل الدخول",
+        "login_failed": "فشل تسجيل الدخول",
+        "logout": "سجّل الخروج",
+        "register": "أنشأ المنشأة",
+        "email_verified": "وثّق بريده الإلكتروني",
+        "password_reset_requested": "طلب إعادة تعيين كلمة المرور",
+        "password_reset": "أعاد تعيين كلمة المرور",
+        "sessions_revoked": "أنهى جميع الجلسات"
+      },
+      "agent": {
+        "invoked": "شغّل وكيلًا",
+        "failed": "فشل تشغيل وكيل"
+      },
+      "knowledge": {
+        "query": "سأل وكيل المعرفة",
+        "sync": "زامَن مصدر المعرفة"
+      },
+      "conversation": {
+        "created": "بدأ محادثة",
+        "deleted": "حذف محادثة"
+      },
+      "asset": {
+        "generated": "أنتج أصلًا",
+        "deleted": "حذف أصلًا"
+      },
+      "campaign": {
+        "created": "أنشأ حملة",
+        "updated": "عدّل حملة",
+        "approved": "اعتمد حملة",
+        "launched": "أرسل حملة إلى Meta",
+        "launch_failed": "فشل إرسال حملة",
+        "deleted": "حذف حملة"
+      },
+      "integration": {
+        "connected": "ربط تكاملًا",
+        "disconnected": "ألغى ربط تكامل"
+      },
+      "settings": {
+        "updated": "غيّر إعدادات مساحة العمل"
+      },
+      "webhook": {
+        "rejected": "رفض استدعاءً غير موثّق"
+      }
     },
     "systemActor": "النظام",
     "empty": {

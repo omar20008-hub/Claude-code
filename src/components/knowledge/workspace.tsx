@@ -10,11 +10,14 @@ import {
   Card,
   CardBody,
   EmptyState,
-  Input,
+  PageHeader,
   Spinner,
-  Textarea,
   cn,
 } from '@/components/ui/primitives';
+import {
+  Input,
+  Textarea,
+} from '@/components/ui/form';
 import {
   IconKnowledge,
   IconSend,
@@ -249,7 +252,14 @@ export function KnowledgeWorkspace({
   const lastUserMessage = [...messages].reverse().find((m) => m.role === 'USER');
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[18rem_minmax(0,1fr)] xl:grid-cols-[18rem_minmax(0,1fr)_16rem]">
+    <>
+      {/* Every page needs exactly one level-1 heading. This workspace was
+          originally built as a bare three-column layout and had none, which
+          left screen-reader users with no way to identify the page and broke
+          the document outline. Caught by an end-to-end accessibility check. */}
+      <PageHeader title={t('title')} description={t('subtitle')} />
+
+      <div className="grid gap-4 lg:grid-cols-[18rem_minmax(0,1fr)] xl:grid-cols-[18rem_minmax(0,1fr)_16rem]">
       {/* --- Conversation list ------------------------------------------- */}
       <aside className="order-2 lg:order-1">
         <Card className="flex h-full flex-col">
@@ -305,7 +315,7 @@ export function KnowledgeWorkspace({
 
       {/* --- Chat --------------------------------------------------------- */}
       <section className="order-1 lg:order-2" aria-label={t('title')}>
-        <Card className="flex h-[calc(100dvh-9rem)] flex-col">
+        <Card className="flex h-[calc(100dvh-14rem)] min-h-96 flex-col">
           {!configured ? (
             <div className="p-4">
               <Alert tone="warning" title={t('sourcePanel.notConnected.title')}>
@@ -397,11 +407,12 @@ export function KnowledgeWorkspace({
         </Card>
       </section>
 
-      {/* --- Source panel -------------------------------------------------- */}
-      <aside className="order-3 xl:order-3">
-        <SourcePanel source={source} />
-      </aside>
-    </div>
+        {/* --- Source panel ------------------------------------------------ */}
+        <aside className="order-3 xl:order-3">
+          <SourcePanel source={source} />
+        </aside>
+      </div>
+    </>
   );
 }
 

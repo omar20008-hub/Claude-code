@@ -9,10 +9,12 @@ import {
   Card,
   CardBody,
   CardHeader,
+} from '@/components/ui/primitives';
+import {
   Field,
   Input,
   Select,
-} from '@/components/ui/primitives';
+} from '@/components/ui/form';
 import { ErrorMessage, useFieldError } from '@/components/auth/error-message';
 import { apiFetch, ApiError } from '@/components/auth/api-error';
 import { PASSWORD_MIN_LENGTH } from '@/lib/password-policy';

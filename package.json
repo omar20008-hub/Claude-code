@@ -26,6 +26,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.699.0",
     "@aws-sdk/s3-request-presigner": "^3.699.0",
+    "@eslint/eslintrc": "^3.3.7",
     "drizzle-orm": "^0.45.2",
     "next": "15.5.25",
     "next-intl": "^4.14.2",

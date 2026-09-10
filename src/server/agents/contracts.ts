@@ -148,6 +148,22 @@ export const META_PLACEMENTS = [
 ] as const;
 export type MetaPlacement = (typeof META_PLACEMENTS)[number];
 
+/**
+ * Catalogue-safe key for each placement.
+ *
+ * The placement values are Meta's own strings and two of them contain
+ * characters that cannot be used as translation keys: next-intl resolves a key
+ * by splitting on dots, so "Landscape 1.91:1" would be looked up as
+ * `…placements.Landscape 1` -> `91:1` and never found. Mapping to a slug keeps
+ * the external vocabulary out of the catalogue entirely.
+ */
+export const PLACEMENT_KEYS: Record<MetaPlacement, string> = {
+  'Feed 1:1': 'feed_square',
+  'Feed 4:5': 'feed_portrait',
+  'Stories / Reels 9:16': 'stories_reels',
+  'Landscape 1.91:1': 'landscape',
+};
+
 /** Aspect ratio each placement demands, and the tolerance the validator allows. */
 export const PLACEMENT_RATIOS: Record<MetaPlacement, number> = {
   'Feed 1:1': 1,
