@@ -1,0 +1,695 @@
+<title>AI Workforce Screens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --ground: #f5f8f5;
+    --surface: #ffffff;
+    --surface-2: #eef2ee;
+    --ink: #16211c;
+    --ink-muted: #5d6b63;
+    --ink-faint: #8b978f;
+    --accent: #2e6a4e;
+    --accent-soft: #dcefe3;
+    --accent-ink: #21503b;
+    --line: #dfe6e0;
+    --line-strong: #c7d2c9;
+    --warn: #a86a09;
+    --warn-soft: #fdf3dd;
+    --info: #24608f;
+    --info-soft: #e4eef7;
+    --shadow: 0 1px 2px rgba(22, 33, 28, .05), 0 12px 32px -12px rgba(22, 33, 28, .18);
+
+    --sans: 'IBM Plex Sans', 'IBM Plex Sans Arabic', system-ui, sans-serif;
+    --arabic: 'IBM Plex Sans Arabic', 'IBM Plex Sans', system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0f1512;
+      --surface: #18211c;
+      --surface-2: #1f2a24;
+      --ink: #e7eee9;
+      --ink-muted: #94a29a;
+      --ink-faint: #6d7c74;
+      --accent: #74c495;
+      --accent-soft: #1c3026;
+      --accent-ink: #a8dcbe;
+      --line: #26312b;
+      --line-strong: #33413a;
+      --warn: #d9a441;
+      --warn-soft: #2a2317;
+      --info: #79b3e0;
+      --info-soft: #16242f;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 16px 40px -16px rgba(0, 0, 0, .7);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #0f1512;
+    --surface: #18211c;
+    --surface-2: #1f2a24;
+    --ink: #e7eee9;
+    --ink-muted: #94a29a;
+    --ink-faint: #6d7c74;
+    --accent: #74c495;
+    --accent-soft: #1c3026;
+    --accent-ink: #a8dcbe;
+    --line: #26312b;
+    --line-strong: #33413a;
+    --warn: #d9a441;
+    --warn-soft: #2a2317;
+    --info: #79b3e0;
+    --info-soft: #16242f;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 16px 40px -16px rgba(0, 0, 0, .7);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  [dir="rtl"] { font-family: var(--arabic); }
+
+  /* Arabic is cursive: letter-spacing pulls the joins apart and uppercasing
+     means nothing. Both are correct for the Latin labels and wrong here, so
+     the tracking is undone for the direction rather than for the element. */
+  [dir="rtl"] .eyebrow,
+  [dir="rtl"] .look .label {
+    font-family: var(--arabic);
+    letter-spacing: normal;
+    text-transform: none;
+    font-size: 12px;
+  }
+
+  .wrap {
+    max-width: 1180px;
+    margin-inline: auto;
+    padding-inline: 20px;
+    padding-block: 32px 64px;
+  }
+
+  /* ---------- header ---------- */
+
+  header { display: flex; flex-direction: column; gap: 20px; }
+
+  .masthead {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 0 0 6px;
+  }
+
+  h1 {
+    font-size: clamp(26px, 4vw, 34px);
+    line-height: 1.15;
+    letter-spacing: -.02em;
+    font-weight: 600;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .lede {
+    margin: 10px 0 0;
+    color: var(--ink-muted);
+    max-width: 60ch;
+  }
+
+  /* ---------- language switch ---------- */
+
+  .switch {
+    display: inline-flex;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 3px;
+    gap: 2px;
+    flex-shrink: 0;
+  }
+
+  .switch button {
+    font: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    border: 0;
+    background: transparent;
+    color: var(--ink-muted);
+    padding: 7px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .switch button[aria-pressed="true"] {
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+  }
+
+  .switch .dirtag {
+    font-family: var(--mono);
+    font-size: 10px;
+    opacity: .65;
+    letter-spacing: .05em;
+  }
+
+  /* ---------- screen rail ---------- */
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding-block: 4px;
+    border-block-start: 1px solid var(--line);
+    padding-block-start: 20px;
+  }
+
+  nav button {
+    font: inherit;
+    font-size: 13px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--ink-muted);
+    padding: 6px 12px;
+    border-radius: 7px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  nav button:hover { background: var(--surface-2); color: var(--ink); }
+
+  nav button[aria-current="true"] {
+    background: var(--surface);
+    border-color: var(--line-strong);
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* ---------- main ---------- */
+
+  main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 28px;
+    align-items: start;
+    margin-block-start: 28px;
+  }
+
+  @media (max-width: 860px) {
+    main { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  /* the screenshot frame */
+
+  .viewport {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .chrome {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-block-end: 1px solid var(--line);
+    background: var(--surface-2);
+  }
+
+  .dots { display: flex; gap: 6px; flex-shrink: 0; }
+  .dots i {
+    inline-size: 9px;
+    block-size: 9px;
+    border-radius: 50%;
+    background: var(--line-strong);
+    display: block;
+  }
+
+  .addr {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-muted);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 3px 10px;
+    direction: ltr;
+    unicode-bidi: isolate;
+    text-align: start;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+    min-inline-size: 0;
+  }
+
+  .shot {
+    display: block;
+    inline-size: 100%;
+    max-inline-size: 100%;
+    block-size: auto;
+    cursor: zoom-in;
+    background: var(--surface);
+  }
+
+  figure { margin: 0; }
+
+  figcaption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 10px 14px;
+    border-block-start: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+
+  .zoomhint { font-family: var(--mono); font-size: 11px; }
+
+  /* notes column */
+
+  aside { display: flex; flex-direction: column; gap: 18px; }
+
+  .note {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 18px;
+  }
+
+  .note h2 {
+    margin: 0 0 8px;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+  }
+
+  .note p { margin: 0; color: var(--ink-muted); font-size: 14px; }
+
+  .look {
+    border-inline-start: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 16px;
+  }
+
+  [dir="rtl"] .look { border-radius: 8px 0 0 8px; }
+
+  .look .label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    display: block;
+    margin-block-end: 6px;
+  }
+
+  .look p { color: var(--accent-ink); font-size: 13.5px; }
+
+  .facts { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .fact { background: var(--surface); padding: 11px 16px; display: flex; justify-content: space-between; gap: 12px; font-size: 13px; }
+  .fact dt { color: var(--ink-muted); margin: 0; }
+  .fact dd { margin: 0; font-family: var(--mono); font-size: 12px; color: var(--ink); direction: ltr; unicode-bidi: isolate; }
+
+  /* ---------- footer ---------- */
+
+  footer {
+    margin-block-start: 44px;
+    padding-block-start: 22px;
+    border-block-start: 1px solid var(--line);
+    color: var(--ink-muted);
+    font-size: 13.5px;
+    display: grid;
+    gap: 12px;
+    max-width: 78ch;
+  }
+
+  footer strong { color: var(--ink); font-weight: 600; }
+  code { font-family: var(--mono); font-size: .9em; background: var(--surface-2); padding: 1px 5px; border-radius: 4px; direction: ltr; unicode-bidi: isolate; }
+
+  /* ---------- lightbox ---------- */
+
+  dialog {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    max-inline-size: 96vw;
+    max-block-size: 94vh;
+  }
+  dialog::backdrop { background: rgba(8, 14, 11, .82); }
+  dialog img {
+    display: block;
+    max-inline-size: 96vw;
+    max-block-size: 94vh;
+    inline-size: auto;
+    border-radius: 8px;
+    cursor: zoom-out;
+  }
+
+  button:focus-visible, .shot:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .shot, .note { transition: opacity .18s ease; }
+  }
+</style>
+
+<div class="wrap" id="root">
+  <header>
+    <div class="masthead">
+      <div>
+        <p class="eyebrow" id="eyebrow">Product walkthrough</p>
+        <h1 id="title">AI Workforce</h1>
+        <p class="lede" id="lede"></p>
+      </div>
+      <div class="switch" role="group" aria-label="Language">
+        <button type="button" id="btn-ar" data-locale="ar" aria-pressed="true">العربية <span class="dirtag">RTL</span></button>
+        <button type="button" id="btn-en" data-locale="en" aria-pressed="false">English <span class="dirtag">LTR</span></button>
+      </div>
+    </div>
+    <nav id="rail" aria-label="Screens"></nav>
+  </header>
+
+  <main>
+    <div class="viewport">
+      <div class="chrome">
+        <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="addr" id="addr"></span>
+      </div>
+      <figure>
+        <img class="shot" id="shot" alt="" tabindex="0">
+        <figcaption>
+          <span id="capmeta"></span>
+          <span class="zoomhint" id="caphint"></span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <aside>
+      <div class="note">
+        <h2 id="screen-title"></h2>
+        <p id="screen-desc"></p>
+      </div>
+      <div class="look">
+        <span class="label" id="look-label"></span>
+        <p id="look-text"></p>
+      </div>
+      <dl class="facts" id="facts"></dl>
+    </aside>
+  </main>
+
+  <footer id="footer"></footer>
+</div>
+
+<dialog id="lightbox"><img id="lightbox-img" alt=""></dialog>
+
+<script>
+  const IMAGES = {{IMAGES}};
+
+  const SCREENS = [
+    {
+      id: '01-login', path: 'login',
+      en: {
+        title: 'Sign in',
+        desc: 'The public entry point. Registration creates the organization and its first administrator in one transaction.',
+        look: 'The language switch sits above the form. Someone who cannot read the interface has to be able to change it before they have an account.'
+      },
+      ar: {
+        title: 'تسجيل الدخول',
+        desc: 'المدخل العام. التسجيل يُنشئ المؤسسة وأول مدير لها داخل معاملة واحدة.',
+        look: 'مُبدّل اللغة يظهر فوق النموذج. من لا يستطيع قراءة الواجهة يجب أن يتمكن من تغييرها قبل أن يملك حسابًا.'
+      }
+    },
+    {
+      id: '02-dashboard', path: 'dashboard',
+      en: {
+        title: 'Dashboard',
+        desc: 'Five tiles from one database scan, plus a card per agent and the platform health panel.',
+        look: 'Rates read “—”, not “0%”, when there is no denominator. Platform status reports n8n and storage as unknown rather than green.'
+      },
+      ar: {
+        title: 'لوحة التحكم',
+        desc: 'خمس بطاقات من مسح واحد لقاعدة البيانات، مع بطاقة لكل وكيل ولوحة لحالة المنصة.',
+        look: 'النِّسَب تظهر «—» لا «٠٪» حين لا يوجد مقام. وحالة المنصة تقول «غير معروف» عن n8n والتخزين بدل أن تدّعي أنهما سليمان.'
+      }
+    },
+    {
+      id: '03-agents', path: 'agents',
+      en: {
+        title: 'AI Agents',
+        desc: 'One card per agent, listing what it does and what it cannot do.',
+        look: 'Every “unavailable” line comes from the adapter’s own capabilities() call, not from hand-written copy — so the product cannot claim more than the workflow delivers.'
+      },
+      ar: {
+        title: 'الوكلاء الأذكياء',
+        desc: 'بطاقة لكل وكيل، تذكر ما يفعله وما لا يستطيع فعله.',
+        look: 'كل سطر «غير متاح» يأتي من capabilities() في المُهايئ نفسه لا من نص مكتوب يدويًا — فلا تستطيع الواجهة أن تَعِد بأكثر مما يقدّمه ورك فلو n8n.'
+      }
+    },
+    {
+      id: '04-knowledge', path: 'knowledge',
+      en: {
+        title: 'Knowledge',
+        desc: 'A chat workspace over the indexed Google Drive folder, with a sources panel beside the conversation.',
+        look: 'Citations are parsed out of the agent’s prose, because the workflow emits no structured sources. When nothing matches, the panel stays empty rather than inventing a document.'
+      },
+      ar: {
+        title: 'المعرفة',
+        desc: 'مساحة محادثة فوق مجلد Google Drive المفهرس، مع لوحة مصادر بجانب الحوار.',
+        look: 'الاستشهادات تُستخرج من نص الوكيل نفسه لأن الوركفلو لا يُرسل مصادر مُهيكلة. وإذا لم يُطابَق شيء تبقى اللوحة فارغة بدل اختلاق مستند.'
+      }
+    },
+    {
+      id: '05-creative', path: 'creative',
+      en: {
+        title: 'Creative Studio',
+        desc: 'Describe an asset, pick an aspect ratio, generate. Results land in the asset library.',
+        look: 'Video is shown and disabled, with the reason — the Veo model has no quota on the connected account. Hiding it would leave a user wondering; saying so answers the question once.'
+      },
+      ar: {
+        title: 'استوديو المحتوى',
+        desc: 'صِف المادة، اختر نسبة الأبعاد، ثم وَلِّد. تُحفظ النتائج في مكتبة الأصول.',
+        look: 'خيار الفيديو ظاهر لكنه معطّل مع ذكر السبب: نموذج Veo بلا حصة على الحساب المرتبط. إخفاؤه يترك المستخدم في حَيرة، وذِكره يُجيب عن السؤال مرة واحدة.'
+      }
+    },
+    {
+      id: '06-advertising', path: 'advertising',
+      en: {
+        title: 'Campaign wizard',
+        desc: 'Eight steps from brief to submission: objective, audience, budget, schedule, creative, review.',
+        look: 'The wizard states that campaigns are created PAUSED before you type anything. The workflow creates every Meta object paused and has no activation step, so “launch” never means “spending”.'
+      },
+      ar: {
+        title: 'معالج إنشاء الحملة',
+        desc: 'ثماني خطوات من البريف إلى الإرسال: الهدف، الجمهور، الميزانية، الجدولة، المادة الإعلانية، المراجعة.',
+        look: 'المعالج يُعلن أن الحملات تُنشأ بحالة PAUSED قبل أن تكتب حرفًا. الوركفلو يُنشئ كل كائنات Meta موقوفة وبلا خطوة تفعيل، فـ«الإطلاق» لا يعني الصرف أبدًا.'
+      }
+    },
+    {
+      id: '07-campaigns', path: 'campaigns',
+      en: {
+        title: 'Campaigns',
+        desc: 'Every campaign with its lifecycle state: draft, ready, launching, paused, failed.',
+        look: 'Empty here because this container has no Meta connection. A real launch is guarded by an approval snapshot, a required Idempotency-Key and a conditional database claim.'
+      },
+      ar: {
+        title: 'الحملات',
+        desc: 'كل حملة مع حالتها في دورة الحياة: مسودة، جاهزة، قيد الإرسال، موقوفة، فاشلة.',
+        look: 'فارغة هنا لأن هذه البيئة بلا اتصال بـ Meta. الإطلاق الحقيقي محميّ بلقطة موافقة، ومفتاح Idempotency-Key إلزامي، ومطالبة شرطية في قاعدة البيانات.'
+      }
+    },
+    {
+      id: '08-analytics', path: 'analytics',
+      en: {
+        title: 'Analytics',
+        desc: 'Agent activity over time, drawn as hand-built SVG so the time axis reads correctly in both directions.',
+        look: 'Campaign performance is an explanation naming Meta Insights as the missing piece — not a row of zeros. “0 impressions” would be a claim about the world; “unavailable” is a claim about our integration.'
+      },
+      ar: {
+        title: 'التحليلات',
+        desc: 'نشاط الوكلاء عبر الزمن، مرسوم بـ SVG يدويًا ليقرأ محور الزمن صحيحًا في الاتجاهين.',
+        look: 'أداء الحملات يُعرض كتفسير يذكر Meta Insights بوصفه الجزء الناقص، لا كصفٍّ من الأصفار. «٠ ظهور» ادعاء عن الواقع، أما «غير متاح» فادعاء عن تكاملنا نحن.'
+      }
+    },
+    {
+      id: '09-assets', path: 'assets',
+      en: {
+        title: 'Assets',
+        desc: 'Everything the Creative agent produced, filterable by kind, campaign and date.',
+        look: 'Previews load through the API, which mints a short-lived presigned URL only after checking the asset belongs to this tenant — a presigned URL is a bearer credential.'
+      },
+      ar: {
+        title: 'الأصول',
+        desc: 'كل ما أنتجه وكيل المحتوى، مع تصفية بالنوع والحملة والتاريخ.',
+        look: 'المعاينات تمرّ عبر الـ API الذي يُصدر رابطًا مُوقَّعًا قصير العمر بعد التحقق من ملكية الأصل لهذه المؤسسة — فالرابط المُوقَّع هو بذاته بيان اعتماد.'
+      }
+    },
+    {
+      id: '10-activity', path: 'activity',
+      en: {
+        title: 'Activity',
+        desc: 'The tenant’s audit trail: who did what, to which resource, with what outcome.',
+        look: 'Actions are stored as stable keys, never prose, so one row renders in Arabic for one reader and English for another. The table is append-only — even its owner cannot rewrite it.'
+      },
+      ar: {
+        title: 'سجل النشاط',
+        desc: 'سجل التدقيق للمؤسسة: من فعل ماذا، على أي مورد، وبأي نتيجة.',
+        look: 'تُخزَّن الإجراءات كمفاتيح ثابتة لا كنصوص، فيظهر الصف نفسه بالعربية لقارئ وبالإنجليزية لآخر. والجدول للإضافة فقط — حتى مالكه لا يستطيع تعديله.'
+      }
+    },
+    {
+      id: '11-settings', path: 'settings',
+      en: {
+        title: 'Settings',
+        desc: 'Organization, language and timezone, password, and the integration inventory.',
+        look: 'It states where each credential actually lives. The Google Drive and Meta tokens are held by n8n; this application has never seen either one.'
+      },
+      ar: {
+        title: 'الإعدادات',
+        desc: 'المؤسسة واللغة والمنطقة الزمنية وكلمة المرور وجرد التكاملات.',
+        look: 'تُصرّح بمكان كل بيان اعتماد فعليًا. رمزا Google Drive و Meta محفوظان داخل n8n، وهذا التطبيق لم يرَ أيًّا منهما قط.'
+      }
+    }
+  ];
+
+  const UI = {
+    en: {
+      eyebrow: 'Product walkthrough',
+      lede: 'Every screen of the running application, captured in both languages. One component tree serves both — the sidebar changes side because the CSS is written in logical properties, not because a second stylesheet exists.',
+      look: 'What to notice',
+      hint: 'click to enlarge',
+      meta: (n, total) => `Screen ${n} of ${total} · English, left-to-right`,
+      facts: [['Interface language', 'en'], ['Writing direction', 'ltr'], ['Route', null]],
+      footer: [
+        '<strong>Captured from the real application</strong>, not mocked up: the production build served on this container, driven by a browser that registered an organization through the API and signed in.',
+        'This environment has no n8n instance and no S3 bucket, which is why several screens carry an explicit “integration isn’t configured” banner. That is the intended behaviour — an unconfigured integration produces a stated error, never an empty state that reads as “you have no data yet”, and never a stubbed success.',
+        'Screenshots were taken at 1440×950 with a 2× device pixel ratio and downscaled for this page.'
+      ]
+    },
+    ar: {
+      eyebrow: 'جولة في المنتج',
+      lede: 'كل شاشة من التطبيق العامل، ملتقطة باللغتين. شجرة مكوّنات واحدة تخدم الاتجاهين — الشريط الجانبي يتبدّل جانبه لأن الأنماط مكتوبة بخصائص منطقية، لا لأن هناك ملف أنماط ثانيًا.',
+      look: 'ما يستحق الانتباه',
+      hint: 'انقر للتكبير',
+      meta: (n, total) => `الشاشة ${n} من ${total} · العربية، من اليمين إلى اليسار`,
+      facts: [['لغة الواجهة', 'ar'], ['اتجاه الكتابة', 'rtl'], ['المسار', null]],
+      footer: [
+        '<strong>ملتقطة من التطبيق الحقيقي</strong> لا مُصمَّمة تخيّلًا: بناء الإنتاج يعمل على هذه الحاوية، ويقوده متصفح سجّل مؤسسة عبر الـ API ثم سجّل الدخول.',
+        'هذه البيئة بلا نسخة n8n وبلا حاوية S3، ولذلك تحمل عدة شاشات لافتة صريحة تقول إن التكامل غير مُهيّأ. وهذا هو السلوك المقصود: التكامل غير المُهيّأ يُنتج خطأً معلنًا، لا حالة فارغة تُقرأ كأنها «لا توجد بيانات بعد»، ولا نجاحًا مُصطنعًا.',
+        'التُقطت الصور بمقاس ١٤٤٠×٩٥٠ وبكثافة بكسل ٢×، ثم صُغِّرت لهذه الصفحة.'
+      ]
+    }
+  };
+
+  let locale = 'ar';
+  let index = 1; // dashboard
+
+  const $ = (id) => document.getElementById(id);
+  const root = $('root');
+  const rail = $('rail');
+
+  function renderRail() {
+    rail.replaceChildren();
+    SCREENS.forEach((screen, i) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = screen[locale].title;
+      button.setAttribute('aria-current', String(i === index));
+      button.addEventListener('click', () => { index = i; render(); });
+      rail.append(button);
+    });
+  }
+
+  function render() {
+    const t = UI[locale];
+    const screen = SCREENS[index];
+    const copy = screen[locale];
+    const dir = locale === 'ar' ? 'rtl' : 'ltr';
+
+    root.dir = dir;
+    root.lang = locale;
+    document.documentElement.lang = locale;
+
+    $('eyebrow').textContent = t.eyebrow;
+    $('lede').textContent = t.lede;
+    $('btn-ar').setAttribute('aria-pressed', String(locale === 'ar'));
+    $('btn-en').setAttribute('aria-pressed', String(locale === 'en'));
+
+    $('addr').textContent = `app.example.com/${locale}/${screen.path}`;
+    const src = 'data:image/jpeg;base64,' + IMAGES[`${locale}-${screen.id}`];
+    $('shot').src = src;
+    $('shot').alt = `${copy.title} — ${locale === 'ar' ? 'العربية' : 'English'}`;
+    $('capmeta').textContent = t.meta(index + 1, SCREENS.length);
+    $('caphint').textContent = t.hint;
+
+    $('screen-title').textContent = copy.title;
+    $('screen-desc').textContent = copy.desc;
+    $('look-label').textContent = t.look;
+    $('look-text').textContent = copy.look;
+
+    const facts = $('facts');
+    facts.replaceChildren();
+    t.facts.forEach(([term, value]) => {
+      const dt = document.createElement('dt');
+      const dd = document.createElement('dd');
+      dt.textContent = term;
+      dd.textContent = value ?? `/${locale}/${screen.path}`;
+      const row = document.createElement('div');
+      row.className = 'fact';
+      row.append(dt, dd);
+      facts.append(row);
+    });
+
+    $('footer').innerHTML = t.footer.map((p) => `<p style="margin:0">${p}</p>`).join('');
+
+    renderRail();
+  }
+
+  document.querySelectorAll('.switch button').forEach((button) => {
+    button.addEventListener('click', () => {
+      locale = button.dataset.locale;
+      render();
+    });
+  });
+
+  const lightbox = $('lightbox');
+  function openLightbox() {
+    $('lightbox-img').src = $('shot').src;
+    $('lightbox-img').alt = $('shot').alt;
+    lightbox.showModal();
+  }
+  $('shot').addEventListener('click', openLightbox);
+  $('shot').addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openLightbox(); }
+  });
+  lightbox.addEventListener('click', () => lightbox.close());
+
+  render();
+</script>
