@@ -1,0 +1,995 @@
+{
+  "app": {
+    "name": "القوى العاملة الذكية",
+    "tagline": "ثلاثة موظفين أذكياء في مساحة عمل واحدة",
+    "skipToContent": "تخطَّ إلى المحتوى الرئيسي"
+  },
+  "common": {
+    "actions": {
+      "save": "حفظ",
+      "cancel": "إلغاء",
+      "close": "إغلاق",
+      "confirm": "تأكيد",
+      "delete": "حذف",
+      "edit": "تعديل",
+      "back": "رجوع",
+      "next": "التالي",
+      "previous": "السابق",
+      "finish": "إنهاء",
+      "retry": "إعادة المحاولة",
+      "refresh": "تحديث",
+      "search": "بحث",
+      "filter": "تصفية",
+      "clearFilters": "مسح عوامل التصفية",
+      "download": "تنزيل",
+      "preview": "معاينة",
+      "copy": "نسخ",
+      "copied": "تم النسخ",
+      "send": "إرسال",
+      "create": "إنشاء",
+      "connect": "ربط",
+      "disconnect": "إلغاء الربط",
+      "viewAll": "عرض الكل",
+      "viewDetails": "عرض التفاصيل",
+      "selectAll": "تحديد الكل",
+      "signOut": "تسجيل الخروج",
+      "openMenu": "فتح القائمة",
+      "closeMenu": "إغلاق القائمة",
+      "dismiss": "إخفاء"
+    },
+    "labels": {
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "status": "الحالة",
+      "createdAt": "تاريخ الإنشاء",
+      "updatedAt": "آخر تحديث",
+      "type": "النوع",
+      "size": "الحجم",
+      "duration": "المدة",
+      "dimensions": "الأبعاد",
+      "language": "اللغة",
+      "organization": "المنشأة",
+      "user": "المستخدم",
+      "agent": "الوكيل",
+      "action": "الإجراء",
+      "details": "التفاصيل",
+      "reference": "الرقم المرجعي",
+      "total": "الإجمالي",
+      "none": "لا يوجد",
+      "optional": "اختياري",
+      "required": "مطلوب",
+      "unknown": "غير معروف",
+      "notAvailable": "غير متاح",
+      "all": "الكل",
+      "from": "من",
+      "to": "إلى"
+    },
+    "pagination": {
+      "showing": "عرض {from}–{to} من أصل {total}",
+      "page": "صفحة {page}",
+      "rowsPerPage": "عدد الصفوف في الصفحة",
+      "nextPage": "الصفحة التالية",
+      "previousPage": "الصفحة السابقة",
+      "noMore": "لا توجد نتائج إضافية"
+    },
+    "time": {
+      "today": "اليوم",
+      "yesterday": "أمس",
+      "last7Days": "آخر ٧ أيام",
+      "last30Days": "آخر ٣٠ يومًا",
+      "thisMonth": "هذا الشهر",
+      "custom": "فترة مخصصة",
+      "never": "لم يحدث"
+    },
+    "loading": "جارٍ التحميل…",
+    "processing": "جارٍ المعالجة…",
+    "theme": {
+      "toggle": "تبديل المظهر",
+      "light": "فاتح",
+      "dark": "داكن",
+      "system": "حسب النظام"
+    }
+  },
+  "language": {
+    "switcher": "اللغة",
+    "switchTo": "التبديل إلى {language}",
+    "current": "اللغة الحالية: {language}",
+    "saved": "تم حفظ تفضيل اللغة"
+  },
+  "nav": {
+    "primary": "التنقل الرئيسي",
+    "dashboard": "لوحة التحكم",
+    "agents": "الوكلاء الأذكياء",
+    "knowledge": "المعرفة",
+    "creative": "استوديو المحتوى",
+    "advertising": "الإعلانات",
+    "assets": "الأصول",
+    "campaigns": "الحملات",
+    "analytics": "التحليلات",
+    "activity": "سجل النشاط",
+    "settings": "الإعدادات",
+    "sections": {
+      "overview": "نظرة عامة",
+      "workforce": "القوى العاملة الذكية",
+      "library": "المكتبة",
+      "insights": "التحليلات",
+      "administration": "الإدارة"
+    }
+  },
+  "auth": {
+    "register": {
+      "title": "أنشئ منشأتك",
+      "subtitle": "جهّز مساحة عملك وكن مسؤولها الأول.",
+      "organizationName": "اسم المنشأة",
+      "organizationNameHint": "الاسم الذي سيظهر لفريقك في جميع أنحاء المنصة.",
+      "fullName": "اسمك الكامل",
+      "submit": "إنشاء المنشأة",
+      "haveAccount": "لديك حساب بالفعل؟",
+      "signIn": "تسجيل الدخول",
+      "success": "تم إنشاء المنشأة. تحقق من بريدك الإلكتروني لتوثيق عنوانك."
+    },
+    "login": {
+      "title": "تسجيل الدخول",
+      "subtitle": "أهلًا بعودتك. سجّل الدخول للوصول إلى وكلائك الأذكياء.",
+      "submit": "تسجيل الدخول",
+      "forgotPassword": "نسيت كلمة المرور؟",
+      "noAccount": "ليس لديك منشأة بعد؟",
+      "createOne": "أنشئ واحدة",
+      "rememberedDevice": "أبقني مسجّلًا في هذا الجهاز"
+    },
+    "logout": {
+      "confirmTitle": "تسجيل الخروج؟",
+      "confirmBody": "ستحتاج إلى تسجيل الدخول مرة أخرى للوصول إلى مساحة عملك.",
+      "success": "تم تسجيل خروجك."
+    },
+    "verifyEmail": {
+      "title": "وثّق بريدك الإلكتروني",
+      "subtitle": "أرسلنا رابط التوثيق إلى {email}. افتحه لتفعيل حسابك.",
+      "resend": "إعادة إرسال رسالة التوثيق",
+      "resent": "تم إرسال رسالة التوثيق.",
+      "success": "تم توثيق بريدك الإلكتروني. يمكنك تسجيل الدخول الآن.",
+      "expired": "انتهت صلاحية رابط التوثيق. اطلب رابطًا جديدًا.",
+      "pending": "لم يتم توثيق بريدك الإلكتروني بعد."
+    },
+    "forgotPassword": {
+      "title": "إعادة تعيين كلمة المرور",
+      "subtitle": "أدخل بريدك الإلكتروني وسنرسل لك رابط إعادة التعيين.",
+      "submit": "إرسال رابط إعادة التعيين",
+      "sent": "إذا كان هناك حساب مرتبط بهذا العنوان، فقد أُرسل إليه رابط إعادة التعيين.",
+      "backToLogin": "العودة إلى تسجيل الدخول"
+    },
+    "resetPassword": {
+      "title": "اختر كلمة مرور جديدة",
+      "subtitle": "اختر كلمة مرور لم تستخدمها من قبل في هذا الحساب.",
+      "newPassword": "كلمة المرور الجديدة",
+      "confirmPassword": "تأكيد كلمة المرور الجديدة",
+      "submit": "تحديث كلمة المرور",
+      "success": "تم تحديث كلمة المرور، وأُغلقت جميع الجلسات الأخرى.",
+      "expired": "انتهت صلاحية هذا الرابط أو سبق استخدامه.",
+      "backToLogin": "العودة إلى تسجيل الدخول"
+    },
+    "password": {
+      "requirements": "لا تقل عن {min} حرفًا.",
+      "strength": {
+        "label": "قوة كلمة المرور",
+        "weak": "ضعيفة",
+        "fair": "مقبولة",
+        "good": "جيدة",
+        "strong": "قوية"
+      },
+      "show": "إظهار كلمة المرور",
+      "hide": "إخفاء كلمة المرور"
+    }
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "أهلًا بك في قواك العاملة الذكية يا {name}",
+      "body": "ثلاثة موظفين أذكياء جاهزون. اربط أدواتهم وابدأ التشغيل.",
+      "dismiss": "تمام"
+    },
+    "steps": {
+      "title": "أكمل الإعداد",
+      "verifyEmail": {
+        "title": "وثّق بريدك الإلكتروني",
+        "body": "أكّد عنوانك لنتمكن من إرسال إشعارات المهام والحملات إليك."
+      },
+      "connectKnowledge": {
+        "title": "اربط مصدر المعرفة",
+        "body": "وجّه وكيل المعرفة إلى مجلد Google Drive الذي يضم مستنداتك."
+      },
+      "firstGeneration": {
+        "title": "أنشئ أول أصل لك",
+        "body": "صف الصورة التي تريدها وسينتجها وكيل صناعة المحتوى."
+      },
+      "firstCampaign": {
+        "title": "جهّز أول حملة",
+        "body": "أنشئ حملة على Meta، راجعها، ثم أرسلها للتنفيذ."
+      },
+      "completed": "مكتمل"
+    }
+  },
+  "dashboard": {
+    "title": "لوحة التحكم",
+    "subtitle": "كل ما أنجزته قواك العاملة الذكية في مكان واحد.",
+    "greeting": "سعداء بعودتك يا {name}",
+    "sections": {
+      "activity": "النشاط العام للذكاء الاصطناعي",
+      "knowledge": "وكيل المعرفة",
+      "creative": "وكيل صناعة المحتوى",
+      "advertising": "وكيل الحملات الإعلانية",
+      "health": "حالة المنصة"
+    },
+    "metrics": {
+      "totalRequests": "إجمالي طلبات الذكاء الاصطناعي",
+      "requestsToday": "الطلبات اليوم",
+      "requestsThisWeek": "الطلبات هذا الأسبوع",
+      "requestsThisMonth": "الطلبات هذا الشهر",
+      "requestsByAgent": "الطلبات حسب الوكيل",
+      "successfulRequests": "الطلبات الناجحة",
+      "failedRequests": "الطلبات الفاشلة",
+      "averageProcessingTime": "متوسط زمن المعالجة",
+      "successRate": "نسبة النجاح",
+      "questionsAsked": "الأسئلة المطروحة",
+      "questionsAnswered": "الأسئلة المُجابة",
+      "recentQuestions": "أحدث الأسئلة",
+      "topTopics": "أكثر المواضيع تكرارًا",
+      "knowledgeSourceStatus": "حالة مصدر المعرفة",
+      "documentCount": "المستندات المفهرسة",
+      "lastSync": "آخر مزامنة",
+      "syncFailures": "حالات فشل المزامنة",
+      "imagesGenerated": "الصور المنشأة",
+      "videosGenerated": "الفيديوهات المنشأة",
+      "recentAssets": "أحدث الأصول",
+      "generationSuccessRate": "نسبة نجاح الإنتاج",
+      "processingTime": "زمن المعالجة",
+      "storageUsed": "المساحة المستخدمة",
+      "campaignsCreated": "الحملات المُنشأة",
+      "campaignsLaunched": "الحملات المُرسلة",
+      "activeCampaigns": "الحملات النشطة",
+      "draftCampaigns": "الحملات المسودة",
+      "failedCampaigns": "الحملات الفاشلة",
+      "adSpend": "الإنفاق الإعلاني",
+      "impressions": "مرات الظهور",
+      "clicks": "النقرات",
+      "ctr": "معدل النقر",
+      "cpc": "تكلفة النقرة",
+      "conversions": "التحويلات",
+      "roas": "العائد على الإنفاق الإعلاني",
+      "integrationStatus": "حالة التكاملات",
+      "agentAvailability": "جاهزية الوكلاء",
+      "recentErrors": "الأخطاء الأخيرة",
+      "failedJobs": "المهام الفاشلة",
+      "apiHealth": "حالة الواجهة البرمجية"
+    },
+    "deltas": {
+      "vsPreviousPeriod": "مقارنةً بالفترة السابقة",
+      "increase": "ارتفاع {value}",
+      "decrease": "انخفاض {value}",
+      "unchanged": "دون تغيير"
+    },
+    "empty": {
+      "noActivity": {
+        "title": "لا يوجد نشاط بعد",
+        "body": "بمجرد أن يبدأ فريقك في استخدام الوكلاء، سيظهر عملهم هنا."
+      },
+      "noMetrics": {
+        "title": "لا توجد بيانات للقياس بعد",
+        "body": "ستظهر المؤشرات فور توفر نشاط فعلي."
+      }
+    }
+  },
+  "agents": {
+    "title": "الوكلاء الأذكياء",
+    "subtitle": "ثلاثة موظفين أذكياء، لكل واحد منهم مهمته.",
+    "openAgent": "فتح {agent}",
+    "unavailable": "غير متاح",
+    "available": "متاح",
+    "lastUsed": "آخر استخدام {time}",
+    "neverUsed": "لم يُستخدم بعد",
+    "knowledge": {
+      "title": "وكيل المعرفة",
+      "shortTitle": "المعرفة",
+      "description": "اسأل عن معلومات وسياسات ومعرفة منشأتك.",
+      "capability": "يجيب من مستنداتك، ويذكر مصدر كل إجابة."
+    },
+    "creative": {
+      "title": "وكيل صناعة المحتوى",
+      "shortTitle": "المحتوى",
+      "description": "أنشئ صورًا وفيديوهات احترافية لعلامتك التجارية.",
+      "capability": "يحوّل وصفك إلى بريف إنتاجي، ثم ينتج المادة."
+    },
+    "advertising": {
+      "title": "وكيل الحملات الإعلانية",
+      "shortTitle": "الإعلانات",
+      "description": "أنشئ وأطلق حملاتك الإعلانية على Meta.",
+      "capability": "ينشئ الحملة والمجموعة الإعلانية والإعلان في حسابك الإعلاني."
+    }
+  },
+  "knowledge": {
+    "title": "المعرفة",
+    "subtitle": "اسأل عن مستندات منشأتك وسياساتها.",
+    "newConversation": "محادثة جديدة",
+    "conversations": "المحادثات",
+    "searchConversations": "ابحث في المحادثات",
+    "noConversations": {
+      "title": "لا توجد محادثات بعد",
+      "body": "ابدأ محادثة وسيظهر سجلّك هنا."
+    },
+    "emptyChat": {
+      "title": "اطرح سؤالك الأول",
+      "body": "يبحث الوكيل في مستنداتك المفهرسة أولًا، ولا ينتقل إلى الإنترنت إلا إذا لم تكن الإجابة موجودة فيها.",
+      "suggestions": "جرّب أن تسأل"
+    },
+    "composer": {
+      "placeholder": "اسأل عن مستنداتك…",
+      "send": "إرسال السؤال",
+      "hint": "Enter للإرسال، وShift+Enter لسطر جديد"
+    },
+    "message": {
+      "you": "أنت",
+      "agent": "وكيل المعرفة",
+      "thinking": "جارٍ البحث في مستنداتك…",
+      "copy": "نسخ الإجابة",
+      "copied": "تم نسخ الإجابة",
+      "retry": "أعد السؤال",
+      "helpful": "إجابة مفيدة",
+      "notHelpful": "إجابة غير مفيدة",
+      "feedbackRecorded": "شكرًا لملاحظتك."
+    },
+    "sources": {
+      "title": "المصادر",
+      "document": "مستند",
+      "web": "الإنترنت",
+      "basis": {
+        "documents": "الإجابة من مستنداتك",
+        "web": "الإجابة من الإنترنت",
+        "both": "الإجابة من مستنداتك ومن الإنترنت",
+        "none": "لم يُذكر مصدر"
+      },
+      "openDocument": "فتح المستند",
+      "openLink": "فتح الرابط",
+      "notInDocuments": "هذه المعلومة غير مذكورة في مستنداتك المفهرسة.",
+      "parsedNotice": "استُخرجت المصادر من نص إجابة الوكيل."
+    },
+    "sourcePanel": {
+      "title": "مصدر المعرفة",
+      "folder": "مجلد Drive",
+      "documents": "المستندات المفهرسة",
+      "documentsUnknown": "عدد المستندات غير مُبلَّغ من قِبل ورك فلو n8n.",
+      "lastSync": "آخر مزامنة",
+      "nextSync": "المزامنة المجدولة القادمة",
+      "syncInterval": "تُعاد الفهرسة كل {hours} ساعات",
+      "supportedFormats": "الصيغ المدعومة",
+      "formats": "PDF وDOC وDOCX ومستندات Google والنصوص العادية",
+      "notConnected": {
+        "title": "لا يوجد مصدر معرفة مرتبط",
+        "body": "اربط مجلد Google Drive من الإعدادات ليكون لدى الوكيل ما يقرأه."
+      }
+    },
+    "conversationTitle": "محادثة بتاريخ {date}",
+    "deleteConversation": "حذف المحادثة",
+    "deleteConfirm": {
+      "title": "حذف هذه المحادثة؟",
+      "body": "ستُحذف المحادثة ورسائلها نهائيًا، ولا يمكن التراجع عن ذلك."
+    }
+  },
+  "creative": {
+    "title": "استوديو المحتوى",
+    "subtitle": "صف ما تحتاجه وسينتجه الوكيل.",
+    "newGeneration": "إنتاج جديد",
+    "form": {
+      "mediaType": "ما الذي تريد إنشاءه؟",
+      "image": "صورة",
+      "video": "فيديو",
+      "prompt": "صف المحتوى",
+      "promptPlaceholder": "صورة إعلانية لكوب قهوة مختصة بإضاءة صباحية…",
+      "promptHint": "صف المشهد والموضوع والأجواء وأي نص يجب أن يظهر.",
+      "aspectRatio": "أبعاد الصورة",
+      "aspectRatios": {
+        "16:9": "أفقي ١٦:٩",
+        "9:16": "عمودي ٩:١٦"
+      },
+      "aspectRatioHint": "العمودي للريلز وتيك توك وسناب شات، والأفقي ليوتيوب وإعلانات الويب.",
+      "submit": "إنشاء",
+      "submitting": "جارٍ الإرسال إلى الوكيل…"
+    },
+    "video": {
+      "unavailableTitle": "إنتاج الفيديو معطّل حاليًا",
+      "unavailableBody": "ورك فلو صناعة المحتوى معطّل فيه إنتاج الفيديو: نموذج Veo على حساب Google المرتبط لا يملك حصة متاحة. تُنتَج طلبات الفيديو كإطار رئيسي (صورة) بدلًا من ذلك.",
+      "unavailableAction": "كيفية تفعيل الفيديو"
+    },
+    "job": {
+      "title": "عملية الإنتاج",
+      "queued": "في الانتظار",
+      "processing": "جارٍ الإنتاج…",
+      "completed": "اكتمل",
+      "failed": "فشل",
+      "cancelled": "أُلغي",
+      "elapsed": "مستمر منذ {duration}",
+      "startedAt": "بدأ {time}",
+      "completedIn": "اكتمل خلال {duration}",
+      "cancel": "إلغاء الإنتاج",
+      "viewAsset": "عرض الأصل"
+    },
+    "result": {
+      "title": "النتيجة",
+      "brief": "البريف الإنتاجي",
+      "promptUsed": "البرومبت المستخدم",
+      "caption": "النص التسويقي المقترح",
+      "save": "حفظ في المكتبة",
+      "saved": "تم الحفظ في مكتبة الأصول",
+      "discard": "تجاهل"
+    },
+    "history": {
+      "title": "أحدث عمليات الإنتاج",
+      "empty": {
+        "title": "لم يُنتج شيء بعد",
+        "body": "ستظهر عمليات الإنتاج هنا بمجرد أن تنشئ شيئًا."
+      }
+    }
+  },
+  "assets": {
+    "title": "الأصول",
+    "subtitle": "كل صورة وفيديو أنتجه وكيل صناعة المحتوى.",
+    "kinds": {
+      "IMAGE": "صورة",
+      "VIDEO": "فيديو",
+      "all": "كل الأصول"
+    },
+    "filters": {
+      "kind": "نوع الوسائط",
+      "dateRange": "الفترة الزمنية",
+      "search": "ابحث بالعنوان أو البرومبت",
+      "sortBy": "الترتيب حسب",
+      "sort": {
+        "newest": "الأحدث أولًا",
+        "oldest": "الأقدم أولًا",
+        "largest": "الأكبر حجمًا أولًا",
+        "titleAsc": "العنوان أ–ي"
+      }
+    },
+    "card": {
+      "preview": "معاينة {title}",
+      "usedInCampaigns": "مستخدَم في {count, plural, zero {لا حملات} one {حملة واحدة} two {حملتين} few {# حملات} many {# حملة} other {# حملة}}"
+    },
+    "detail": {
+      "title": "تفاصيل الأصل",
+      "metadata": "البيانات الوصفية",
+      "prompt": "البرومبت",
+      "model": "النموذج",
+      "generatedBy": "أنشأه",
+      "attachToCampaign": "استخدامه في حملة",
+      "download": "تنزيل الملف الأصلي",
+      "deleteConfirm": {
+        "title": "حذف هذا الأصل؟",
+        "body": "سيُحذف الملف من التخزين. الحملات التي أُرسلت إلى Meta تحتفظ بنسختها الخاصة.",
+        "blocked": "هذا الأصل مرتبط بحملة لم تُرسل بعد. افصله عنها أولًا."
+      }
+    },
+    "empty": {
+      "title": "لا توجد أصول بعد",
+      "body": "أنشئ صورة من استوديو المحتوى وستُحفظ هنا.",
+      "action": "فتح استوديو المحتوى"
+    },
+    "noResults": {
+      "title": "لا توجد أصول مطابقة",
+      "body": "جرّب فترة زمنية أوسع أو امسح عوامل التصفية."
+    },
+    "storage": {
+      "notConfigured": "لم تُضبط خدمة التخزين، لذا لا يمكن حفظ الملفات المُنتجة. اضبط متغيرات S3 ثم أعد التشغيل."
+    }
+  },
+  "advertising": {
+    "title": "الإعلانات",
+    "subtitle": "أنشئ حملات Meta الإعلانية وراجعها وأرسلها.",
+    "newCampaign": "حملة جديدة",
+    "pausedNotice": {
+      "title": "تُنشأ الحملات بحالة متوقفة",
+      "body": "ينشئ ورك فلو الإعلانات الحملة والمجموعة الإعلانية والإعلان على Meta بحالة PAUSED. لا يُصرف أي مبلغ حتى يفعّلها أحد يدويًا في مدير إعلانات Meta."
+    },
+    "wizard": {
+      "title": "إنشاء حملة",
+      "stepOf": "الخطوة {current} من {total}",
+      "steps": {
+        "brief": "البريف",
+        "objective": "الهدف",
+        "audience": "الجمهور",
+        "budget": "الميزانية",
+        "schedule": "الجدولة",
+        "creative": "المادة الإعلانية",
+        "review": "المراجعة",
+        "launch": "الإرسال"
+      },
+      "brief": {
+        "title": "بريف الحملة",
+        "description": "عرّف الوكيل بالغرض من هذه الحملة.",
+        "campaignName": "اسم الحملة",
+        "campaignNamePlaceholder": "إطلاق المنتج — سبتمبر",
+        "adName": "اسم الإعلان",
+        "briefText": "ما الذي تعلن عنه؟",
+        "briefPlaceholder": "اشتراك قهوة مختصة جديد موجّه لموظفي المكاتب في الرياض…",
+        "primaryText": "النص الأساسي",
+        "primaryTextHint": "توصي Meta بـ {max} حرفًا أو أقل.",
+        "headline": "العنوان",
+        "headlineHint": "توصي Meta بـ {max} حرفًا أو أقل.",
+        "descriptionField": "الوصف",
+        "destinationUrl": "رابط الوجهة",
+        "callToAction": "زر الإجراء"
+      },
+      "objective": {
+        "title": "الهدف",
+        "description": "ما الذي يجب أن تحققه هذه الحملة؟",
+        "fixedNotice": "ينشئ الورك فلو المرتبط حملات زيارات محسّنة لنقرات الروابط. الأهداف الأخرى تتطلب تعديل الورك فلو.",
+        "OUTCOME_TRAFFIC": "الزيارات",
+        "OUTCOME_TRAFFIC_help": "توجيه الجمهور إلى موقعك."
+      },
+      "audience": {
+        "title": "الجمهور",
+        "description": "من الذي يجب أن يشاهد هذا الإعلان؟",
+        "savedAudience": "جمهور محفوظ",
+        "savedAudienceHint": "اختر جمهورًا محفوظًا في حسابك الإعلاني، أو عرّف جمهورًا هنا.",
+        "noSavedAudience": "تعريف الجمهور هنا",
+        "notes": "ملاحظات عن الجمهور",
+        "notesPlaceholder": "مهتمون باللياقة والعافية",
+        "ageRange": "الفئة العمرية",
+        "ageMin": "أصغر عمر",
+        "ageMax": "أكبر عمر",
+        "gender": "الجنس",
+        "genders": {
+          "all": "الجميع",
+          "male": "رجال",
+          "female": "نساء"
+        },
+        "countries": "الدول",
+        "cities": "المدن",
+        "estimatedReach": "الوصول التقديري",
+        "estimatedReachUnavailable": "لا توفّر Meta تقديرًا عبر هذا الورك فلو."
+      },
+      "budget": {
+        "title": "الميزانية",
+        "description": "كم يمكن أن تنفق هذه الحملة إجمالًا؟",
+        "lifetimeBudget": "الميزانية الإجمالية",
+        "lifetimeBudgetHint": "إجمالي ما يمكن أن تنفقه الحملة طوال مدتها.",
+        "currency": "العملة",
+        "dailyAverage": "بمعدل {amount} يوميًا على مدى {days, plural, zero {لا أيام} one {يوم واحد} two {يومين} few {# أيام} many {# يومًا} other {# يوم}}.",
+        "minimumWarning": "تفرض Meta حدًا أدنى للميزانية الإجمالية، وأي مبلغ أقل منه يُرفض عند الإرسال."
+      },
+      "schedule": {
+        "title": "الجدولة",
+        "description": "متى تعمل الحملة؟",
+        "startDate": "تاريخ البداية",
+        "endDate": "تاريخ النهاية",
+        "timezoneNotice": "تُحتسب الأوقات بتوقيت {timezone}، بما يطابق الحساب الإعلاني.",
+        "durationDays": "{days, plural, zero {لا أيام} one {يوم واحد} two {يومان} few {# أيام} many {# يومًا} other {# يوم}}"
+      },
+      "creative": {
+        "title": "المادة الإعلانية",
+        "description": "اختر الصورة أو الفيديو المستخدم في الإعلان.",
+        "selectAsset": "اختر من أصولك",
+        "noAssets": "لا توجد لديك أصول بعد. أنشئ واحدًا من استوديو المحتوى أولًا.",
+        "selected": "المادة المختارة",
+        "change": "تغيير المادة",
+        "placement": "موضع الظهور",
+        "placements": {
+          "feed_square": "الخلاصة — مربّع (١:١)",
+          "feed_portrait": "الخلاصة — طولي (٤:٥)",
+          "stories_reels": "القصص والريلز (٩:١٦)",
+          "landscape": "أفقي (١٫٩١:١)"
+        },
+        "specNotice": "يتحقق الورك فلو من مطابقة المادة لمواصفات Meta: ألا يقل الضلع الأقصر عن {minSide} بكسل، وأن تطابق النسبة موضع الظهور المختار بهامش {tolerance}.",
+        "specMismatch": "نسبة هذا الأصل {ratio} بينما يتطلب {placement} نسبة {expected}، وسيرفضه الورك فلو."
+      },
+      "review": {
+        "title": "راجع قبل الإرسال",
+        "description": "تحقق من كل التفاصيل. بمجرد الإرسال، ستُنشأ الحملة في حسابك الإعلاني على Meta.",
+        "sections": {
+          "campaign": "الحملة",
+          "audience": "الجمهور",
+          "budgetSchedule": "الميزانية والجدولة",
+          "creative": "المادة الإعلانية",
+          "destination": "الوجهة"
+        },
+        "warnings": "تنبيهات",
+        "noWarnings": "لا توجد تنبيهات.",
+        "warningItems": {
+          "longPrimaryText": "طول النص الأساسي {length} حرفًا، وتوصي Meta بـ {max} أو أقل.",
+          "longHeadline": "طول العنوان {length} حرفًا، وتوصي Meta بـ {max} أو أقل.",
+          "shortSchedule": "مدة هذه الحملة أقل من يوم واحد.",
+          "largeBudget": "هذه ميزانية إجمالية كبيرة. تأكد من صحة المبلغ.",
+          "noAudienceNarrowing": "لم تُحدَّد فئة عمرية أو جنس أو اهتمامات، وسيستهدف الإعلان الجميع في الدول المختارة."
+        }
+      },
+      "launch": {
+        "title": "إرسال الحملة",
+        "confirmTitle": "إرسال هذه الحملة إلى Meta؟",
+        "confirmBody": "سينشئ الوكيل حملة ومجموعة إعلانية وإعلانًا في الحساب الإعلاني {adAccount}. تُنشأ الثلاثة بحالة PAUSED ولن تصرف أي مبلغ حتى تفعّلها في مدير إعلانات Meta.",
+        "confirmCheckbox": "راجعتُ الميزانية والجمهور والجدولة والمادة الإعلانية أعلاه.",
+        "action": "إطلاق الحملة",
+        "submitting": "جارٍ الإرسال إلى Meta…",
+        "success": "أُنشئت الحملة على Meta بحالة متوقفة وجاهزة لمراجعتك.",
+        "openInAdsManager": "فتح في مدير إعلانات Meta"
+      }
+    },
+    "notConfigured": {
+      "title": "إعلانات Meta غير مربوطة",
+      "body": "ورك فلو الإعلانات غير متاح، لذا لا يمكن إرسال الحملات. تحقق من اتصال n8n في الإعدادات."
+    }
+  },
+  "campaigns": {
+    "title": "الحملات",
+    "subtitle": "كل حملة جهّزتها منشأتك أو أرسلتها.",
+    "status": {
+      "DRAFT": "مسودة",
+      "READY": "جاهزة",
+      "LAUNCHING": "جارٍ الإرسال",
+      "ACTIVE": "نشطة",
+      "PAUSED": "متوقفة مؤقتًا",
+      "COMPLETED": "مكتملة",
+      "FAILED": "فشلت"
+    },
+    "statusHelp": {
+      "DRAFT": "قيد التحرير ولم تُرسل إلى أي جهة.",
+      "READY": "روجعت واعتُمدت، وتنتظر الإرسال.",
+      "LAUNCHING": "يُنشئ الوكيل الآن العناصر على Meta.",
+      "ACTIVE": "تعمل ويمكنها الصرف على Meta.",
+      "PAUSED": "أُنشئت على Meta لكنها متوقفة، ولن تصرف حتى تُفعَّل في مدير الإعلانات.",
+      "COMPLETED": "انتهت مدة الجدولة.",
+      "FAILED": "لم يكتمل الإرسال. راجع الخطأ للتفاصيل."
+    },
+    "columns": {
+      "name": "الحملة",
+      "status": "الحالة",
+      "budget": "الميزانية",
+      "schedule": "الجدولة",
+      "creative": "المادة الإعلانية",
+      "createdBy": "أنشأها",
+      "metaIds": "معرّفات Meta"
+    },
+    "detail": {
+      "title": "تفاصيل الحملة",
+      "overview": "نظرة عامة",
+      "configuration": "الإعدادات",
+      "metaObjects": "عناصر Meta",
+      "campaignId": "معرّف الحملة",
+      "adSetId": "معرّف المجموعة الإعلانية",
+      "adId": "معرّف الإعلان",
+      "adAccount": "الحساب الإعلاني",
+      "page": "صفحة فيسبوك",
+      "objectStatus": "الحالة على Meta",
+      "approval": "الاعتماد",
+      "approvedBy": "اعتمدها {name}",
+      "approvedAt": "اعتُمدت {time}",
+      "notApproved": "لم تُعتمد بعد",
+      "performance": "الأداء",
+      "history": "السجل",
+      "error": "خطأ في الإرسال"
+    },
+    "performance": {
+      "unavailableTitle": "بيانات الأداء غير متاحة",
+      "unavailableBody": "ينشئ ورك فلو الإعلانات المرتبط الحملات لكنه لا يقرأ تقارير Meta Insights، لذا لا يمكن عرض مرات الظهور والنقرات ومعدل النقر وتكلفة النقرة والعائد على الإنفاق هنا. افتح الحملة في مدير إعلانات Meta لعرضها.",
+      "lastFetched": "آخر تحديث {time}"
+    },
+    "empty": {
+      "title": "لا توجد حملات بعد",
+      "body": "أنشئ أول حملة على Meta عبر وكيل الحملات الإعلانية.",
+      "action": "إنشاء حملة"
+    },
+    "delete": {
+      "title": "حذف هذه الحملة؟",
+      "bodyDraft": "ستُحذف هذه المسودة، ولم يُرسل شيء إلى Meta.",
+      "bodySubmitted": "سيؤدي ذلك إلى حذف الحملة من مساحة عملك فقط. العناصر المُنشأة على Meta لن تُحذف — احذفها من مدير الإعلانات إن لزم."
+    }
+  },
+  "analytics": {
+    "title": "التحليلات",
+    "subtitle": "كيف تُستخدم قواك العاملة الذكية.",
+    "filters": {
+      "title": "عوامل التصفية",
+      "dateRange": "الفترة الزمنية",
+      "agent": "الوكيل",
+      "campaign": "الحملة",
+      "assetType": "نوع الأصل",
+      "status": "الحالة",
+      "apply": "تطبيق التصفية"
+    },
+    "sections": {
+      "usage": "استخدام الذكاء الاصطناعي",
+      "creative": "إنتاج المحتوى",
+      "advertising": "الإعلانات"
+    },
+    "charts": {
+      "requestsOverTime": "الطلبات عبر الزمن",
+      "requestsByAgent": "الطلبات حسب الوكيل",
+      "successRate": "نسبة النجاح",
+      "processingTime": "زمن المعالجة",
+      "assetsOverTime": "الأصول المُنتجة عبر الزمن",
+      "noData": "لا توجد بيانات لعوامل التصفية المختارة."
+    },
+    "unavailableMetrics": {
+      "title": "بعض المؤشرات غير مجمّعة",
+      "body": "{metrics} غير متاحة لأن التكاملات المرتبطة لا تُبلّغ عنها. راجع ملاحظات التكامل في الإعدادات."
+    },
+    "export": "تصدير بصيغة CSV"
+  },
+  "activity": {
+    "title": "سجل النشاط",
+    "subtitle": "سجل غير قابل للتعديل لكل ما جرى في مساحة عملك.",
+    "filters": {
+      "action": "الإجراء",
+      "user": "المستخدم",
+      "resource": "المورد",
+      "status": "النتيجة"
+    },
+    "outcome": {
+      "SUCCESS": "نجح",
+      "FAILURE": "فشل"
+    },
+    "actions": {
+      "auth": {
+        "login": "سجّل الدخول",
+        "login_failed": "فشل تسجيل الدخول",
+        "logout": "سجّل الخروج",
+        "register": "أنشأ المنشأة",
+        "email_verified": "وثّق بريده الإلكتروني",
+        "password_reset_requested": "طلب إعادة تعيين كلمة المرور",
+        "password_reset": "أعاد تعيين كلمة المرور",
+        "sessions_revoked": "أنهى جميع الجلسات"
+      },
+      "agent": {
+        "invoked": "شغّل وكيلًا",
+        "failed": "فشل تشغيل وكيل"
+      },
+      "knowledge": {
+        "query": "سأل وكيل المعرفة",
+        "sync": "زامَن مصدر المعرفة"
+      },
+      "conversation": {
+        "created": "بدأ محادثة",
+        "deleted": "حذف محادثة"
+      },
+      "asset": {
+        "generated": "أنتج أصلًا",
+        "deleted": "حذف أصلًا"
+      },
+      "campaign": {
+        "created": "أنشأ حملة",
+        "updated": "عدّل حملة",
+        "approved": "اعتمد حملة",
+        "launched": "أرسل حملة إلى Meta",
+        "launch_failed": "فشل إرسال حملة",
+        "deleted": "حذف حملة"
+      },
+      "integration": {
+        "connected": "ربط تكاملًا",
+        "disconnected": "ألغى ربط تكامل"
+      },
+      "settings": {
+        "updated": "غيّر إعدادات مساحة العمل"
+      },
+      "webhook": {
+        "rejected": "رفض استدعاءً غير موثّق"
+      }
+    },
+    "systemActor": "النظام",
+    "empty": {
+      "title": "لم يُسجَّل أي نشاط بعد",
+      "body": "ستظهر هنا الإجراءات التي تُنفَّذ في مساحة عملك."
+    },
+    "retention": "تُحفظ السجلات لمدة {days} يومًا."
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "subtitle": "أدر منشأتك وحسابك وتكاملاتك.",
+    "tabs": {
+      "organization": "المنشأة",
+      "account": "الحساب",
+      "integrations": "التكاملات",
+      "security": "الأمان"
+    },
+    "organization": {
+      "title": "المنشأة",
+      "name": "اسم المنشأة",
+      "defaultLocale": "اللغة الافتراضية",
+      "defaultLocaleHint": "تُستخدم للأعضاء الجدد وللإشعارات المرسلة لمن لم يختر لغة.",
+      "timezone": "المنطقة الزمنية",
+      "timezoneHint": "تُعرض التواريخ وتُجدول الحملات بهذا التوقيت.",
+      "currency": "عملة التقارير",
+      "saved": "تم حفظ إعدادات المنشأة."
+    },
+    "account": {
+      "title": "حسابك",
+      "name": "اسمك",
+      "email": "البريد الإلكتروني",
+      "emailImmutable": "تواصل مع الدعم لتغيير عنوان بريد حسابك.",
+      "language": "لغة الواجهة",
+      "languageHint": "تُطبَّق على هذا الحساب في جميع الأجهزة.",
+      "changePassword": "تغيير كلمة المرور",
+      "currentPassword": "كلمة المرور الحالية",
+      "saved": "تم حفظ إعدادات الحساب.",
+      "passwordChanged": "تم تغيير كلمة المرور، وأُغلقت جلساتك الأخرى."
+    },
+    "security": {
+      "title": "الأمان",
+      "activeSessions": "الجلسات النشطة",
+      "thisDevice": "هذا الجهاز",
+      "lastActive": "آخر نشاط {time}",
+      "signOutOthers": "إنهاء جميع الجلسات الأخرى",
+      "signedOutOthers": "{count, plural, zero {لم تكن هناك جلسات أخرى نشطة} one {أُنهيت جلسة أخرى واحدة} two {أُنهيت جلستان أخريان} few {أُنهيت # جلسات أخرى} many {أُنهيت # جلسة أخرى} other {أُنهيت # جلسة أخرى}}.",
+      "signOutOthersConfirm": {
+        "title": "إنهاء جميع الجلسات الأخرى؟",
+        "body": "سيحتاج أي شخص مسجّل الدخول من متصفح أو جهاز آخر إلى تسجيل الدخول مرة أخرى."
+      }
+    },
+    "integrations": {
+      "title": "التكاملات",
+      "status": {
+        "NOT_CONFIGURED": "غير مُعدّ",
+        "CONNECTED": "مرتبط",
+        "DEGRADED": "أداء متدهور",
+        "ERROR": "خطأ"
+      },
+      "lastChecked": "فُحص {time}",
+      "checkNow": "افحص الآن",
+      "googleDrive": {
+        "title": "Google Drive",
+        "description": "المجلد الذي يفهرسه وكيل المعرفة.",
+        "folder": "المجلد المفهرس",
+        "folderId": "معرّف المجلد",
+        "supportedFormats": "الصيغ المدعومة",
+        "syncSchedule": "تُعاد الفهرسة تلقائيًا كل {hours} ساعات",
+        "credentialNotice": "ارتباط Drive محفوظ داخل ورك فلو n8n وليس داخل هذا التطبيق. تعرض مساحة العمل حالته فقط ولا تخزّن أي بيانات اعتماد لـ Google.",
+        "connect": "ضبط المجلد"
+      },
+      "meta": {
+        "title": "إعلانات Meta",
+        "description": "الحساب الإعلاني الذي تُنشأ عليه الحملات.",
+        "adAccount": "الحساب الإعلاني",
+        "page": "صفحة فيسبوك",
+        "apiVersion": "إصدار Graph API",
+        "credentialNotice": "بيانات اعتماد Meta محفوظة داخل ورك فلو n8n ولا تُرسل إلى متصفحك إطلاقًا.",
+        "multiAccountNotice": "يستهدف هذا الورك فلو حسابًا إعلانيًا واحدًا. دعم عدة حسابات يتطلب تعديل الورك فلو."
+      },
+      "n8n": {
+        "title": "بوابة الوكلاء n8n",
+        "description": "منصة الأتمتة التي تشغّل الوكلاء الثلاثة.",
+        "baseUrl": "النسخة المرتبطة",
+        "workflows": "الورك فلوهات المرتبطة",
+        "reachable": "متاحة",
+        "unreachable": "غير متاحة",
+        "notConfigured": "لم تُضبط أي نسخة من n8n. اضبط N8N_BASE_URL ثم أعد التشغيل."
+      }
+    }
+  },
+  "notifications": {
+    "title": "الإشعارات",
+    "markAllRead": "تعليم الكل كمقروء",
+    "markRead": "تعليم كمقروء",
+    "unreadCount": "{count, plural, zero {لا إشعارات غير مقروءة} one {إشعار واحد غير مقروء} two {إشعاران غير مقروءين} few {# إشعارات غير مقروءة} many {# إشعارًا غير مقروء} other {# إشعار غير مقروء}}",
+    "empty": {
+      "title": "لا جديد لديك",
+      "body": "ستظهر هنا نتائج المهام وتحديثات الحملات."
+    },
+    "messages": {
+      "assetReady": "أصبح{kind, select, IMAGE {ت صورتك} VIDEO { الفيديو الخاص بك} other { الأصل الخاص بك}} «{title}» جاهزًا.",
+      "assetFailed": "فشل إنتاج «{title}».",
+      "campaignSubmitted": "أُنشئت الحملة «{name}» على Meta وهي متوقفة مؤقتًا.",
+      "campaignFailed": "تعذّر إرسال الحملة «{name}».",
+      "knowledgeSyncSucceeded": "اكتملت مزامنة Google Drive.",
+      "knowledgeSyncFailed": "فشلت مزامنة Google Drive.",
+      "agentError": "واجه {agent} خطأً."
+    }
+  },
+  "jobs": {
+    "title": "المهام",
+    "status": {
+      "QUEUED": "في الانتظار",
+      "PROCESSING": "قيد المعالجة",
+      "COMPLETED": "اكتملت",
+      "FAILED": "فشلت",
+      "CANCELLED": "أُلغيت"
+    },
+    "empty": {
+      "title": "لا توجد مهام قيد التشغيل",
+      "body": "ستظهر هنا المهام الخلفية التي يبدأها الوكلاء."
+    }
+  },
+  "health": {
+    "status": {
+      "healthy": "سليم",
+      "degraded": "متدهور",
+      "down": "غير متاح",
+      "unknown": "غير معروف"
+    },
+    "checks": {
+      "database": "قاعدة البيانات",
+      "storage": "خدمة التخزين",
+      "n8n": "بوابة الوكلاء",
+      "knowledgeAgent": "وكيل المعرفة",
+      "creativeAgent": "وكيل صناعة المحتوى",
+      "advertisingAgent": "وكيل الحملات الإعلانية"
+    },
+    "noRecentErrors": "لا توجد أخطاء خلال آخر {hours} ساعة.",
+    "errorCount": "{count, plural, zero {لا أخطاء} one {خطأ واحد} two {خطآن} few {# أخطاء} many {# خطأً} other {# خطأ}} خلال آخر {hours} ساعة"
+  },
+  "errors": {
+    "generic": "تعذّر تنفيذ العملية حاليًا. يرجى المحاولة مرة أخرى.",
+    "reference": "الرقم المرجعي: {id}",
+    "referenceHint": "اذكر هذا الرقم عند التواصل مع الدعم.",
+    "unauthorized": "يرجى تسجيل الدخول للمتابعة.",
+    "forbidden": "لا تملك صلاحية تنفيذ هذا الإجراء.",
+    "invalid_credentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+    "account_locked": "محاولات فاشلة كثيرة. حاول بعد {minutes, plural, zero {لحظات} one {دقيقة واحدة} two {دقيقتين} few {# دقائق} many {# دقيقة} other {# دقيقة}}.",
+    "email_not_verified": "وثّق بريدك الإلكتروني قبل تسجيل الدخول.",
+    "email_already_registered": "يوجد حساب مسجّل بهذا البريد الإلكتروني.",
+    "invalid_token": "هذا الرابط غير صالح.",
+    "token_expired": "انتهت صلاحية هذا الرابط. اطلب رابطًا جديدًا.",
+    "session_expired": "انتهت صلاحية جلستك. يرجى تسجيل الدخول مرة أخرى.",
+    "validation_failed": "يرجى تصحيح الحقول المظللة.",
+    "not_found": "تعذّر العثور على ما تبحث عنه.",
+    "conflict": "يتعارض هذا التغيير مع الحالة الحالية. أعد تحميل الصفحة وحاول مجددًا.",
+    "rate_limited": "طلبات كثيرة جدًا. حاول بعد {seconds, plural, zero {لحظات} one {ثانية واحدة} two {ثانيتين} few {# ثوانٍ} many {# ثانية} other {# ثانية}}.",
+    "payload_too_large": "حجم الملف كبير جدًا. الحد الأقصى {max}.",
+    "unsupported_media_type": "نوع الملف غير مدعوم.",
+    "idempotency_key_reused": "سبق إرسال هذا الطلب.",
+    "integration_not_configured": "لم يُضبط هذا التكامل بعد. يحتاج المسؤول إلى إعداده من الإعدادات.",
+    "integration_unavailable": "لم يستجب التكامل. يرجى المحاولة بعد قليل.",
+    "agent_unavailable": "الوكيل غير متاح حاليًا. يرجى المحاولة بعد قليل.",
+    "agent_timeout": "استغرق الوكيل وقتًا أطول من المتوقع. قد يكون طلبك ما زال قيد التنفيذ — راجع قائمة المهام.",
+    "agent_failed": "تعذّر على الوكيل إتمام هذا الطلب.",
+    "capability_unavailable": "هذه الإمكانية غير متوفرة في الورك فلو المرتبط.",
+    "storage_not_configured": "لم تُضبط خدمة التخزين، لذا لا يمكن حفظ هذا الملف.",
+    "campaign_not_launchable": "هذه الحملة ليست جاهزة للإرسال بعد.",
+    "campaign_already_launched": "سبق إرسال هذه الحملة إلى Meta.",
+    "invalid_state_transition": "هذا الإجراء غير مسموح من الحالة الحالية للحملة.",
+    "internal_error": "حدث خطأ لدينا. يرجى المحاولة مرة أخرى.",
+    "network": "انقطع الاتصال. تحقق من شبكتك وحاول مجددًا.",
+    "notFound": {
+      "title": "الصفحة غير موجودة",
+      "body": "الصفحة التي تبحث عنها غير موجودة أو تم نقلها.",
+      "action": "العودة إلى لوحة التحكم"
+    },
+    "serverError": {
+      "title": "حدث خطأ ما",
+      "body": "واجهنا خطأً غير متوقع، وقد أُبلغ الفريق به.",
+      "action": "إعادة المحاولة"
+    },
+    "boundary": {
+      "title": "تعذّر تحميل هذا القسم",
+      "body": "أعد التحميل للمحاولة مجددًا. إذا تكرر الأمر، اذكر الرقم المرجعي أدناه."
+    },
+    "field": {
+      "required": "هذا الحقل مطلوب.",
+      "invalid": "هذه القيمة غير صالحة.",
+      "email": "أدخل بريدًا إلكترونيًا صحيحًا.",
+      "url": "أدخل رابطًا صحيحًا يبدأ بـ https://",
+      "too_short": "استخدم {min} حرفًا على الأقل.",
+      "too_long": "استخدم {max} حرفًا أو أقل.",
+      "too_small": "أدخل {min} أو أكثر.",
+      "too_big": "أدخل {max} أو أقل.",
+      "too_common": "كلمة المرور هذه شائعة جدًا. اختر غيرها.",
+      "too_simple": "كلمة المرور هذه بسيطة جدًا. نوّع في حروفها.",
+      "mismatch": "القيمتان غير متطابقتين.",
+      "date_order": "يجب أن يكون تاريخ النهاية بعد تاريخ البداية.",
+      "date_past": "اختر تاريخًا في المستقبل.",
+      "not_an_option": "اختر أحد الخيارات المتاحة."
+    }
+  },
+  "a11y": {
+    "sortAscending": "ترتيب تصاعدي",
+    "sortDescending": "ترتيب تنازلي",
+    "sortedAscending": "مرتب تصاعديًا",
+    "sortedDescending": "مرتب تنازليًا",
+    "notSorted": "غير مرتب",
+    "required": "مطلوب",
+    "loading": "جارٍ تحميل المحتوى",
+    "loadingComplete": "اكتمل تحميل المحتوى",
+    "menuExpanded": "القائمة مفتوحة",
+    "menuCollapsed": "القائمة مغلقة",
+    "modalTitle": "نافذة حوارية",
+    "closeDialog": "إغلاق النافذة",
+    "progress": "اكتمل {percent}٪",
+    "newNotification": "إشعار جديد",
+    "errorSummary": "{count, plural, zero {لا أخطاء في هذا النموذج} one {يوجد خطأ واحد في هذا النموذج} two {يوجد خطآن في هذا النموذج} few {توجد # أخطاء في هذا النموذج} many {يوجد # خطأً في هذا النموذج} other {يوجد # خطأ في هذا النموذج}}"
+  }
+}
