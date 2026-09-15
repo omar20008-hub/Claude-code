@@ -58,41 +58,45 @@ export function RegisterForm() {
     }
   }
 
-  // No session is issued at registration: the account stays
-  // PENDING_VERIFICATION until the emailed link is opened, which is what makes
-  // email verification meaningful rather than decorative.
   if (registeredEmail) {
     return (
-      <Card>
-        <CardBody className="space-y-4 p-6">
-          <h1 className="text-xl font-semibold text-[var(--text-primary)]">
-            {tVerify('title')}
-          </h1>
-          <Alert tone="success" title={t('success')}>
-            {tVerify('subtitle', { email: registeredEmail })}
-          </Alert>
-          <Link
-            href="/login"
-            className="block text-center text-sm text-[var(--text-brand)] hover:underline"
-          >
-            {t('signIn')}
-          </Link>
-        </CardBody>
-      </Card>
+      <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-gradient-to-br from-slate-50 to-green-50">
+        <Card className="w-full max-w-md shadow-lg">
+          <CardBody className="space-y-6 p-12">
+            <div className="text-center">
+              <div className="text-4xl mb-4">🎉</div>
+              <h1 className="text-2xl font-bold text-[var(--text-primary)]">
+                {tVerify('title')}
+              </h1>
+            </div>
+            <Alert tone="success" title={t('success')}>
+              {tVerify('subtitle', { email: registeredEmail })}
+            </Alert>
+            <Link
+              href="/login"
+              className="block w-full text-center px-4 py-3 bg-[var(--text-brand)] text-white rounded-lg font-medium hover:opacity-90 transition"
+            >
+              {t('signIn')}
+            </Link>
+          </CardBody>
+        </Card>
+      </div>
     );
   }
 
   const fields = error?.fieldMap() ?? {};
 
   return (
-    <Card>
-      <CardBody className="space-y-5 p-6">
-        <div>
-          <h1 className="text-xl font-semibold text-[var(--text-primary)]">{t('title')}</h1>
-          <p className="mt-1 text-sm text-[var(--text-secondary)]">{t('subtitle')}</p>
-        </div>
+    <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-gradient-to-br from-slate-50 to-green-50">
+      <Card className="w-full max-w-md shadow-lg">
+        <CardBody className="space-y-6 p-12">
+          <div className="text-center">
+            <div className="text-4xl mb-3">🤖</div>
+            <h1 className="text-2xl font-bold text-[var(--text-primary)]">{t('title')}</h1>
+            <p className="mt-2 text-sm text-[var(--text-secondary)]">{t('subtitle')}</p>
+          </div>
 
-        <ErrorMessage error={error} />
+          {error && <ErrorMessage error={error} />}
 
         <form onSubmit={handleSubmit} className="space-y-4" noValidate>
           <Field
@@ -165,13 +169,14 @@ export function RegisterForm() {
           </Button>
         </form>
 
-        <p className="text-center text-sm text-[var(--text-secondary)]">
+        <div className="text-center text-sm text-[var(--text-secondary)]">
           {t('haveAccount')}{' '}
-          <Link href="/login" className="font-medium text-[var(--text-brand)] hover:underline">
+          <Link href="/login" className="font-semibold text-[var(--text-brand)] hover:underline">
             {t('signIn')}
           </Link>
-        </p>
+        </div>
       </CardBody>
     </Card>
+    </div>
   );
 }

@@ -54,14 +54,16 @@ export function LoginForm() {
   const fields = error?.fieldMap() ?? {};
 
   return (
-    <Card>
-      <CardBody className="space-y-5 p-6">
-        <div>
-          <h1 className="text-xl font-semibold text-[var(--text-primary)]">{t('title')}</h1>
-          <p className="mt-1 text-sm text-[var(--text-secondary)]">{t('subtitle')}</p>
-        </div>
+    <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-gradient-to-br from-slate-50 to-green-50">
+      <Card className="w-full max-w-md shadow-lg">
+        <CardBody className="space-y-6 p-12">
+          <div className="text-center">
+            <div className="text-4xl mb-3">🤖</div>
+            <h1 className="text-2xl font-bold text-[var(--text-primary)]">{t('title')}</h1>
+            <p className="mt-2 text-sm text-[var(--text-secondary)]">{t('subtitle')}</p>
+          </div>
 
-        <ErrorMessage error={error} />
+          {error && <ErrorMessage error={error} />}
 
         <form onSubmit={handleSubmit} className="space-y-4" noValidate>
           <Field id="email" label={tCommon('email')} error={fieldMessage(fields.email)} required>
@@ -142,13 +144,14 @@ export function LoginForm() {
           </Button>
         </form>
 
-        <p className="text-center text-sm text-[var(--text-secondary)]">
+        <div className="text-center text-sm text-[var(--text-secondary)]">
           {t('noAccount')}{' '}
-          <Link href="/register" className="font-medium text-[var(--text-brand)] hover:underline">
+          <Link href="/register" className="font-semibold text-[var(--text-brand)] hover:underline">
             {t('createOne')}
           </Link>
-        </p>
+        </div>
       </CardBody>
     </Card>
+    </div>
   );
 }
