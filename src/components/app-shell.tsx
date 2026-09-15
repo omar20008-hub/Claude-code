@@ -93,13 +93,13 @@ export function AppShell({
   }
 
   const navigation = (
-    <nav aria-label={t('primary')} className="flex flex-col gap-6 py-4">
+    <nav aria-label={t('primary')} className="flex flex-col gap-8 py-6">
       {NAV_SECTIONS.map((section) => (
         <div key={section.titleKey}>
-          <h2 className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">
+          <h2 className="px-4 pb-3 text-xs font-bold uppercase tracking-widest text-gray-400">
             {t(section.titleKey)}
           </h2>
-          <ul className="flex flex-col gap-0.5">
+          <ul className="flex flex-col gap-1">
             {section.items.map((item) => {
               const active = isActive(item.href);
               return (
@@ -109,13 +109,13 @@ export function AppShell({
                     onClick={() => setMobileOpen(false)}
                     aria-current={active ? 'page' : undefined}
                     className={cn(
-                      'flex items-center gap-3 rounded-[var(--radius-control)] px-3 py-2 text-sm transition-colors',
+                      'flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-medium transition-all duration-200',
                       active
-                        ? 'bg-[var(--color-brand-50)] font-medium text-[var(--color-brand-700)]'
-                        : 'text-[var(--text-secondary)] hover:bg-[var(--surface-raised)] hover:text-[var(--text-primary)]',
+                        ? 'bg-emerald-600 text-white shadow-md'
+                        : 'text-gray-300 hover:text-white hover:bg-gray-700/50',
                     )}
                   >
-                    <span className="shrink-0 [&>svg]:size-4.5" aria-hidden="true">
+                    <span className="shrink-0 [&>svg]:size-5" aria-hidden="true">
                       {item.icon}
                     </span>
                     <span className="truncate">{t(item.labelKey)}</span>
@@ -136,13 +136,13 @@ export function AppShell({
           trailing edge, which is its right in English and its left in Arabic. */}
       <aside
         className={cn(
-          'hidden w-64 shrink-0 border-e border-[var(--border-subtle)] bg-[var(--surface-card)] lg:block',
+          'hidden w-64 shrink-0 border-e border-[var(--border-subtle)] bg-gradient-to-b from-gray-900 to-gray-800 lg:block',
         )}
       >
-        <div className="sticky top-0 flex h-dvh flex-col overflow-y-auto scrollbar-slim px-3">
+        <div className="sticky top-0 flex h-dvh flex-col overflow-y-auto scrollbar-slim px-4">
           <BrandMark organizationName={user.organizationName} />
           {navigation}
-          <div className="mt-auto border-t border-[var(--border-subtle)] py-3">
+          <div className="mt-auto border-t border-gray-700 py-4">
             <UserCard user={user} />
           </div>
         </div>
@@ -157,7 +157,7 @@ export function AppShell({
             aria-hidden="true"
           />
           {/* `start-0` pins the drawer to the reading edge in both directions. */}
-          <div className="absolute inset-y-0 start-0 flex w-72 flex-col overflow-y-auto scrollbar-slim border-e border-[var(--border-subtle)] bg-[var(--surface-card)] px-3 shadow-[var(--shadow-overlay)]">
+          <div className="absolute inset-y-0 start-0 flex w-72 flex-col overflow-y-auto scrollbar-slim border-e border-gray-700 bg-gradient-to-b from-gray-900 to-gray-800 px-4 shadow-[var(--shadow-overlay)]">
             <div className="flex items-center justify-between py-3">
               <BrandMark organizationName={user.organizationName} compact />
               <Button
@@ -179,7 +179,7 @@ export function AppShell({
 
       {/* --- Main column -------------------------------------------------- */}
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-[var(--border-subtle)] bg-[var(--surface-card)]/95 px-4 backdrop-blur">
+        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-gray-200 bg-white shadow-sm lg:px-8 dark:border-gray-700 dark:bg-gray-950">
           <Button
             variant="ghost"
             size="sm"
@@ -192,13 +192,13 @@ export function AppShell({
           </Button>
 
           {/* `ms-auto` pushes the controls to the reading end. */}
-          <div className="ms-auto flex items-center gap-2">
+          <div className="ms-auto flex items-center gap-3">
             <LanguageSwitcher />
             <ThemeToggle />
           </div>
         </header>
 
-        <main id="main-content" className="flex-1 px-4 py-6 sm:px-6 lg:px-8">
+        <main id="main-content" className="flex-1 bg-slate-50 px-4 py-8 sm:px-6 lg:px-8 dark:bg-gray-950">
           {children}
         </main>
       </div>
@@ -216,23 +216,15 @@ function BrandMark({
   const t = useTranslations('app');
 
   return (
-    <div className={cn('flex items-center gap-2.5', compact ? 'py-0' : 'py-4')}>
-      <div className="grid size-9 shrink-0 place-items-center rounded-[var(--radius-control)] bg-[var(--color-brand-600)] text-white">
-        <svg viewBox="0 0 24 24" className="size-5" fill="none" aria-hidden="true">
-          <path
-            d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Z"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinejoin="round"
-          />
-          <circle cx="12" cy="12" r="2.6" fill="currentColor" />
-        </svg>
+    <div className={cn('flex items-center gap-3', compact ? 'py-2' : 'py-6')}>
+      <div className="grid size-10 shrink-0 place-items-center rounded-lg bg-emerald-600 text-white font-bold text-lg">
+        🤖
       </div>
       <div className="min-w-0">
-        <p className="truncate text-sm font-semibold text-[var(--text-primary)]">
+        <p className="truncate text-sm font-bold text-white">
           {organizationName}
         </p>
-        <p className="truncate text-xs text-[var(--text-muted)]">{t('name')}</p>
+        <p className="truncate text-xs text-gray-400">{t('name')}</p>
       </div>
     </div>
   );
@@ -249,16 +241,16 @@ function UserCard({ user }: { user: { name: string; email: string } }) {
   }
 
   return (
-    <div className="flex items-center gap-2.5 px-3">
-      <div className="grid size-8 shrink-0 place-items-center rounded-full bg-[var(--surface-sunken)] text-xs font-semibold text-[var(--text-secondary)]">
+    <div className="flex items-center gap-3 rounded-lg bg-gray-800/50 px-4 py-3">
+      <div className="grid size-9 shrink-0 place-items-center rounded-full bg-emerald-600 text-xs font-bold text-white">
         {user.name.slice(0, 2).toUpperCase()}
       </div>
       <div className="min-w-0 flex-1">
-        <p className="truncate text-sm font-medium text-[var(--text-primary)]">{user.name}</p>
+        <p className="truncate text-sm font-semibold text-white">{user.name}</p>
         {/* An email address is Latin text that must not reorder inside Arabic UI. */}
-        <p className="force-ltr truncate text-xs text-[var(--text-muted)]">{user.email}</p>
+        <p className="force-ltr truncate text-xs text-gray-400">{user.email}</p>
       </div>
-      <Button variant="ghost" size="sm" onClick={signOut} aria-label={t('signOut')}>
+      <Button variant="ghost" size="sm" onClick={signOut} aria-label={t('signOut')} className="text-gray-400 hover:text-white">
         <svg viewBox="0 0 24 24" className="size-4" fill="none" aria-hidden="true" data-flip-rtl>
           <path
             d="M15 17l5-5-5-5M20 12H9M12 19H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6"
