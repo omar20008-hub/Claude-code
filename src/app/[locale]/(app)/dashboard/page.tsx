@@ -77,15 +77,15 @@ export default async function DashboardPage({
       ) : null}
 
       {/* --- Overall activity ------------------------------------------- */}
-      <section aria-labelledby="activity-heading" className="mb-8">
+      <section aria-labelledby="activity-heading" className="mb-12">
         <h2
           id="activity-heading"
-          className="mb-3 text-sm font-semibold uppercase tracking-wide text-[var(--text-muted)]"
+          className="mb-6 text-lg font-bold text-[var(--text-primary)]"
         >
           {t('sections.activity')}
         </h2>
 
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
           <Metric label={t('metrics.totalRequests')} value={nf(activity.total)} />
           <Metric label={t('metrics.requestsToday')} value={nf(activity.today)} />
           <Metric label={t('metrics.requestsThisWeek')} value={nf(activity.thisWeek)} />
@@ -121,7 +121,7 @@ export default async function DashboardPage({
         </div>
 
         {activity.byAgent.length > 0 ? (
-          <Card className="mt-4">
+          <Card className="mt-4 shadow-md">
             <CardHeader title={t('metrics.requestsByAgent')} />
             <CardBody className="flex flex-wrap gap-3">
               {activity.byAgent.map((entry) => (
@@ -142,9 +142,9 @@ export default async function DashboardPage({
         ) : null}
       </section>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-6 lg:grid-cols-2 mt-8">
         {/* --- Knowledge ------------------------------------------------- */}
-        <Card as="section">
+        <Card as="section" className="shadow-md">
           <CardHeader
             title={t('sections.knowledge')}
             action={
@@ -232,7 +232,7 @@ export default async function DashboardPage({
         </Card>
 
         {/* --- Creative -------------------------------------------------- */}
-        <Card as="section">
+        <Card as="section" className="shadow-md">
           <CardHeader
             title={t('sections.creative')}
             action={
@@ -274,7 +274,7 @@ export default async function DashboardPage({
         </Card>
 
         {/* --- Advertising ----------------------------------------------- */}
-        <Card as="section">
+        <Card as="section" className="shadow-md">
           <CardHeader
             title={t('sections.advertising')}
             action={
@@ -313,7 +313,7 @@ export default async function DashboardPage({
         </Card>
 
         {/* --- Platform health -------------------------------------------- */}
-        <Card as="section">
+        <Card as="section" className="shadow-md">
           <CardHeader title={t('sections.health')} />
           <CardBody className="space-y-3">
             <ul className="space-y-2">
@@ -371,18 +371,20 @@ function Metric({
   unavailable?: boolean;
 }) {
   return (
-    <div className="rounded-[var(--radius-control)] border border-[var(--border-subtle)] bg-[var(--surface-card)] p-3">
-      <p className="text-xs text-[var(--text-muted)]">{label}</p>
+    <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-card)] p-4 shadow-sm hover:shadow-md transition-shadow">
+      <p className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">{label}</p>
       <p
         className={[
-          'mt-1.5 text-xl font-semibold tabular-nums',
+          'mt-2 text-2xl font-bold tabular-nums',
           unavailable
             ? 'text-[var(--text-muted)]'
             : tone === 'danger'
               ? 'text-[var(--status-danger-fg)]'
               : tone === 'warning'
                 ? 'text-[var(--status-warning-fg)]'
-                : 'text-[var(--text-primary)]',
+                : tone === 'success'
+                  ? 'text-[var(--status-success-fg)]'
+                  : 'text-[var(--text-primary)]',
         ].join(' ')}
       >
         {value}
