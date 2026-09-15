@@ -310,7 +310,7 @@ export function CampaignWizard({
     return (
       <>
         <PageHeader title={t('title')} />
-        <Card>
+        <Card className="shadow-md">
           <CardBody className="space-y-4">
             <Alert tone="success" title={tWizard('launch.success')}>
               {/* Says explicitly that nothing is spending yet. */}
@@ -348,7 +348,7 @@ export function CampaignWizard({
 
       <Stepper current={stepIndex} onSelect={setStepIndex} />
 
-      <Card className="mt-4">
+      <Card className="mt-4 shadow-md">
         <CardHeader
           title={tWizard(`${step}.title`)}
           description={step !== 'launch' ? tWizard(`${step}.description`) : undefined}
@@ -952,7 +952,7 @@ function ConfirmLaunchDialog({
         role="dialog"
         aria-modal="true"
         aria-labelledby="confirm-launch-title"
-        className="w-full max-w-lg animate-fade-in"
+        className="w-full max-w-lg animate-fade-in shadow-md"
       >
         <CardBody className="space-y-4">
           <h2

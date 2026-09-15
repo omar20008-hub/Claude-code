@@ -262,7 +262,7 @@ export function KnowledgeWorkspace({
       <div className="grid gap-4 lg:grid-cols-[18rem_minmax(0,1fr)] xl:grid-cols-[18rem_minmax(0,1fr)_16rem]">
       {/* --- Conversation list ------------------------------------------- */}
       <aside className="order-2 lg:order-1">
-        <Card className="flex h-full flex-col">
+        <Card className="flex h-full flex-col shadow-md">
           <div className="space-y-3 border-b border-[var(--border-subtle)] p-3">
             <Link href="/knowledge" className="block">
               <Button fullWidth iconStart={<IconPlus className="size-4" />}>
@@ -315,7 +315,7 @@ export function KnowledgeWorkspace({
 
       {/* --- Chat --------------------------------------------------------- */}
       <section className="order-1 lg:order-2" aria-label={t('title')}>
-        <Card className="flex h-[calc(100dvh-14rem)] min-h-96 flex-col">
+        <Card className="flex h-[calc(100dvh-14rem)] min-h-96 flex-col shadow-md">
           {!configured ? (
             <div className="p-4">
               <Alert tone="warning" title={t('sourcePanel.notConnected.title')}>
@@ -547,7 +547,7 @@ function SourcePanel({ source }: { source: SourceStatus | null }) {
 
   if (!source) {
     return (
-      <Card>
+      <Card className="shadow-md">
         <CardBody>
           <Alert tone="info" title={t('notConnected.title')}>
             {t('notConnected.body')}
@@ -558,7 +558,7 @@ function SourcePanel({ source }: { source: SourceStatus | null }) {
   }
 
   return (
-    <Card>
+    <Card className="shadow-md">
       <CardBody className="space-y-3">
         <h2 className="text-sm font-semibold text-[var(--text-primary)]">{t('title')}</h2>
 

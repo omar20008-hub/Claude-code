@@ -109,7 +109,7 @@ export function AssetLibrary({
       </div>
 
       {/* --- Filters ---------------------------------------------------- */}
-      <Card className="mb-4">
+      <Card className="mb-4 shadow-md">
         <CardBody className="flex flex-wrap items-end gap-3">
           <div className="min-w-48 flex-1">
             <label htmlFor="asset-search" className="mb-1.5 block text-xs font-medium text-[var(--text-secondary)]">
@@ -185,7 +185,7 @@ export function AssetLibrary({
           ))}
         </div>
       ) : items.length === 0 ? (
-        <Card>
+        <Card className="shadow-md">
           <EmptyState
             icon={<IconImage className="size-6" />}
             title={hasFilters ? t('noResults.title') : t('empty.title')}
@@ -202,7 +202,7 @@ export function AssetLibrary({
       ) : (
         <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
           {items.map((asset) => (
-            <Card as="li" key={asset.id} className="overflow-hidden">
+            <Card as="li" key={asset.id} className="overflow-hidden shadow-md">
               <Link href={`/assets/${asset.id}`} className="block">
                 {/* The preview loads through the API, which mints a presigned
                     URL only after checking the asset belongs to this tenant. */}
@@ -293,7 +293,7 @@ export function AssetLibrary({
 
 function Summary({ label, value }: { label: string; value: string }) {
   return (
-    <Card className={cn('p-3')}>
+    <Card className={cn('p-3 shadow-md')}>
       <p className="text-xs text-[var(--text-muted)]">{label}</p>
       <p className="mt-1 text-lg font-semibold tabular-nums text-[var(--text-primary)]">{value}</p>
     </Card>

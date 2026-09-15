@@ -118,7 +118,7 @@ export function CreativeStudio({
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
         <div className="space-y-6">
-          <Card>
+          <Card className="shadow-md">
             <CardHeader title={t('newGeneration')} />
             <CardBody>
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -204,7 +204,7 @@ export function CreativeStudio({
           </Card>
 
           {pending ? (
-            <Card>
+            <Card className="shadow-md">
               <CardBody className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium text-[var(--text-primary)]">
@@ -224,7 +224,7 @@ export function CreativeStudio({
           <ErrorMessage error={error} />
 
           {result && !result.error ? (
-            <Card>
+            <Card className="shadow-md">
               <CardHeader
                 title={t('result.title')}
                 action={
@@ -276,7 +276,7 @@ export function CreativeStudio({
 
         {/* --- Recent generations ---------------------------------------- */}
         <aside>
-          <Card>
+          <Card className="shadow-md">
             <CardHeader
               title={t('history.title')}
               action={
