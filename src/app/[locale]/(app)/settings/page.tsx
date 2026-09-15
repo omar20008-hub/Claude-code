@@ -80,7 +80,7 @@ export default async function SettingsPage() {
         />
 
         {/* --- n8n ------------------------------------------------------ */}
-        <Card>
+        <Card className="shadow-md">
           <CardHeader
             title={tIntegrations('n8n.title')}
             description={tIntegrations('n8n.description')}
@@ -126,7 +126,7 @@ export default async function SettingsPage() {
         </Card>
 
         {/* --- Google Drive --------------------------------------------- */}
-        <Card>
+        <Card className="shadow-md">
           <CardHeader
             title={tIntegrations('googleDrive.title')}
             description={tIntegrations('googleDrive.description')}
@@ -190,7 +190,7 @@ export default async function SettingsPage() {
         </Card>
 
         {/* --- Meta ----------------------------------------------------- */}
-        <Card>
+        <Card className="shadow-md">
           <CardHeader
             title={tIntegrations('meta.title')}
             description={tIntegrations('meta.description')}
@@ -246,7 +246,7 @@ export default async function SettingsPage() {
         </Card>
 
         {/* --- Storage --------------------------------------------------- */}
-        <Card>
+        <Card className="shadow-md">
           <CardHeader
             title="Object storage"
             action={

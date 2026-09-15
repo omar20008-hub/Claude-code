@@ -67,7 +67,7 @@ export default async function CampaignsPage() {
       ) : null}
 
       {items.length === 0 ? (
-        <Card>
+        <Card className="shadow-md">
           <EmptyState
             icon={<IconCampaigns className="size-6" />}
             title={t('empty.title')}
@@ -80,7 +80,7 @@ export default async function CampaignsPage() {
           />
         </Card>
       ) : (
-        <Card>
+        <Card className="shadow-md">
           <TableWrapper label={t('title')}>
             <thead>
               <tr>

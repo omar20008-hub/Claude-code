@@ -68,7 +68,7 @@ export default async function ActivityPage({
       <PageHeader title={t('title')} description={t('subtitle')} />
 
       {entries.length === 0 ? (
-        <Card>
+        <Card className="shadow-md">
           <EmptyState
             icon={<IconActivity className="size-6" />}
             title={t('empty.title')}
@@ -76,7 +76,7 @@ export default async function ActivityPage({
           />
         </Card>
       ) : (
-        <Card>
+        <Card className="shadow-md">
           <TableWrapper label={t('title')}>
             <thead>
               <tr>

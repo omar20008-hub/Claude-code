@@ -68,7 +68,7 @@ export default async function AnalyticsPage() {
       ) : null}
 
       {!hasData ? (
-        <Card>
+        <Card className="shadow-md">
           <EmptyState
             icon={<IconAnalytics className="size-6" />}
             title={tDashboard('empty.noMetrics.title')}
@@ -77,7 +77,7 @@ export default async function AnalyticsPage() {
         </Card>
       ) : (
         <div className="space-y-6">
-          <Card>
+          <Card className="shadow-md">
             <CardHeader title={t('charts.requestsOverTime')} />
             <CardBody>
               <RequestsChart series={series} locale={locale} />
@@ -85,7 +85,7 @@ export default async function AnalyticsPage() {
           </Card>
 
           <div className="grid gap-6 lg:grid-cols-3">
-            <Card>
+            <Card className="shadow-md">
               <CardHeader title={t('sections.usage')} />
               <CardBody>
                 <dl className="space-y-2.5 text-sm">
@@ -110,7 +110,7 @@ export default async function AnalyticsPage() {
               </CardBody>
             </Card>
 
-            <Card>
+            <Card className="shadow-md">
               <CardHeader title={t('sections.creative')} />
               <CardBody>
                 <dl className="space-y-2.5 text-sm">
@@ -138,7 +138,7 @@ export default async function AnalyticsPage() {
               </CardBody>
             </Card>
 
-            <Card>
+            <Card className="shadow-md">
               <CardHeader title={t('sections.advertising')} />
               <CardBody>
                 <dl className="space-y-2.5 text-sm">

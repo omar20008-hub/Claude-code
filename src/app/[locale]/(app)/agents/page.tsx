@@ -39,12 +39,12 @@ export default async function AgentsPage() {
     <>
       <PageHeader title={t('title')} description={t('subtitle')} />
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {capabilities.map((capability) => {
           const view = AGENT_VIEW[capability.agent];
 
           return (
-            <Card key={capability.agent} as="article" className="flex flex-col">
+            <Card key={capability.agent} as="article" className="flex flex-col shadow-md">
               <CardBody className="flex flex-1 flex-col gap-3">
                 <div className="flex items-start justify-between gap-3">
                   <div className="grid size-11 shrink-0 place-items-center rounded-[var(--radius-control)] bg-[var(--color-brand-50)] text-[var(--color-brand-700)] [&>svg]:size-5.5">

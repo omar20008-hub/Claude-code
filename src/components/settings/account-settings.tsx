@@ -101,7 +101,7 @@ export function AccountSettings({
   const fields = error?.fieldMap() ?? {};
 
   return (
-    <Card>
+    <Card className="shadow-md">
       <CardHeader title={tAccount('title')} description={t('subtitle')} />
       <CardBody className="space-y-5">
         <dl className="space-y-2 text-sm">
