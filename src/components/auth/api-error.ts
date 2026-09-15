@@ -62,6 +62,7 @@ export async function apiFetch<T>(
       credentials: 'same-origin',
       headers: {
         'Content-Type': 'application/json',
+        'Origin': typeof window !== 'undefined' ? window.location.origin : '',
         ...init.headers,
       },
     });
