@@ -1,0 +1,133 @@
+# Local development and evaluation stack.
+#
+# `docker compose up` gives a complete, working environment: Postgres with the
+# migrations applied, MinIO as an S3-compatible object store, and the app.
+#
+# NOT a production deployment. The credentials below are fixed and public, the
+# services are exposed on localhost, and there is no TLS. See docs/deployment.md
+# for the production topology.
+
+name: ai-workforce
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ai_workforce
+      # Deterministic collation, so index ordering matches across machines.
+      POSTGRES_INITDB_ARGS: '--locale=C --encoding=UTF8'
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      # Applied in filename order on first boot: schema, then RLS, then the
+      # auth-path functions.
+      - ./drizzle:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d ai_workforce']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  minio:
+    image: minio/minio:latest
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    volumes:
+      - minio-data:/data
+    healthcheck:
+      test: ['CMD', 'mc', 'ready', 'local']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Creates the bucket once MinIO is up, then exits.
+  minio-init:
+    image: minio/mc:latest
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set local http://minio:9000 minioadmin minioadmin &&
+      mc mb --ignore-existing local/ai-workforce-assets &&
+      echo 'bucket ready'
+      "
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    ports:
+      - '3000:3000'
+    environment:
+      NODE_ENV: production
+      APP_URL: http://localhost:3000
+
+      # Connects as the least-privilege role, exactly as production must.
+      # Connecting as a superuser would silently bypass every RLS policy.
+      DATABASE_URL: postgres://app_user:app_user_local_password@postgres:5432/ai_workforce
+
+      # Development-only secrets. Generate real ones for any deployment:
+      #   node -e "console.log(require('crypto').randomBytes(32).toString('base64url'))"
+      AUTH_SECRET: local-development-auth-secret-0123456789abcdef01
+      ENCRYPTION_KEY: local-development-encryption-key-0123456789abcdef
+      N8N_CALLBACK_SECRETS: local-development-callback-secret-0123456789ab
+
+      S3_ENDPOINT: http://minio:9000
+      S3_REGION: us-east-1
+      S3_BUCKET: ai-workforce-assets
+      S3_ACCESS_KEY_ID: minioadmin
+      S3_SECRET_ACCESS_KEY: minioadmin
+      S3_FORCE_PATH_STYLE: 'true'
+
+      # Left unset on purpose: with no n8n instance the UI shows an explicit
+      # "integration not configured" state rather than pretending an agent is
+      # available. Set these to point at a real instance.
+      # N8N_BASE_URL: https://n8n.example.com
+      N8N_KNOWLEDGE_WEBHOOK_ID: bba97385-5d58-421b-b1b4-693ff678ac83
+      N8N_CREATIVE_WEBHOOK_ID: 8f794ade-d341-404e-926e-761c859069fc
+      N8N_ADVERTISING_WEBHOOK_ID: ff63d651-30aa-4e08-adf4-7f11687177a7
+      N8N_KNOWLEDGE_WORKFLOW_ID: pOwwQdXNflGHVaV8
+      N8N_CREATIVE_WORKFLOW_ID: 7GYulsPGi7WFpJzx
+      N8N_ADVERTISING_WORKFLOW_ID: Pm3x6FweL5opKlj0
+
+      EMAIL_TRANSPORT: log
+      LOG_LEVEL: info
+      DEFAULT_LOCALE: ar
+
+  # Grants the least-privilege role a password once Postgres is initialised.
+  # Production sets this out of band; see docs/deployment.md.
+  db-init:
+    image: postgres:16-alpine
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PGPASSWORD: postgres
+    entrypoint: >
+      /bin/sh -c "
+      psql -h postgres -U postgres -d ai_workforce -v ON_ERROR_STOP=1 -c
+      \"ALTER ROLE app_user LOGIN PASSWORD 'app_user_local_password';
+        GRANT CONNECT ON DATABASE ai_workforce TO app_user;\" &&
+      echo 'app_user ready'
+      "
+
+volumes:
+  postgres-data:
+  minio-data:

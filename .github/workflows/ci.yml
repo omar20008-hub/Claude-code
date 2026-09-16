@@ -1,0 +1,301 @@
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  workflow_dispatch:
+
+# A new push supersedes an in-flight run on the same ref.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: '22'
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Static analysis. Fast, no services, fails the PR early.
+  # ---------------------------------------------------------------------------
+  static:
+    name: Types and lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+  # ---------------------------------------------------------------------------
+  # Tests, against a real Postgres.
+  #
+  # The application connects as `app_user`, NOT as postgres. That is the whole
+  # point: superusers and BYPASSRLS roles are exempt from row-level security, so
+  # running the suite as postgres would make every tenant-isolation assertion
+  # pass against a database with no policies at all.
+  # ---------------------------------------------------------------------------
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ai_workforce_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      TEST_ADMIN_DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/ai_workforce_test
+      TEST_DATABASE_URL: postgres://app_user:app_user_ci_password@127.0.0.1:5432/ai_workforce_test
+      DATABASE_URL: postgres://app_user:app_user_ci_password@127.0.0.1:5432/ai_workforce_test
+      LOG_LEVEL: silent
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - run: npm ci
+
+      - name: Apply migrations
+        env:
+          PGPASSWORD: postgres
+        run: |
+          set -euo pipefail
+          for migration in drizzle/*.sql; do
+            echo "==> $migration"
+            psql -h 127.0.0.1 -U postgres -d ai_workforce_test -v ON_ERROR_STOP=1 -q -f "$migration"
+          done
+
+      - name: Grant the least-privilege role a password
+        env:
+          PGPASSWORD: postgres
+        run: |
+          psql -h 127.0.0.1 -U postgres -d ai_workforce_test -v ON_ERROR_STOP=1 -c \
+            "ALTER ROLE app_user LOGIN PASSWORD 'app_user_ci_password';
+             GRANT CONNECT ON DATABASE ai_workforce_test TO app_user;"
+
+      - name: Verify the suite runs without RLS privileges
+        env:
+          PGPASSWORD: app_user_ci_password
+        run: |
+          # Guards the guard: if this ever reports true, every isolation test in
+          # the suite is silently vacuous.
+          result=$(psql -h 127.0.0.1 -U app_user -d ai_workforce_test -tAc \
+            "SELECT rolsuper OR rolbypassrls FROM pg_roles WHERE rolname = current_user")
+          echo "app_user bypasses RLS: $result"
+          test "$result" = "f"
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm run test -- --coverage
+
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/
+          retention-days: 7
+
+  # ---------------------------------------------------------------------------
+  # End-to-end, in both languages and both writing directions.
+  # ---------------------------------------------------------------------------
+  e2e:
+    name: End-to-end
+    runs-on: ubuntu-latest
+    needs: [static]
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ai_workforce_e2e
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: postgres://app_user:app_user_ci_password@127.0.0.1:5432/ai_workforce_e2e
+      APP_URL: http://127.0.0.1:3000
+      AUTH_SECRET: ci-auth-secret-0123456789abcdef0123456789abcdef01
+      ENCRYPTION_KEY: ci-encryption-key-0123456789abcdef0123456789abcd
+      N8N_CALLBACK_SECRETS: ci-callback-secret-0123456789abcdef0123456789ab
+      EMAIL_TRANSPORT: log
+      LOG_LEVEL: silent
+      DEFAULT_LOCALE: ar
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - run: npm ci
+
+      - name: Apply migrations
+        env:
+          PGPASSWORD: postgres
+        run: |
+          set -euo pipefail
+          for migration in drizzle/*.sql; do
+            psql -h 127.0.0.1 -U postgres -d ai_workforce_e2e -v ON_ERROR_STOP=1 -q -f "$migration"
+          done
+          psql -h 127.0.0.1 -U postgres -d ai_workforce_e2e -v ON_ERROR_STOP=1 -c \
+            "ALTER ROLE app_user LOGIN PASSWORD 'app_user_ci_password';
+             GRANT CONNECT ON DATABASE ai_workforce_e2e TO app_user;"
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Build
+        run: npm run build
+
+      - name: Run end-to-end tests
+        run: npm run test:e2e
+
+      - name: Upload report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+  # ---------------------------------------------------------------------------
+  # Dependency audit.
+  #
+  # Production dependencies are held to zero known vulnerabilities. Dev-only
+  # advisories are reported but do not fail the build: they cannot reach a
+  # deployed artifact, and blocking releases on a CLI tool's transitive
+  # dependency trains people to ignore the check.
+  # ---------------------------------------------------------------------------
+  audit:
+    name: Dependency audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - run: npm ci
+
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=low
+
+      - name: Report development advisories
+        continue-on-error: true
+        run: npm audit
+
+  # ---------------------------------------------------------------------------
+  # Migration validation: every migration applies cleanly to an empty database,
+  # and the generated schema matches the checked-in SQL.
+  # ---------------------------------------------------------------------------
+  migrations:
+    name: Migrations
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: migration_check
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - run: npm ci
+
+      - name: Apply every migration to an empty database
+        env:
+          PGPASSWORD: postgres
+        run: |
+          set -euo pipefail
+          for migration in drizzle/*.sql; do
+            psql -h 127.0.0.1 -U postgres -d migration_check -v ON_ERROR_STOP=1 -q -f "$migration"
+          done
+
+      - name: Verify row-level security is enabled on every tenant table
+        env:
+          PGPASSWORD: postgres
+        run: |
+          unprotected=$(psql -h 127.0.0.1 -U postgres -d migration_check -tAc "
+            SELECT string_agg(c.relname, ', ')
+            FROM pg_class c
+            JOIN pg_namespace n ON n.oid = c.relnamespace
+            JOIN information_schema.columns col
+              ON col.table_name = c.relname AND col.table_schema = 'public'
+            WHERE n.nspname = 'public'
+              AND c.relkind = 'r'
+              AND col.column_name = 'organization_id'
+              AND NOT (c.relrowsecurity AND c.relforcerowsecurity)
+          ")
+          if [ -n "$unprotected" ]; then
+            echo \"::error::Tables with organization_id but without FORCE RLS: $unprotected\"
+            exit 1
+          fi
+          echo 'Every table carrying organization_id has FORCE ROW LEVEL SECURITY.'
+
+      - name: Verify the schema matches the checked-in migrations
+        run: |
+          # `drizzle-kit generate` is a no-op when the schema and the migrations
+          # agree. Any new file means someone edited schema.ts without
+          # generating the migration.
+          npx drizzle-kit generate --name ci_drift_check
+          if git diff --quiet --exit-code drizzle/; then
+            echo 'Schema and migrations agree.'
+          else
+            echo '::error::src/server/db/schema.ts has drifted from drizzle/. Run: npm run db:generate'
+            git diff --stat drizzle/
+            exit 1
+          fi
